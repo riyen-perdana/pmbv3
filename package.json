@@ -1,0 +1,26 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "devDependencies": {
+        "axios": "^1.6.4",
+        "laravel-vite-plugin": "^1.0.0",
+        "vite": "^5.0.0"
+    },
+    "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
+        "@inertiajs/inertia-vue3": "^0.6.0",
+        "@inertiajs/progress": "^0.2.7",
+        "@inertiajs/vue3": "^1.0.14",
+        "@vitejs/plugin-vue": "^5.0.3",
+        "bootstrap": "^5.3.2",
+        "lodash": "^4.17.21",
+        "lottie-web": "^5.12.2",
+        "mosha-vue-toastify": "^1.0.23",
+        "vue": "^3.4.15",
+        "vue-flatpickr-component": "^11.0.4"
+    }
+}

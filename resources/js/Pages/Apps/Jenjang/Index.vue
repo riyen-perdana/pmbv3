@@ -117,6 +117,7 @@ import Emptytable from "@/Components/Emptytable.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Form from "@/Pages/Apps/Jenjang/Form.vue";
 import Alert from "@/Components/Alert.vue";
+import { cloneDeep, debounce, pickBy } from "lodash";
 
 
 defineOptions({ layout: LayoutApp });
@@ -214,6 +215,15 @@ const deleteJenjang = (id) => {
         }
     })
 };
+
+watch(() => cloneDeep(data.params), debounce(() => {
+    let param = pickBy(data.params)
+    router.get('/apps/jenjang', param, {
+        replace: true,
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 150));
 
 </script>
 

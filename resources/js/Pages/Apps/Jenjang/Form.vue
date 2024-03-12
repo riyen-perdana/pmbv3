@@ -51,7 +51,7 @@ import 'mosha-vue-toastify/dist/style.css';
 import 'flatpickr/dist/flatpickr.css';
 
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'submitData']);
 
 const btnDisabled = ref(false);
 

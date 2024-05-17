@@ -11,15 +11,15 @@
                     <div class="row mb-3 pb-1 p-3">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                             <div class="flex-grow-1">
-                                <Titlebox :isDashboard="false" title="Data Fakultas"
-                                    subTitle="Manajemen Data Fakultas Aplikasi E-Admisi" />
+                                <Titlebox :isDashboard="false" title="Data Program Studi"
+                                    subTitle="Manajemen Data Program Studi Aplikasi E-Admisi" />
                             </div>
                             <Breadcrumb :items="breadcrumbs" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
-                            <div class="card" id="t_akreditasi">
+                            <div class="card" id="t_prodi">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
                                         <h5 class="card-title mb-0 flex-grow-1"></h5>
@@ -36,7 +36,8 @@
                                         <div class="col-md-4">
                                             <div class="search-box">
                                                 <input type="text" class="form-control search bg-light"
-                                                    placeholder="Cari Data Fakultas" v-model="data.params.search">
+                                                    placeholder="Cari Data Kode atau Nama Program Studi"
+                                                    v-model="data.params.search">
                                                 <i class="ri-search-line search-icon"></i>
                                             </div>
                                         </div>
@@ -56,35 +57,56 @@
                                     <div class="row">
                                         <div>
                                             <div class="table-responsive table-card mb-3 mt-3">
-                                                <table class="table table-hover align-middle table-nowrap mb-0" id="fakultasTable">
+                                                <table class="table table-hover align-middle table-nowrap mb-0" id="prodiTable">
                                                     <thead class="table-light boder-white">
                                                         <tr>
                                                             <th scope="col" style="width:4%;">No.</th>
-                                                            <th scope="col" style="width:25%;">Fakultas</th>
-                                                            <th scope="col" style="width:10%;">Akreditasi</th>
-                                                            <th scope="col" style="width:19%;">Link Website Fakultas</th>
-                                                            <th scope="col" style="width:19%;">Link Akreditasi Fakultas</th>
+                                                            <th scope="col" style="width:25%;">Kode Prodi/Nama Prodi/Akreditasi</th>
+                                                            <th scope="col" style="width:19%;">Fakultas</th>
+                                                            <th scope="col" style="width:10%;">Jenjang</th>
+                                                            <th scope="col" style="width:10%;">Link Website/Akreditasi</th>
                                                             <th scope="col" style="width:10%;">Status</th>
                                                             <th scope="col" style="width: 13%;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(fkt, index) in fakultas.data" :key="index">
-                                                            <td class="r_atas">{{ (fakultas.current_page - 1) * fakultas.per_page + index + 1 }}.</td>
-                                                            <td class="r_atas">{{ fkt.nm_fakultas }}</td>
-                                                            <td class="r_atas">{{ fkt.akreditasi.jns_akreditasi }}</td>
-                                                            <td class="r_atas">{{ fkt.url_fakultas ? fkt.url_fakultas : "-" }}</td>
-                                                            <td class="r_atas">{{ fkt.url_akr_fakultas ? fkt.url_akr_fakultas : "-" }}</td>
-                                                            <td class="r_atas"><span :class="fkt.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ fkt.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span></td>
+                                                        <tr v-for="(prd, index) in prodi.data" :key="index">
+                                                            <td class="r_atas">{{ (prodi.current_page - 1) * prodi.per_page + index + 1 }}.</td>
+                                                            <td class="r_atas">
+                                                                <div class="col">
+                                                                    <div>
+                                                                        Kode Prodi [ <span class="fw-bold">{{ prd.kd_prodi }}</span> ]
+                                                                    </div>
+                                                                    <div>
+                                                                        {{ prd.nm_prodi }}
+                                                                    </div>
+                                                                    <div>
+                                                                        Akreditasi  <span class="fw-bold">{{ prd.akreditasi.jns_akreditasi }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="r_atas">{{ prd.fakultas.nm_fakultas }}</td>
+                                                            <td class="r_atas">{{ prd.jenjang.nm_jenjang }}</td>
+                                                            <td class="r_atas">
+                                                                <div class="col">
+                                                                    <div>
+                                                                        Link : {{ prd.url_prodi ? prd.url_prodi : '-' }}
+                                                                    </div>
+                                                                    <div>
+                                                                        Link : {{ prd.url_akr_prodi ? prd.url_akr_prodi : '-' }}
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td class="r_atas"><span :class="prd.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ prd.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span></td>
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->
                                                                     <button type="button" class="btn btn-secondary btn-sm"
-                                                                        @click="clickButton(fkt.id, fkt)"><i
+                                                                        @click="clickButton(prd.id, prd)"><i
                                                                             class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Edit&nbsp;&nbsp;&nbsp;</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                                        @click="destroy(fkt.id)"><i
+                                                                        @click="destroy(prd.id)"><i
                                                                             class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Hapus</button>
                                                                 </div>
@@ -92,10 +114,10 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <Emptytable :data="fakultas" />
+                                                <Emptytable :data="prodi" />
                                             </div>
-                                            <div v-if="fakultas.data.length != 0">
-                                                <Pagination :links="fakultas.links" :count="fakultas" />
+                                            <div v-if="prodi.data.length != 0">
+                                                <Pagination :links="prodi.links" :count="prodi" />
                                             </div>
                                         </div>
                                     </div>
@@ -106,8 +128,8 @@
                 </div>
             </div>
         </div>
-        <Form :show="data.createOpen" :akreditasi="props.akreditasi" :isEdit="data.isEdit" :dataEdit="data.dataEdit" @close="closeModal" />
-        <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteFakultas" />
+        <Form :show="data.createOpen" :fakultas="props.fakultas" :jenjang="props.jenjang" :akreditasi="props.akreditasi" :isEdit="data.isEdit" :dataEdit="data.dataEdit" @close="closeModal" />
+        <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteProdi" />
     </div>
 </template>
 
@@ -120,7 +142,7 @@ import Breadcrumb from "@/Components/Breadcrumb.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Emptytable from "@/Components/Emptytable.vue";
 import { cloneDeep, debounce, pickBy } from "lodash";
-import Form from "@/Pages/Apps/Fakultas/Form.vue";
+import Form from "@/Pages/Apps/Prodi/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
@@ -130,8 +152,23 @@ defineOptions({ layout: LayoutApp });
 const props = defineProps({
     filters: Object,
     perPage: Number,
-    akreditasi: Object,
-    fakultas: Object
+    prodi: Object,
+    fakultas : Array,
+    jenjang : Array,
+    akreditasi : Array
+});
+
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: 'Unit Organisasi',
+            isActive: false,
+        },
+        {
+            label: 'Program Studi',
+            url: 'prodi'
+        }
+    ]
 });
 
 const data = reactive({
@@ -146,27 +183,14 @@ const data = reactive({
     id: ''
 });
 
-const breadcrumbs = computed(() => {
-    return [
-        {
-            label: 'Unit Organisasi',
-            isActive: false,
-        },
-        {
-            label: 'Fakultas',
-            url: 'fakultas'
-        }
-    ]
-});
-
 //Modal
-const clickButton = (id, fakultas) => {
+const clickButton = (id, prodi) => {
     data.id = id
     if (id == '') {
         data.isEdit = false
     } else {
         data.isEdit = true
-        data.dataEdit = fakultas;
+        data.dataEdit = prodi;
     }
     data.createOpen = true
 };
@@ -188,8 +212,8 @@ const destroy = (id) => {
     data.id = id
 };
 
-const deleteFakultas = (id) => {
-    router.delete(`/apps/fakultas/${id}`,
+const deleteProdi = (id) => {
+    router.delete(`/apps/prodi/${id}`,
     {
         preserveState: true,
         preserveScroll: true,
@@ -198,7 +222,7 @@ const deleteFakultas = (id) => {
             createToast(
                 {
                     title: 'Berhasil',
-                    description: 'Data Fakultas Berhasil Dihapus.'
+                    description: 'Data Program Studi Berhasil Dihapus.'
                 }, {
                     type: 'success',
                     showIcon: true,
@@ -211,7 +235,7 @@ const deleteFakultas = (id) => {
             createToast(
                 {
                     title: 'Error',
-                    description: 'Gagal Menghapus Data Fakultas.'
+                    description: 'Gagal Menghapus Data Program Studi.'
                 }, {
                     type: 'danger',
                     showIcon: 'true',
@@ -224,7 +248,7 @@ const deleteFakultas = (id) => {
 
 watch(() => cloneDeep(data.params), debounce(() => {
     let param = pickBy(data.params)
-    router.get('/apps/fakultas', param, {
+    router.get('/apps/prodi', param, {
         replace: true,
         preserveState: true,
         preserveScroll: true
@@ -234,7 +258,7 @@ watch(() => cloneDeep(data.params), debounce(() => {
 </script>
 
 <style>
-btn-mr {
+.btn-mr {
     margin-right: 5px;
 }
 

@@ -46,5 +46,8 @@ Route::prefix('apps')->group(function () {
         //Jenjang
         Route::resource('jenjang', \App\Http\Controllers\Apps\JenjangController::class)->except('create','edit','show');
 
+        //Prodi
+        Route::resource('prodi', \App\Http\Controllers\Apps\ProdiController::class)->except('create','edit','show');
+
     });
 });

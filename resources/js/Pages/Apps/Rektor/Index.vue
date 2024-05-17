@@ -1,5 +1,4 @@
 <template>
-
     <Head>
         <title>
             .:: E-admisi Universitas Islam Negeri Sultan Syarif Kasim Riau ::.

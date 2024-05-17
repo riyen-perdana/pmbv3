@@ -21,7 +21,7 @@ class FakultasController extends Controller
     {
         //Query Fakultas
         $fakultas = Fakultas::query()->with('akreditasi');
-        $akreditasi = Akreditasi::all();
+        $akreditasi = Akreditasi::orderBy('created_at','ASC')->get();
 
         if ($request->has('search')) {
             $fakultas->where('nm_fakultas','like','%'. $request->search .'%');

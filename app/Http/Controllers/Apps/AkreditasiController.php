@@ -18,7 +18,7 @@ class AkreditasiController extends Controller
     public function index(Request $request)
     {
         //Query Akreditasi
-        $akreditasi = Akreditasi::query();
+        $akreditasi = Akreditasi::query()->orderBy('created_at','ASC');
         if ($request->has('search')) {
             $akreditasi->where('jns_akreditasi','like','%'. $request->search .'%');
         }

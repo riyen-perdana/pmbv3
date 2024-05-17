@@ -5,14 +5,12 @@ namespace App\Models;
 use Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Prodi extends Model
 {
     use HasFactory;
-    use SoftDeletes;
     protected $table = 'prodi';
     protected $fillable = [
         'kd_prodi',
@@ -20,11 +18,9 @@ class Prodi extends Model
         'id_jenjang',
         'id_akr_prodi',
         'nm_prodi',
-        'qt_prodi',
         'url_prodi',
         'url_akr_prodi',
-        'is_open',
-        'is_open_pil3'
+        'is_aktif'
     ];
     public $keyType = 'string';
     public $incrementing = false;

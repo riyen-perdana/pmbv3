@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Instansi extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $table = 'instansi';
     protected $fillable = [
         'abbr_instansi',
@@ -20,7 +19,6 @@ class Instansi extends Model
     ];
     public $keyType = 'string';
     public $incrementing = false;
-    protected $dates = ['deleted_at'];
 
     public static function boot()
     {

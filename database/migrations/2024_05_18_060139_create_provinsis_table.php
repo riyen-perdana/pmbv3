@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jalur_masuks', function (Blueprint $table) {
-            $table->id();
+        Schema::create('provinsi', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('nm_provinsi');
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jalur_masuks');
+        Schema::dropIfExists('provinsi');
     }
 };

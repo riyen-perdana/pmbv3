@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('nm_instansi')->comment('Nama Instansi');
             $table->string('almt_instansi')->comment('Alamat Instansi');
             $table->string('no_telp_instansi')->comment('Nomor Telepon Instansi');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

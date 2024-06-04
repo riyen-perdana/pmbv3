@@ -13,8 +13,9 @@
                     ]"
                     v-for="(link, index) in links" :key="index">
                         <Link
+                            preserve-scroll
                             class="page-link"
-                            :href="link.url === null ? '#' : link.url"
+                            :href="link.url === null ? '#' : link.url+'&perPage='+perPage"
                             v-html="link.label">
                         </Link>
                 </li>
@@ -28,7 +29,8 @@ import { Link } from '@inertiajs/vue3';
 export default {
     props : {
         links : Array,
-        count : Object
+        count : Object,
+        perPage: Number,
     },
     components : {
         Link

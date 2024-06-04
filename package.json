@@ -21,6 +21,7 @@
         "lottie-web": "^5.12.2",
         "mosha-vue-toastify": "^1.0.23",
         "vue": "^3.4.15",
-        "vue-flatpickr-component": "^11.0.4"
+        "vue-flatpickr-component": "^11.0.4",
+        "axios": "^1.6.4"
     }
 }

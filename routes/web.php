@@ -49,5 +49,18 @@ Route::prefix('apps')->group(function () {
         //Prodi
         Route::resource('prodi', \App\Http\Controllers\Apps\ProdiController::class)->except('create','edit','show');
 
+        //Provinsi
+        Route::get('/provinsi/apiprov', [\App\Http\Controllers\Apps\ProvinsiController::class, 'getApi'])->name('apiProvinsi');
+        Route::post('/provinsi/add-api-provinsi',[\App\Http\Controllers\Apps\ProvinsiController::class, 'addApiProvinsi'])->name('addApiProvinsi');
+        Route::delete('/provinsi/delete-all',[\App\Http\Controllers\Apps\ProvinsiController::class, 'deleteAllProvinsi'])->name('deleteAllProvinsi');
+        Route::resource('provinsi', \App\Http\Controllers\Apps\ProvinsiController::class)->except('create','edit','show');
+
+        //Provinsi
+        // Route::get('/provinsi/apiprov', [\App\Http\Controllers\Apps\ProvinsiController::class, 'getApi'])->name('apiProvinsi');
+        // Route::post('/provinsi/add-api-provinsi',[\App\Http\Controllers\Apps\ProvinsiController::class, 'addApiProvinsi'])->name('addApiProvinsi');
+        // Route::delete('/provinsi/delete-all',[\App\Http\Controllers\Apps\ProvinsiController::class, 'deleteAllProvinsi'])->name('deleteAllProvinsi');
+        Route::resource('kabkot', \App\Http\Controllers\Apps\KabkotControllers::class)->except('create','edit','show');
+
+
     });
 });

@@ -285,30 +285,10 @@ async function addApiProvinsi(dataList) {
     }
 }
 
-// async function deleteProvinsiAll() {
-//     isShowPb.value = true
-//     messageAction.value = 'Menghapus Data Provinsi [Jangan Menutup Halaman Ini Ketika Proses Hapus Data Berlangsung]'
-//     router.delete('/apps/provinsi/delete-all',
-//         {
-//             preserveState : true,
-//             preserveScroll : true,
-//             onSuccess : () => {
-//                     setTimeout(function() {
-//                         messageAction.value = 'Sinkronisasi Data API Provinsi [Jangan Menutup Halaman Ini Ketika Proses Baca Data Berlangsung]';
-//                         getApi();
-//                     },2000);
-//             }
-//         }
-//     )
-// }
-
-
 const destroy = (id) => {
     data.openAlert = true
     data.id = id
 };
-
-
 
 watch(() => cloneDeep(data.params), debounce(() => {
     let param = pickBy(data.params)

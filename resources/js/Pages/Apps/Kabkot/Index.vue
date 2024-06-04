@@ -33,6 +33,75 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card-body doted">
+                                    <div class="row g-3">
+                                        <div class="col-md-4">
+                                            <div class="search-box">
+                                                <input type="text" class="form-control search bg-light"
+                                                    placeholder="Cari Data Kode, Nama Kabupaten Kota" v-model="data.params.search">
+                                                <i class="ri-search-line search-icon"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-auto ms-auto">
+                                            <div class="d-flex flex-row align-items-center gap-2">
+                                                <select class="form-select mb-3" aria-label="Default select example"
+                                                    v-model="data.params.perPage">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                                <span class="text-muted text-show">Entries</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div>
+                                            <div class="table-responsive table-card mb-3 mt-3">
+                                                <table class="table table-hover align-middle table-nowrap mb-0"
+                                                    id="provinsiTable">
+                                                    <thead class="table-light boder-white">
+                                                        <tr>
+                                                            <th scope="col" style="width:4%;">No.</th>
+                                                            <th scope="col" style="width:13%;">ID Kabupaten/Kota</th>
+                                                            <th scope="col" style="width:35%;">Kabupaten/Kota</th>
+                                                            <th scope="col" style="width:35%;">Provinsi</th>
+                                                            <th scope="col" style="width: 13%;">Aksi</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="(kk, index) in kabkot.data" :key="index">
+                                                            <td class="r_atas">{{ (kabkot.current_page - 1) *
+                                                                kabkot.per_page + index + 1 }}.</td>
+                                                            <td class="r_atas">{{ kk.id }}</td>
+                                                            <td class="r_atas">{{ kk.nm_kabkot }}</td>
+                                                            <td class="r_atas">{{ kk.provinsi.nm_provinsi }}</td>
+                                                            <td class="r_atas">
+                                                                <div class="hstack gap-2 flex-wrap">
+                                                                    <!-- Buttons Group -->
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary btn-sm"
+                                                                        @click="clickButton(kk.id, kk)"><i
+                                                                            class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
+                                                                        Edit&nbsp;&nbsp;&nbsp;</button>
+                                                                    <button type="button" class="btn btn-danger btn-sm"
+                                                                        @click="destroy(kk.id)"><i
+                                                                            class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
+                                                                        Hapus</button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <Emptytable :data="kabkot" />
+                                            </div>
+                                            <div v-if="kabkot.data.length != 0">
+                                                <Pagination :links="kabkot.links" :count="kabkot"
+                                                    :perPage="props.perPage" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -68,16 +137,13 @@ const props = defineProps({
     kabkot : Object
 });
 
-
 const openModalKabkotAPI = ref(false)
 
-
-
 const data = reactive({
-    // params: {
-    //     search: props.filters?.search,
-    //     perPage: props.perPage
-    // },
+    params: {
+        search: props.filters?.search,
+        perPage: props.perPage
+    },
     createOpen: false,
     isEdit: false,
     openAlert: false,
@@ -106,6 +172,15 @@ const openModalAPI = () => {
 const closeAPI = () => {
     openModalKabkotAPI.value = false
 }
+
+watch(() => cloneDeep(data.params), debounce(() => {
+    let param = pickBy(data.params)
+    router.get('/apps/kabkot', param, {
+        replace: true,
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 150));
 
 
 </script>

@@ -22,7 +22,7 @@ class Kabkot extends Model
      */
     public function provinsi() : BelongsTo
     {
-        return $this->belongsTo('provinsi','prov_id');
+        return $this->belongsTo(Provinsi::class,'prov_id');
     }
 
     /**

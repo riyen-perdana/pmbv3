@@ -121,7 +121,7 @@ async function getApi() {
 
         let intervalId = setInterval(()=> {
             persentase.value = parseInt(countData/dataLength * 100).toFixed(0)
-            //Add Data Here
+            addApiKabkot(response.data[countData])
             if(persentase.value >= 100) {
                 clearInterval(intervalId)
                 persentase.value = 0
@@ -129,7 +129,7 @@ async function getApi() {
                 createToast(
                     {
                         title: 'Berhasil',
-                        description: 'Data Kabupaten Kota Berhasil Ditambahkan.'
+                        description: 'Sinkronisasi Data Kabupaten Kota Berhasil.'
                     }, {
                         type: 'success',
                         showIcon: true,

@@ -113,7 +113,7 @@ class KabkotControllers extends Controller
                 [
                     'id' => $request['id'],
                     'prov_id' => $request['prov_id'],
-                    'nama'  => $request['nama']
+                    'nm_kabkot'  => $request['nm_kabkot']
                 ]
             );
 

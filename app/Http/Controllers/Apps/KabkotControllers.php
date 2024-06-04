@@ -9,6 +9,7 @@ use DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Http;
 use App\Models\Provinsi;
+use Illuminate\Support\Facades\Redis;
 
 class KabkotControllers extends Controller
 {
@@ -86,4 +87,43 @@ class KabkotControllers extends Controller
     {
         //
     }
+
+    public function getApi(Request $request)
+    {
+        $kabkot = $request->id;
+        $response = Http::get('https://dapo.kemdikbud.go.id/rekap/dataSekolah?id_level_wilayah=1&kode_wilayah='.$kabkot.'&semester_id=20232');
+        return $response;
+    }
+
+    /**
+     * Tambah API Kabupaten Kota
+     * @param id
+     * @param id_prov
+     * @param nama
+     * @return Void
+     */
+    public function addApiKabkot(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            Kabkot::updateOrCreate(
+                [
+                    'id' => $request['id']
+                ],
+                [
+                    'id' => $request['id'],
+                    'prov_id' => $request['prov_id'],
+                    'nama'  => $request['nama']
+                ]
+            );
+
+            DB::commit();
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
 }

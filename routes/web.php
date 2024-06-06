@@ -54,9 +54,16 @@ Route::prefix('apps')->group(function () {
         Route::post('/provinsi/add-api-provinsi',[\App\Http\Controllers\Apps\ProvinsiController::class, 'addApiProvinsi'])->name('addApiProvinsi');
         Route::resource('provinsi', \App\Http\Controllers\Apps\ProvinsiController::class)->except('create','edit','show');
 
-        //Provinsi
+        //Kabupaten Kota
+        Route::get('/kabkot/propinsi/{provinsi}',[\App\Http\Controllers\Apps\KabkotControllers::class, 'getKabkot'])->name('getKabkot');
         Route::get('/kabkot/apikabkot', [\App\Http\Controllers\Apps\KabkotControllers::class, 'getApi'])->name('apiKabkot');
         Route::post('/kabkot/add-api-kabkot',[\App\Http\Controllers\Apps\KabkotControllers::class, 'addApiKabkot'])->name('addApiKabkot');
         Route::resource('kabkot', \App\Http\Controllers\Apps\KabkotControllers::class)->except('create','edit','show');
+
+        //Kecamatan
+        Route::get('/kecamatan/apikecamatan', [\App\Http\Controllers\Apps\KecamatanController::class, 'getApi'])->name('apiKecamatan');
+        Route::post('/kecamatan/add-api-kecamatan',[\App\Http\Controllers\Apps\KecamatanController::class, 'addApiKabkot'])->name('addApiKecamatan');
+        Route::resource('kecamatan', \App\Http\Controllers\Apps\KecamatanController::class)->except('create','edit','show');
+
     });
 });

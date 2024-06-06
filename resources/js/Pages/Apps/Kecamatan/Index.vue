@@ -1,4 +1,5 @@
 <template>
+
     <Head>
         <title>
             .:: E-admisi Universitas Islam Negeri Sultan Syarif Kasim Riau ::.
@@ -11,14 +12,15 @@
                     <div class="row mb-3 pb-1 p-3">
                         <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                             <div class="flex-grow-1">
-                                <Titlebox :isDashboard="false" title="Data Kabupaten-Kota" subTitle="Manajemen Data Kabupaten-Kota Aplikasi E-Admisi" />
+                                <Titlebox :isDashboard="false" title="Data Kecamatan"
+                                    subTitle="Manajemen Data Kecamatan Aplikasi E-Admisi" />
                             </div>
                             <Breadcrumb :items="breadcrumbs" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
-                            <div class="card" id="t_kabkot">
+                            <div class="card" id="t_kecamatan">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">
                                         <h5 class="card-title mb-0 flex-grow-1"></h5>
@@ -27,7 +29,8 @@
                                                 @click="clickButton(data.id)">
                                                 <i class="ri-add-line align-bottom me-1"></i>Tambah Data
                                             </button>
-                                            <button type="button" class="btn btn-danger add-btn" @click="openModalAPI()">
+                                            <button type="button" class="btn btn-danger add-btn"
+                                                @click="openModalAPI()">
                                                 <i class="align-bottom me-1"></i>Get API
                                             </button>
                                         </div>
@@ -38,7 +41,7 @@
                                         <div class="col-md-4">
                                             <div class="search-box">
                                                 <input type="text" class="form-control search bg-light"
-                                                    placeholder="Cari Data Kode, Nama Kabupaten Kota" v-model="data.params.search">
+                                                    placeholder="Cari Data Kode, Nama Kecamatan" v-model="data.params.search">
                                                 <i class="ri-search-line search-icon"></i>
                                             </div>
                                         </div>
@@ -59,34 +62,40 @@
                                         <div>
                                             <div class="table-responsive table-card mb-3 mt-3">
                                                 <table class="table table-hover align-middle table-nowrap mb-0"
-                                                    id="provinsiTable">
+                                                    id="kecamatanTable">
                                                     <thead class="table-light boder-white">
                                                         <tr>
                                                             <th scope="col" style="width:4%;">No.</th>
-                                                            <th scope="col" style="width:13%;">ID Kabupaten/Kota</th>
-                                                            <th scope="col" style="width:35%;">Kabupaten/Kota</th>
-                                                            <th scope="col" style="width:35%;">Provinsi</th>
+                                                            <th scope="col" style="width:13%;">ID Kecamatan</th>
+                                                            <th scope="col" style="width:23%;">Kecamatan</th>
+                                                            <th scope="col" style="width:23%;">Kabupaten-Kota</th>
+                                                            <th scope="col" style="width:23%;">Provinsi</th>
                                                             <th scope="col" style="width: 13%;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(kk, index) in kabkot.data" :key="index">
-                                                            <td class="r_atas">{{ (kabkot.current_page - 1) *
-                                                                kabkot.per_page + index + 1 }}.</td>
-                                                            <td class="r_atas">{{ kk.id }}</td>
-                                                            <td class="r_atas">{{ kk.nm_kabkot }}</td>
-                                                            <td class="r_atas" v-if="kk.provinsi">{{ kk.provinsi.nm_provinsi }}</td>
+                                                        <tr v-for="(kec, index) in kecamatan.data" :key="index">
+                                                            <td class="r_atas">{{ (kecamatan.current_page - 1) *
+                                                                data.params.perPage + index + 1 }}</td>
+                                                            <td class="r_atas">{{ kec.id }}</td>
+                                                            <td class="r_atas">{{ kec.nm_kecamatan }}</td>
+                                                            <!-- Cek Data Kabkot -->
+                                                            <td class="r_atas" v-if="kec.kabkot">{{ kec.kabkot.nm_kabkot }}</td>
+                                                            <td class="r_atas" v-else>Data Tidak Ditemukan</td>
+
+                                                            <!-- Cek Data Provinsi -->
+                                                            <td class="r_atas" v-if="kec.kabkot.provinsi">{{ kec.kabkot.provinsi.nm_provinsi }}</td>
                                                             <td class="r_atas" v-else>Data Tidak Ditemukan</td>
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->
                                                                     <button type="button"
                                                                         class="btn btn-secondary btn-sm"
-                                                                        @click="clickButton(kk.id, kk)"><i
+                                                                        @click="clickButton(kec.id, kec)"><i
                                                                             class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Edit&nbsp;&nbsp;&nbsp;</button>
                                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                                        @click="destroy(kk.id)"><i
+                                                                        @click="destroy(kec.id)"><i
                                                                             class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Hapus</button>
                                                                 </div>
@@ -94,10 +103,10 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                                <Emptytable :data="kabkot" />
+                                                <Emptytable :data="kecamatan" />
                                             </div>
-                                            <div v-if="kabkot.data.length != 0">
-                                                <Pagination :links="kabkot.links" :count="kabkot"
+                                            <div v-if="kecamatan.data.length != 0">
+                                                <Pagination :links="kecamatan.links" :count="kecamatan"
                                                     :perPage="props.perPage" />
                                             </div>
                                         </div>
@@ -109,10 +118,9 @@
                 </div>
             </div>
         </div>
-        <Modal :showAPI="openModalKabkotAPI" @close="closeAPI" :data="props.provinsi"/>
-        <Form :show="data.createOpen" :provinsi="props.provinsi" :isEdit="data.isEdit" :dataEdit="data.dataEdit"
-            @close="closeModal" />
-        <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteKabkot" />
+        <Form :show="data.createOpen" :kabkot="props.kabkot" :provinsi="props.provinsi" :isEdit="data.isEdit"
+        :dataEdit="data.dataEdit" @close="closeModal" />
+        <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteKecamatan" />
     </div>
 </template>
 
@@ -125,11 +133,11 @@ import Breadcrumb from "@/Components/Breadcrumb.vue";
 import Pagination from "@/Components/Pagination.vue";
 import Emptytable from "@/Components/Emptytable.vue";
 import { cloneDeep, debounce, pickBy } from "lodash";
-import Form from "@/Pages/Apps/Kabkot/Form.vue";
+import Form from "@/Pages/Apps/Kecamatan/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
-import Modal from "@/Pages/Apps/Kabkot/ModalApi.vue"
+// import Modal from "@/Pages/Apps/Kabkot/ModalApi.vue"
 
 defineOptions({ layout: LayoutApp });
 
@@ -137,10 +145,9 @@ const props = defineProps({
     filters: Object,
     perPage: Number,
     provinsi: Object,
-    kabkot : Object
+    kabkot: Object,
+    kecamatan: Object
 });
-
-const openModalKabkotAPI = ref(false)
 
 const data = reactive({
     params: {
@@ -151,8 +158,7 @@ const data = reactive({
     isEdit: false,
     openAlert: false,
     dataEdit: {},
-    id: '',
-    response : [],
+    id: ''
 });
 
 const breadcrumbs = computed(() => {
@@ -162,73 +168,16 @@ const breadcrumbs = computed(() => {
             isActive: false,
         },
         {
-            label: 'Kabupaten/Kota',
-            url: 'kabkot'
+            label: 'Kecamatan',
+            url: 'kecamatan'
         }
     ]
 });
 
-const openModalAPI = () => {
-    openModalKabkotAPI.value = true
-}
-
-const closeAPI = () => {
-    openModalKabkotAPI.value = false
-}
-
-watch(() => cloneDeep(data.params), debounce(() => {
-    let param = pickBy(data.params)
-    router.get('/apps/kabkot', param, {
-        replace: true,
-        preserveState: true,
-        preserveScroll: true
-    })
-}, 150));
-
-const destroy = (id) => {
-    data.openAlert = true
-    data.id = id
-};
-
-const closeAlert = () => {
-    data.openAlert = !data.openAlert
+const closeModal = () => {
+    data.createOpen = false
     data.isEdit = false
-    data.id = 0
-};
-
-const deleteKabkot = (id) => {
-    router.delete(`/apps/kabkot/${id}`,
-        {
-            replace: true,
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: () => {
-                closeAlert
-                createToast(
-                    {
-                        title: 'Berhasil',
-                        description: 'Data Kabupaten/Kota Berhasil Dihapus.'
-                    }, {
-                    type: 'success',
-                    showIcon: true,
-                    transition: 'zoom',
-                }
-                )
-            },
-            onError: () => {
-                closeAlert
-                createToast(
-                    {
-                        title: 'Error',
-                        description: 'Gagal Menghapus Data Kabupaten Kota.'
-                    }, {
-                    type: 'danger',
-                    showIcon: 'true',
-                    transition: 'zoom',
-                }
-                )
-            }
-        })
+    data.id = ''
 };
 
 //Modal
@@ -243,10 +192,50 @@ const clickButton = (id, kabkot) => {
     data.createOpen = true
 };
 
-const closeModal = () => {
-    data.createOpen = false
+const closeAlert = () => {
+    data.openAlert = !data.openAlert
     data.isEdit = false
-    data.id = ''
+    data.id = 0
+};
+
+const destroy = (id) => {
+    data.openAlert = true
+    data.id = id
+};
+
+const deleteKecamatan = (id) => {
+    router.delete(`/apps/kecamatan/${id}`,
+        {
+            replace: true,
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Berhasil',
+                        description: 'Data Kecamatan Berhasil Dihapus.'
+                    }, {
+                    type: 'success',
+                    showIcon: true,
+                    transition: 'zoom',
+                }
+                )
+            },
+            onError: () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Error',
+                        description: 'Gagal Menghapus Data Kecamatan.'
+                    }, {
+                    type: 'danger',
+                    showIcon: 'true',
+                    transition: 'zoom',
+                }
+                )
+            }
+        })
 };
 
 

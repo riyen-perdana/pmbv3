@@ -49,7 +49,7 @@
                                             </Link>
                                         </li>
                                         <li class="nav-item">
-                                            <Link href="/apps/provinsi" class="nav-link"
+                                            <Link href="/apps/kecamatan" class="nav-link"
                                                 data-key="t-kecamatan">Kecamatan
                                             </Link>
                                         </li>

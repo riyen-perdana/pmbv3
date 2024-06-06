@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Provinsi\ProvinsiStoreRequest;
 use App\Http\Requests\Provinsi\ProvinsiUpdateRequest;
+use App\Models\Kabkot;
 use Illuminate\Http\Request;
 use DB;
 use Inertia\Inertia;
@@ -155,4 +156,5 @@ class ProvinsiController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
+
 }

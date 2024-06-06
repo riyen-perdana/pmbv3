@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Kabkot\KabkotStoreRequest;
+use App\Http\Requests\Kabkot\KabkotUpdateRequest;
 use App\Models\Kabkot;
 use Illuminate\Http\Request;
 use DB;
@@ -51,9 +53,23 @@ class KabkotControllers extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(KabkotStoreRequest $request)
     {
-        //
+        try {
+            Kabkot::create([
+                'id' => $request['txtKdKabkot'],
+                'prov_id' => $request['cboProvinsi'],
+                'nm_kabkot' => $request['txtNmKabkot']
+            ]);
+
+            DB::commit();
+            return redirect()->route('kabkot.index');
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     /**
@@ -75,9 +91,28 @@ class KabkotControllers extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(KabkotUpdateRequest $request, string $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+
+            $kabkot = Kabkot::findOrFail($id);
+            $kabkot->update([
+                'id' => $request['txtKdKabkot'],
+                'prov_id' => $request['cboProvinsi'],
+                'nm_kabkot' => $request['txtNmKabkot']
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('kabkot.index');
+
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
+
     }
 
     /**
@@ -85,7 +120,19 @@ class KabkotControllers extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $kabkot = Kabkot::findOrFail($id);
+            $kabkot->delete();
+
+            DB::commit();
+
+            return redirect()->route('kabkot.index');
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
     }
 
     public function getApi(Request $request)
@@ -124,6 +171,11 @@ class KabkotControllers extends Controller
             DB::rollback();
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function getKabkot(Provinsi $provinsi)
+    {
+        return $provinsi->kabkot;
     }
 
 }

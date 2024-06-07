@@ -118,6 +118,7 @@
                 </div>
             </div>
         </div>
+        <Modal :showAPI="openModalKecamatanAPI" @close="closeModalKecamatanAPI" :provinsi="props.provinsi" />
         <Form :show="data.createOpen" :kabkot="props.kabkot" :provinsi="props.provinsi" :isEdit="data.isEdit"
         :dataEdit="data.dataEdit" @close="closeModal" />
         <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteKecamatan" />
@@ -137,9 +138,15 @@ import Form from "@/Pages/Apps/Kecamatan/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
-// import Modal from "@/Pages/Apps/Kabkot/ModalApi.vue"
+import Modal from "@/Pages/Apps/Kecamatan/ModalApi.vue"
 
 defineOptions({ layout: LayoutApp });
+
+const openModalKecamatanAPI = ref(false);
+
+const openModalAPI = () => {
+    openModalKecamatanAPI.value = true
+}
 
 const props = defineProps({
     filters: Object,
@@ -237,6 +244,10 @@ const deleteKecamatan = (id) => {
             }
         })
 };
+
+const closeModalKecamatanAPI = () => {
+    openModalKecamatanAPI.value = false
+}
 
 
 </script>

@@ -116,4 +116,47 @@ class KecamatanController extends Controller
             return back()->with('error', $th->getMessage());
         }
     }
+
+    public function getApi(Request $request)
+    {
+        $kabkot = $request->id;
+        $response = Http::get('https://dapo.kemdikbud.go.id/rekap/dataSekolah?id_level_wilayah=2&kode_wilayah='.$kabkot.'&semester_id=20232');
+        return $response;
+    }
+
+    /**
+     * Tambah API Kabupaten Kota
+     * @param id
+     * @param id_prov
+     * @param nama
+     * @return Void
+     */
+    public function addApiKecamatan(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+
+            Kecamatan::updateOrCreate(
+                [
+                    'id' => $request['id']
+                ],
+                [
+                    'id' => $request['id'],
+                    'kabkot_id' => $request['kabkot_id'],
+                    'nm_kecamatan'  => $request['nm_kecamatan']
+                ]
+            );
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function getKecamatan(Kabkot $kabkot)
+    {
+        return $kabkot->kecamatan;
+    }
 }

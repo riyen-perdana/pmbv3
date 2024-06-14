@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Kabkot extends Model
 {
@@ -63,6 +64,11 @@ class Kabkot extends Model
             set: fn (string $value) => trim($value),
             get: fn (string $value) => str_pad($value, 6, '0', STR_PAD_LEFT)
         );
+    }
+
+    protected function kecamatan() : HasMany
+    {
+        return $this->hasMany(Kecamatan::class,'kabkot_id');
     }
 
 }

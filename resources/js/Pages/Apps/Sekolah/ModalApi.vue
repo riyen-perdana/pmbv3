@@ -1,11 +1,11 @@
 <template>
-    <Modal id="mAPIKecamatan" size="modal-lg" @close="closeModalKecamatanAPI">
-        <template #modalTitle>Get API Data Kecamatan</template>
+    <Modal id="mAPISekolah" size="modal-lg" @close="closeModalSekolahAPI">
+        <template #modalTitle>Get API Data Sekolah</template>
         <template #modalBody>
             <form @submit.prevent="prosesAPI()">
                 <div class="row">
-                    <div class="col-md-6 lg-6 mb-3">
-                        <label for="txtProvinsi" class="form-label">Pilih Provinsi</label>
+                    <div class="col-md-12 col-lg-12 mb-3">
+                        <label for="cboProvinsi" class="form-label">Pilih Provinsi</label>
                         <select v-model="form.cboProvinsi" class="form-select"
                             :class="{ 'is-invalid': errorCboProvinsi }">
                             <option disabled value="">Pilih Provinsi</option>
@@ -17,9 +17,10 @@
                             {{ errorCboProvinsi }}
                         </div>
                     </div>
-                    <div class="col-md-6 lg-6 mb-3">
-                        <label for="txtProvinsi" class="form-label">Pilih Kabupaten-Kota</label>
-                        <select v-model="form.cboKabkot" class="form-select" :class="{ 'is-invalid': errorCboKabkot }">
+                    <div class="col-md-6 col-lg-6 mb-3">
+                        <label for="cboKabkot" class="form-label">Kabupaten-Kota</label>
+                        <select v-model="form.cboKabkot" class="form-select"
+                            :class="{ 'is-invalid': errorCboKabkot }">
                             <option disabled value="">Pilih Kabupaten-Kota</option>
                             <option v-for="(kk, index) in kabkot" :key="index" :value="kk.id">
                                 {{ kk.id }} | {{ kk.nm_kabkot }}
@@ -27,6 +28,19 @@
                         </select>
                         <div v-if="errorCboKabkot" class="invalid-feedback">
                             {{ errorCboKabkot }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 mb-3">
+                        <label for="cboKecamatan" class="form-label">Kecamatan</label>
+                        <select v-model="form.cboKecamatan" class="form-select"
+                            :class="{ 'is-invalid': errorCboKecamatan }">
+                            <option disabled value="">Pilih Kecamatan</option>
+                            <option v-for="(kec, index) in kecamatan" :key="index" :value="kec.id">
+                                {{ kec.id }} | {{ kec.nm_kecamatan }}
+                            </option>
+                        </select>
+                        <div v-if="errorCboKecamatan" class="invalid-feedback">
+                            {{ errorCboKecamatan }}
                         </div>
                     </div>
                 </div>
@@ -46,7 +60,7 @@
         </template>
         <template #modalFooter>
             <button :disabled="btnGetAPI" type="button" class="btn btn-light"
-                @click="closeModalKecamatanAPI()">Tutup</button>
+                @click="closeModalSekolahAPI()">Tutup</button>
             <button :disabled="btnGetAPI" type="submit" @click="prosesAPI" class="btn btn-primary">
                 Proses API
             </button>
@@ -62,45 +76,38 @@ import { ref, onMounted, onUnmounted, watchEffect, watch } from "vue";
 import { router, useForm } from "@inertiajs/vue3";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
+import 'flatpickr/dist/flatpickr.css';
 
 const emit = defineEmits(['close']);
 
 const isShowPb = ref(false);
 const btnGetAPI = ref(false);
 const kabkot = ref([]);
+const kecamatan = ref([]);
+const messageAction = ref('');
+const persentase = ref(0);
+const errorCboProvinsi = ref('');
+const errorCboKabkot = ref('');
+const errorCboKecamatan = ref('');
+
+const modalAPI = ref(null);
 
 const props = defineProps({
     showAPI: Boolean,
     provinsi: Object
 });
 
-const modalAPI = ref(null);
-const errorCboProvinsi = ref('');
-const errorCboKabkot = ref('');
-const messageAction = ref('');
-let persentase = ref(0);
-
-onMounted(() => {
-    modalAPI.value = useModal('#mAPIKecamatan')
-});
-
-onUnmounted(() => {
-    closeModalKecamatanAPI();
-});
-
-const closeModalKecamatanAPI = () => {
-    modalAPI.value.hide()
-    emit('close')
-    form.reset()
-    errorCboProvinsi.value = ''
-    errorCboKabkot.value = ''
-    isShowPb.value = false
-    router.reload()
-}
-
 const openModalAPI = () => {
     modalAPI.value.show()
 }
+
+onMounted(() => {
+    modalAPI.value = useModal('#mAPISekolah');
+});
+
+onUnmounted(() => {
+    closeModalSekolahAPI();
+});
 
 watchEffect(() => {
     if (props.showAPI) {
@@ -108,28 +115,52 @@ watchEffect(() => {
     }
 });
 
+const closeModalSekolahAPI = () => {
+    modalAPI.value.hide()
+    emit('close')
+    form.reset()
+    errorCboProvinsi.value = ''
+    errorCboKabkot.value = ''
+    errorCboKecamatan.value = ''
+    isShowPb.value = false
+    router.reload()
+}
+
 const form = useForm({
     cboProvinsi: '',
-    cboKabkot: ''
+    cboKabkot: '',
+    cboKecamatan: '',
 });
 
-const fetchDataKabkot = async() => {
+watch(() => form.cboProvinsi, (newValue) => {
+    if (newValue) {
+        fetchDataKabkot()
+    }
+})
+
+watch(() => form.cboKabkot, (newValue) => {
+    if (newValue) {
+        fetchDataKecamatan()
+    }
+})
+
+const fetchDataKabkot = async () => {
     form.reset('cboKabkot')
     const response = await axios.get(`/apps/kabkot/propinsi/${form.cboProvinsi}`);
     kabkot.value = response.data
 }
 
-watch(() => form.cboProvinsi, (newValue) => {
-    if(newValue) {
-        fetchDataKabkot()
-    }
-});
+const fetchDataKecamatan = async () => {
+    form.reset('cboKecamatan')
+    const response = await axios.get(`/apps/kecamatan/kabkot/${form.cboKabkot}`);
+    kecamatan.value = response.data
+}
 
 async function prosesAPI() {
-    router.reload();
-    if (form.cboProvinsi == '' && form.cboKabkot == '') {
+    if (form.cboProvinsi == '' && form.cboKabkot == '' && form.cboKecamatan == '') {
         errorCboProvinsi.value = 'Kolom Provinsi Harus Dipilih';
         errorCboKabkot.value = 'Kolom Kabupaten Kota Harus Dipilih';
+        errorCboKecamatan.value = 'Kolom Kecamatan Harus Dipilih';
         btnGetAPI.value = false
     } else if (form.cboProvinsi == '') {
         errorCboProvinsi.value = 'Kolom Provinsi Harus Dipilih';
@@ -138,64 +169,57 @@ async function prosesAPI() {
         errorCboProvinsi.value = '';
         errorCboKabkot.value = 'Kolom Kabupaten Kota Harus Dipilih';
         btnGetAPI.value = false
+    } else if (form.cboKecamatan == '') {
+        errorCboKecamatan.value = 'Kolom Kecamatan Harus Dipilih';
+        btnGetAPI.value = false
     } else {
         btnGetAPI.value = true
         errorCboProvinsi.value = ''
         errorCboKabkot.value = ''
         isShowPb.value = true
-        messageAction.value = 'Sinkronisasi Data API Kecamatan [Jangan Menutup Halaman Ini Ketika Proses Baca Data Berlangsung]';
+        messageAction.value = 'Sinkronisasi Data API Sekolah [Jangan Menutup Halaman Ini Ketika Proses Baca Data Berlangsung]';
         await getAPI()
     }
 }
 
 async function getAPI() {
-    await axios.get('/apps/kecamatan/apikecamatan', {
+    await axios.get('/apps/sekolah/apisekolah', {
         params: {
-            id : form.cboKabkot
+            kecamatan: form.cboKecamatan
         }
-    }).then((response) => {
-        console.log(response.data)
-        let dataLength = response.data.length
-        let countData = 0
-
-        let intervalId = setInterval(() => {
-            persentase.value = parseInt(countData/dataLength * 100).toFixed(0)
-            addApiKecamatan(response.data[countData])
-            if(persentase.value >= 100) {
-                clearInterval(intervalId);
-                persentase.value = 0;
-                btnGetAPI.value = false
-                isShowPb.value = false
-                createToast(
-                    {
-                        title: 'Berhasil',
-                        description: 'Sinkronisasi Data Kecamatan Berhasil.'
-                    }, {
-                        type: 'success',
-                        showIcon: true,
-                        transition: 'zoom',
-                    }
-                )
-                closeModalKecamatanAPI()
-            }
-            countData +=1;
-        },1000)
     })
+        .then((response) => {
+            let dataLength = Object.keys(response.data).length
+            let countData = 0
+
+            let intervalId = setInterval(() => {
+                persentase.value = parseInt(countData/dataLength * 100).toFixed(0)
+                addApiSekolah(response.data[countData])
+                if(persentase.value >= 100) {
+                    clearInterval(intervalId);
+                    persentase.value = 0;
+                    btnGetAPI.value = false
+                    closeModalSekolahAPI()
+                }
+                countData++
+            }, 1000);
+        });
 }
 
-async function addApiKecamatan(dataList) {
+async function addApiSekolah(dataList) {
     if (dataList != undefined) {
         try {
-            router.post('/apps/kecamatan/add-api-kecamatan',{
-                id : dataList.kode_wilayah,
-                kabkot_id : dataList.mst_kode_wilayah,
-                nm_kecamatan : dataList.nama
+            router.post('/apps/sekolah/add-api-sekolah',{
+                id : dataList[1],
+                kecamatan_id : form.cboKecamatan,
+                nama : dataList[2],
+                alamat : dataList[3]
             }, {
                 preserveScroll : true,
                 preserveState : true
             })
         } catch (error) {
-            console.error("Error:", error);
+            console.log(error)
         }
     }
 }

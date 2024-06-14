@@ -55,6 +55,29 @@
                                         </li>
                                     </div>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link" href="#sidebarSekolah" data-bs-toggle="collapse"
+                                        role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
+                                        <i class="bx bxs-bank"></i> <span data-key="t-rektor">Pendidikan</span>
+                                    </a>
+                                    <div class="collapse menu-dropdown" id="sidebarSekolah">
+                                        <li class="nav-item">
+                                            <Link href="/apps/sekolah" class="nav-link"
+                                                data-key="t-provinsi">Menengah
+                                            </Link>
+                                        </li>
+                                        <li class="nav-item">
+                                            <Link href="/apps/kabkot" class="nav-link"
+                                                data-key="t-kabupaten-kota">Kabupaten/Kota
+                                            </Link>
+                                        </li>
+                                        <li class="nav-item">
+                                            <Link href="/apps/kecamatan" class="nav-link"
+                                                data-key="t-kecamatan">Kecamatan
+                                            </Link>
+                                        </li>
+                                    </div>
+                                </li>
                     <li class="nav-item">
                         <Link class="nav-link menu-link" href="/apps/jabatan">
                         <i class="bx bx-sitemap"></i> <span data-key="t-rank">Jabatan</span>

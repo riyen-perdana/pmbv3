@@ -43,7 +43,7 @@
 
 import LayoutAuth from '../../Layouts/Auth.vue';
 import { reactive, ref, nextTick } from 'vue';
-import { router, Head, Link } from '@inertiajs/vue3';
+import { router, Head, Link, useForm } from '@inertiajs/vue3';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
 
@@ -65,7 +65,12 @@ export default {
         const phNip  = ref("Nomor Induk Pegawai");
         const phPass = ref("Kata Sandi");
 
-        const form = reactive ({
+        // const form = reactive ({
+        //     nip : '',
+        //     password : '',
+        // });
+
+        const form = useForm ({
             nip : '',
             password : '',
         });

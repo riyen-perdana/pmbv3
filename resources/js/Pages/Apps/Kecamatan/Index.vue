@@ -249,6 +249,15 @@ const closeModalKecamatanAPI = () => {
     openModalKecamatanAPI.value = false
 }
 
+watch(() => cloneDeep(data.params), debounce(() => {
+    let param = pickBy(data.params)
+    router.get('/apps/kecamatan', param, {
+        replace: true,
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 150));
+
 
 </script>
 

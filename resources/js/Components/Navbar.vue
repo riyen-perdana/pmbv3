@@ -68,12 +68,30 @@
                                         </li>
                                         <li class="nav-item">
                                             <Link href="/apps/kabkot" class="nav-link"
-                                                data-key="t-kabupaten-kota">Kabupaten/Kota
+                                                data-key="t-kabupaten-kota">Tinggi
+                                            </Link>
+                                        </li>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link menu-link" href="#sidebarPenilaian" data-bs-toggle="collapse"
+                                        role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
+                                        <i class="bx bxs-bank"></i> <span data-key="t-rektor">Jalur Prestasi</span>
+                                    </a>
+                                    <div class="collapse menu-dropdown" id="sidebarPenilaian">
+                                        <li class="nav-item">
+                                            <Link href="/apps/prestasi" class="nav-link"
+                                                data-key="t-prestasi">Bidang Prestasi
                                             </Link>
                                         </li>
                                         <li class="nav-item">
-                                            <Link href="/apps/kecamatan" class="nav-link"
-                                                data-key="t-kecamatan">Kecamatan
+                                            <Link href="/apps/tingkat" class="nav-link"
+                                                data-key="t-kabupaten-kota">Tingkat Prestasi
+                                            </Link>
+                                        </li>
+                                        <li class="nav-item">
+                                            <Link href="/apps/kabkot" class="nav-link"
+                                                data-key="t-kabupaten-kota">Kategori Prestasi
                                             </Link>
                                         </li>
                                     </div>

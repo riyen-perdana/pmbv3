@@ -71,6 +71,11 @@ Route::prefix('apps')->group(function () {
         Route::post('/sekolah/add-api-sekolah',[\App\Http\Controllers\Apps\SekolahController::class, 'addApiSekolah'])->name('addApiSekolah');
         Route::resource('sekolah', \App\Http\Controllers\Apps\SekolahController::class)->except('create','edit','show');
 
+        //Bidang Prestasi
+        Route::resource('prestasi', \App\Http\Controllers\Apps\PrestasiController::class)->except('create','edit','show');
+
+        //Tingkat Prestasi
+        Route::resource('tingkat', \App\Http\Controllers\Apps\TingkatController::class)->except('create','edit','show');
 
     });
 });

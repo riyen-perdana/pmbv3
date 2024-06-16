@@ -33,6 +33,11 @@
                                     </Link>
                                 </li>
                                 <li class="nav-item">
+                                    <Link class="nav-link menu-link" href="/apps/agama">
+                                    <i class="bx bx-book-alt"></i><span data-key="t-fakultas">Agama</span>
+                                    </Link>
+                                </li>
+                                <li class="nav-item">
                                     <a class="nav-link menu-link" href="#sidebarArea" data-bs-toggle="collapse"
                                         role="button" aria-expanded="false" aria-controls="sidebarAdvanceUI">
                                         <i class="bx bx-area"></i> <span data-key="t-rektor">Area</span>
@@ -86,12 +91,12 @@
                                         </li>
                                         <li class="nav-item">
                                             <Link href="/apps/tingkat" class="nav-link"
-                                                data-key="t-kabupaten-kota">Tingkat Prestasi
+                                                data-key="t-tingkat">Tingkat Prestasi
                                             </Link>
                                         </li>
                                         <li class="nav-item">
-                                            <Link href="/apps/kabkot" class="nav-link"
-                                                data-key="t-kabupaten-kota">Kategori Prestasi
+                                            <Link href="/apps/jenis" class="nav-link"
+                                                data-key="t-inkel">Kategori Prestasi
                                             </Link>
                                         </li>
                                     </div>

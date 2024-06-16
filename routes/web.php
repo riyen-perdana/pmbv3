@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return \Inertia\Inertia::render('Landing/Index');
+})->middleware('guest');
+
+Route::get('/login', function () {
     return \Inertia\Inertia::render('Auth/Login');
 })->middleware('guest');
 
@@ -46,6 +50,9 @@ Route::prefix('apps')->group(function () {
         //Jenjang
         Route::resource('jenjang', \App\Http\Controllers\Apps\JenjangController::class)->except('create','edit','show');
 
+        //Agama
+        Route::resource('agama', \App\Http\Controllers\Apps\AgamaController::class)->except('create','edit','show');
+
         //Prodi
         Route::resource('prodi', \App\Http\Controllers\Apps\ProdiController::class)->except('create','edit','show');
 
@@ -77,5 +84,7 @@ Route::prefix('apps')->group(function () {
         //Tingkat Prestasi
         Route::resource('tingkat', \App\Http\Controllers\Apps\TingkatController::class)->except('create','edit','show');
 
+        //Jenis Prestasi
+        Route::resource('jenis', \App\Http\Controllers\Apps\InkelController::class)->except('create','edit','show');
     });
 });

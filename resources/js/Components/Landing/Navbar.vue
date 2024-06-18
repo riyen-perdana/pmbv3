@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto" id="navbar-example">
                     <li class="nav-item">
-                        <Link class="nav-link fs-14 fw-semibold active" href="#hero">Beranda</Link>
+                        <Link class="nav-link fs-14 fw-semibold" href="#hero">Beranda</Link>
                     </li>
                     <li class="nav-item">
                         <Link class="nav-link fs-14 fw-semibold" href="#pembayaran">Pembayaran</Link>

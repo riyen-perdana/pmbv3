@@ -1,6 +1,6 @@
 <template>
         <!-- start plan -->
-        <section class="section bg-light" id="plans">
+        <section class="section bg-light" id="jalur">
             <div class="bg-overlay bg-overlay-pattern"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -106,8 +106,9 @@
                                             </div>
                                         </li>
                                     </ul>
-                                    <div class="mt-4">
-                                        <a href="" class="btn btn-primary w-100">Pradaftar</a>
+                                    <div class="mt-4 justify-content-end d-flex">
+                                        <Link href="/pradaftar" class="btn btn-success primary w-50">Pradaftar</Link>&nbsp;
+                                        <Link href="/peserta/login" class="btn btn-danger w-50">Daftar</Link>
                                     </div>
                                 </div>
                             </div>
@@ -123,5 +124,5 @@
 </template>
 
 <script setup>
-
+import { Head, Link } from '@inertiajs/vue3';
 </script>

@@ -17,9 +17,32 @@ Route::get('/', function () {
     return \Inertia\Inertia::render('Landing/Index');
 })->middleware('guest');
 
+//Pradaftar
+Route::get('pradaftar',[\App\Http\Controllers\Apps\PradaftarController::class, 'index'])->name('pradaftar.index')->middleware('guest');
+Route::post('/pradaftar/cek', [\App\Http\Controllers\Apps\PradaftarController::class, 'cek'])->name('cekPeserta')->middleware('guest');
+Route::get('/pradaftar/cetak', [\App\Http\Controllers\Apps\PradaftarController::class, 'cetak'])->name('pradaftar.cetak')->middleware('guest');
+Route::get('/pradaftar/pdf/{id}', [\App\Http\Controllers\Apps\PradaftarController::class, 'pdf'])->name('pradaftar.pdf')->middleware('guest');
+
+
 Route::get('/login', function () {
     return \Inertia\Inertia::render('Auth/Login');
 })->middleware('guest');
+
+Route::get('/peserta/login', function () {
+    return \Inertia\Inertia::render('Peserta/Login');
+})->middleware('guest');
+
+//login Peserta
+Route::post('/peserta/login', \App\Http\Controllers\Peserta\LoginController::class)->name('peserta.login');
+
+Route::prefix('peserta')->group(function () {
+    //Middleware "Auth"
+    Route::group(['middleware'=>['peserta']], function () {
+        //Dashboard
+        Route::get('dashboard', \App\Http\Controllers\Peserta\DashboardController::class)->name('peserta.dashboard');
+    });
+});
+
 
 //Prefiks "apps"
 Route::prefix('apps')->group(function () {

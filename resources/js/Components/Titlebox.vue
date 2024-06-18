@@ -1,8 +1,15 @@
 <template>
     <div v-if="isDashboard">
-        <h4 class="fs-16 mb-1">
-            Assalamualaikum, {{ $page.props.auth.user.name }}
-        </h4>
+        <div v-if="$page.props.auth.user != null">
+            <h4 class="fs-16 mb-1">
+                Assalamualaikum, {{ $page.props.auth.user.name }}
+            </h4>
+        </div>
+        <div v-else>
+            <h4 class="fs-16 mb-1">
+                Assalamualaikum {{ $page.props.auth.peserta?.nm_siswa }}
+            </h4>
+        </div>
     </div>
     <div v-else>
         <h4 class="fs-16 mb-1">

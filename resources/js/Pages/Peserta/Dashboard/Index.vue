@@ -18,9 +18,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <Tilebox title="Jumlah Pengguna" :jumlah="user_count" satuan="Orang" uri="/apps/pengguna" uri_title="Lihat Pengguna" />
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -28,7 +26,7 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import LayoutApp from '@/Layouts/App.vue';
@@ -36,39 +34,28 @@ import Tilebox from '@/Components/Tilebox.vue';
 import Titlebox from '@/Components/Titlebox.vue';
 import Breadcrumb from '@/Components/Breadcrumb.vue';
 
-export default {
-    //Layout
-    layout : LayoutApp,
-    components : {
-    Head,
-    Link,
-    Tilebox,
-    Titlebox,
-    Breadcrumb
-},
-    props: {
-        user_count : Number,
-    },
-    computed : {
-        breadcrumbs() {
-            return [
-                {
-                    label : 'Dashboard',
-                    isActive : false,
-                },
-                {
-                    label : 'E-Admisi',
-                    url : 'dashboard'
-                }
-            ]
+defineOptions({ layout: LayoutApp });
+
+const breadcrumbs = computed(() => {
+    return [
+        {
+            label: 'Peserta',
+            isActive: false,
+        },
+        {
+            label: 'Dashboard',
+            url: 'dashboard'
         }
-    },
+    ]
+});
+</script>
 
-    setup() {
-
-    }
-
+<style>
+.btn-mr {
+    margin-right: 5px;
 }
 
-
-</script>
+td.r_atas {
+    vertical-align: top;
+}
+</style>

@@ -39,11 +39,17 @@
             <div class="dropdown ms-sm-3 header-item topbar-user">
               <button type="button" @click="isOpen" class="btn" :class="{'show': !menu.openMenu}"  id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none !important;">
                 <span class="d-flex align-items-center">
-                  <img class="rounded-circle header-profile-user" :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user.name}&amp;background=4e73df&amp;color=ffffff&amp;`"
+                  <img class="rounded-circle header-profile-user" :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user?.name}&amp;background=4e73df&amp;color=ffffff&amp;`"
                     alt="Header Avatar" />
                   <span class="text-start ms-xl-2">
-                    <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.user.name }}</span>
-                    <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ $page.props.auth.user.roles[0].name }}</span>
+                    <div v-if="$page.props.auth.user != null">
+                        <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.user.name }}</span>
+                        <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ $page.props.auth.user.roles[0].name }}</span>
+                    </div>
+                    <div v-else>
+                        <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.peserta?.nm_siswa }}</span>
+                        <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">Peserta</span>
+                    </div>
                   </span>
                 </span>
               </button>
@@ -68,9 +74,11 @@
   import { reactive } from 'vue';
   import { Link } from '@inertiajs/vue3';
   export default {
-    props : {
-        auth : Object
-    },
+
+  props : {
+        auth : Object,
+        peserta : Object
+  },
     components : {
         Link
     },

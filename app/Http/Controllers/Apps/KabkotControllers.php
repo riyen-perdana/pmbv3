@@ -11,7 +11,6 @@ use DB;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Http;
 use App\Models\Provinsi;
-use Illuminate\Support\Facades\Redis;
 
 class KabkotControllers extends Controller
 {

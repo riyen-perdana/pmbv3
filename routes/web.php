@@ -40,6 +40,11 @@ Route::prefix('peserta')->group(function () {
     Route::group(['middleware'=>['peserta']], function () {
         //Dashboard
         Route::get('dashboard', \App\Http\Controllers\Peserta\DashboardController::class)->name('peserta.dashboard');
+        Route::get('/kabkot/propinsi/{provinsi}',[\App\Http\Controllers\Peserta\AreaController::class, 'getKabkot']);
+        Route::get('/kecamatan/kabkot/{kabkot}',[\App\Http\Controllers\Peserta\AreaController::class, 'getKecamatan']);
+        Route::get('/sekolah/kecamatan/{kecamatan}',[\App\Http\Controllers\Peserta\AreaController::class, 'getSekolah']);
+        Route::post('/data-pribadi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataPribadi'])->name('updateDataPribadi');
+
     });
 });
 

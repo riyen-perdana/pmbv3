@@ -39,16 +39,31 @@
             <div class="dropdown ms-sm-3 header-item topbar-user">
               <button type="button" @click="isOpen" class="btn" :class="{'show': !menu.openMenu}"  id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border:none !important;">
                 <span class="d-flex align-items-center">
-                  <img class="rounded-circle header-profile-user" :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user?.name}&amp;background=4e73df&amp;color=ffffff&amp;`"
+                  <div v-if="$page.props.auth.user != null">
+                    <img class="rounded-circle header-profile-user" :src="`https://ui-avatars.com/api/?name=${$page.props.auth.user?.name}&amp;background=4e73df&amp;color=ffffff&amp;`"
                     alt="Header Avatar" />
+                  </div>
+                  <div v-else>
+                    <div v-if="$page.props.auth.peserta?.foto_siswa">
+                        <img class="rounded-circle header-profile-user" :src="`/storage/fotopeserta/${$page.props.auth.peserta?.foto_siswa}`" alt="Header Avatar" />
+                    </div>
+                    <div v-else>
+                        <img class="rounded-circle header-profile-user" :src="`https://ui-avatars.com/api/?name=Peserta&amp;background=4e73df&amp;color=ffffff&amp;`"
+                        alt="Header Avatar" />
+                    </div>
+                  </div>
                   <span class="text-start ms-xl-2">
                     <div v-if="$page.props.auth.user != null">
                         <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.user.name }}</span>
                         <span class="d-none d-xl-block ms-1 fs-12 text-muted user-name-sub-text">{{ $page.props.auth.user.roles[0].name }}</span>
                     </div>
                     <div v-else>
-                        <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.peserta?.nm_siswa }}</span>
-                        <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">Peserta</span>
+                        <div v-if="$page.props.auth.peserta?.nm_siswa">
+                            <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $page.props.auth.peserta?.nm_siswa }}</span>
+                        </div>
+                        <div v-else>
+                            <span class=" d-none d-xl-inline-block ms-1 fw-medium user-name-text">Peserta</span>
+                        </div>
                     </div>
                   </span>
                 </span>
@@ -72,8 +87,10 @@
 
   <script>
   import { reactive } from 'vue';
-  import { Link } from '@inertiajs/vue3';
+  import { Link, usePage } from '@inertiajs/vue3';
   export default {
+
+
 
   props : {
         auth : Object,
@@ -92,7 +109,11 @@
         menu.openMenu = !menu.openMenu;
       }
 
-      return { isOpen, menu}
+      const page = usePage()
+      const image = page.props.auth.peserta.foto_siswa
+      console.log(image)
+
+      return { isOpen, menu, image}
     },
   }
   </script>

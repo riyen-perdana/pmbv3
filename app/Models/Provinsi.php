@@ -38,7 +38,7 @@ class Provinsi extends Model
 
     protected function kabkot() : HasMany
     {
-        return $this->hasMany(kabkot::class,'prov_id');
+        return $this->hasMany(Kabkot::class,'prov_id');
     }
 
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
 class Peserta extends Authenticatable
@@ -25,7 +26,7 @@ class Peserta extends Authenticatable
         'tptlhr_siswa',
         'tgllhr_siswa',
         'jklmn_siswa',
-        'fotosiswa',
+        'foto_siswa',
         'almt_siswa',
         'agm_siswa',
         'email_siswa',
@@ -70,6 +71,24 @@ class Peserta extends Authenticatable
         );
     }
 
+    protected function fotoSiswa() : Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => url('/storage/fotopeserta/' .$value),
+        );
+    }
 
+    protected function almtSiswa() : Attribute
+    {
+        return Attribute::make(
+            set: fn (string $value) => strtolower($value),
+            get: fn (string $value) => ucwords($value)
+        );
+    }
+
+    public function sekolah() : BelongsTo
+    {
+        return $this->belongsTo(Sekolah::class, 'npsn', 'id');
+    }
 
 }

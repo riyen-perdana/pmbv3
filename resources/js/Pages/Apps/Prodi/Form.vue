@@ -71,6 +71,18 @@
                         </div>
                     </div>
                     <div class="col-md-12 lg-12 mb-3">
+                        <label for="cboPil34" class="form-label">Pilihan 3 dan 4</label>
+                        <select v-model="form.cboPil34" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.cboPil34 }">
+                            <option disabled value="">Pilih Status Pilihan 3 dan 4</option>
+                            <option value="Y">Aktif</option>
+                            <option value="N">Non Aktif</option>
+                        </select>
+                        <div v-if="$page.props.errors.cboPil34" class="invalid-feedback">
+                            {{ $page.props.errors.cboPil34 }}
+                        </div>
+                    </div>
+                    <div class="col-md-12 lg-12 mb-3">
                         <label for="txtLinkProdi" class="form-label">Link Website Program Studi</label>
                         <input v-model="form.txtLinkProdi" class="form-control"
                             :class="{ 'is-invalid': $page.props.errors.txtLinkProdi }" type="text"
@@ -130,7 +142,8 @@ const form = useForm({
     optAkreditasi: '',
     optStatusAktif: '',
     txtLinkProdi: '',
-    txtLinkAkreditasiProdi: ''
+    txtLinkAkreditasiProdi: '',
+    cboPil34: ''
 });
 
 const modal = ref(null);
@@ -152,7 +165,8 @@ const submitData = () => {
             optAkreditasi: form.optAkreditasi,
             txtLinkProdi: form.txtLinkProdi,
             txtLinkAkreditasiProdi: form.txtLinkAkreditasiProdi,
-            optStatusAktif: form.optStatusAktif
+            optStatusAktif: form.optStatusAktif,
+            cboPil34: form.cboPil34
         }, {
             preserveScroll: true,
             preserveState: true,
@@ -182,7 +196,8 @@ const submitData = () => {
             optAkreditasi: form.optAkreditasi,
             txtLinkProdi: form.txtLinkProdi,
             txtLinkAkreditasiProdi: form.txtLinkAkreditasiProdi,
-            optStatusAktif: form.optStatusAktif
+            optStatusAktif: form.optStatusAktif,
+            cboPil34: form.cboPil34
         }, {
             preserveState: true,
             preserveScroll: true,
@@ -230,6 +245,7 @@ watchEffect(() => {
             form.optStatusAktif = props.dataEdit?.is_aktif,
             form.txtLinkProdi = props.dataEdit?.url_prodi,
             form.txtLinkAkreditasiProdi = props.dataEdit?.url_akr_prodi
+            form.cboPil34 = props.dataEdit?.is_pil_34
         }
     }
 });

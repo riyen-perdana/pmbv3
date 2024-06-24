@@ -20,8 +20,10 @@ class Prodi extends Model
         'nm_prodi',
         'url_prodi',
         'url_akr_prodi',
-        'is_aktif'
+        'is_aktif',
+        'is_pil_34',
     ];
+
     public $keyType = 'string';
     public $incrementing = false;
     protected $dates = ['deleted_at'];

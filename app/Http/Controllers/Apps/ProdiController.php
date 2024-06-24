@@ -66,6 +66,7 @@ class ProdiController extends Controller
                 'url_prodi' => $request['txtLinkProdi'],
                 'url_akr_prodi' => $request['txtLinkAkreditasiProdi'],
                 'is_aktif' => $request['optStatusAktif'],
+                'is_pil_34' => $request['cboPil34'],
             ]);
 
             DB::commit();
@@ -112,6 +113,7 @@ class ProdiController extends Controller
                 'url_prodi' => $request['txtLinkProdi'],
                 'url_akr_prodi' => $request['txtLinkAkreditasiProdi'],
                 'is_aktif' => $request['optStatusAktif'],
+                'is_pil_34' => $request['cboPil34']
             ]);
 
             DB::commit();

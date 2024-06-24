@@ -110,10 +110,8 @@
       }
 
       const page = usePage()
-      const image = page.props.auth.peserta.foto_siswa
-      console.log(image)
-
-      return { isOpen, menu, image}
+      //const image = page.props.auth.peserta.foto_siswa
+      return { isOpen, menu}
     },
   }
   </script>

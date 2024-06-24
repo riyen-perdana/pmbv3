@@ -44,7 +44,9 @@ Route::prefix('peserta')->group(function () {
         Route::get('/kecamatan/kabkot/{kabkot}',[\App\Http\Controllers\Peserta\AreaController::class, 'getKecamatan']);
         Route::get('/sekolah/kecamatan/{kecamatan}',[\App\Http\Controllers\Peserta\AreaController::class, 'getSekolah']);
         Route::post('/data-pribadi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataPribadi'])->name('updateDataPribadi');
-
+        Route::post('/data-pilihan/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataPilihan'])->name('updateDataPilihan');
+        Route::post('/prestasi', [\App\Http\Controllers\Peserta\PesertaController::class, 'insertDataPrestasi'])->name('insertDataPrestasi');
+        Route::post('/prestasi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataPrestasi'])->name('deleteDataPrestasi');
     });
 });
 

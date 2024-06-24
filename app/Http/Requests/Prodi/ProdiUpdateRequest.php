@@ -30,7 +30,8 @@ class ProdiUpdateRequest extends FormRequest
             'optAkreditasi'             => 'required',
             'txtLinkProdi'              => 'sometimes|nullable|regex:' . $regex,
             'txtLinkAkreditasiProdi'    => 'sometimes|nullable|regex:' . $regex,
-            'optStatusAktif'            => 'required'
+            'optStatusAktif'            => 'required',
+            'cboPil34'                  => 'required'
         ];
     }
 
@@ -51,7 +52,8 @@ class ProdiUpdateRequest extends FormRequest
             'optAkreditasi.required'        => 'Pilih Akreditasi Program Studi',
             'txtLinkProdi.regex'            => 'Link Program Studi Salah',
             'txtLinkAkreditasiProdi.regex'  => 'Link Akreditasi Program Studi Salah',
-            'optStatusAktif.required'       => 'Pilih Status Aktif'
+            'optStatusAktif.required'       => 'Pilih Status Aktif',
+            'cboPil34.required'             => 'Pilih Pilihan Program Studi 3-4'
         ];
     }
 }

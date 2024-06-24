@@ -50,9 +50,9 @@
                                                 </div>
                                                 <div class="nav flex-column custom-nav nav-pills" role="tablist"
                                                     aria-orientation="vertical">
-                                                    <button class="nav-link active" id="v-pills-bill-info-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#v-pills-bill-info"
-                                                        type="button" role="tab" aria-controls="v-pills-bill-info"
+                                                    <button class="nav-link active" id="v-data-pribadi"
+                                                        data-bs-toggle="pill" data-bs-target="#v-tab-data-pribadi"
+                                                        type="button" role="tab" aria-controls="v-tab-data-pribadi"
                                                         aria-selected="true">
                                                         <span class="step-title me-2">
                                                             <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -60,9 +60,9 @@
                                                         </span>
                                                         Data Pribadi
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-bill-address-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#v-pills-bill-address"
-                                                        type="button" role="tab" aria-controls="v-pills-bill-address"
+                                                    <button class="nav-link" id="v-data-pilihan"
+                                                        data-bs-toggle="pill" data-bs-target="#v-tab-data-pilihan"
+                                                        type="button" role="tab" aria-controls="v-tab-data-pilihan"
                                                         aria-selected="false">
                                                         <span class="step-title me-2">
                                                             <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -70,9 +70,9 @@
                                                         </span>
                                                         Data Pilihan Program Studi
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-payment-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#v-pills-payment"
-                                                        type="button" role="tab" aria-controls="v-pills-payment"
+                                                    <button class="nav-link" id="v-data-prestasi"
+                                                        data-bs-toggle="pill" data-bs-target="#v-tab-data-prestasi"
+                                                        type="button" role="tab" aria-controls="v-tab-data-prestasi"
                                                         aria-selected="false">
                                                         <span class="step-title me-2">
                                                             <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -106,9 +106,18 @@
                                             <div class="col-lg-9">
                                                 <div class="px-lg-4">
                                                     <div class="tab-content">
+
+                                                        <!-- Data Pribadi -->
                                                         <Dapri title="Data Pribadi" :agama="agama" :peserta="$page.props.auth.peserta"
-                                                            :provinsi="provinsi" />
-                                                        <div class="tab-pane fade" id="v-pills-bill-address"
+                                                            :provinsi="provinsi" :sekolahData="sekolah" />
+
+                                                        <!-- Data Pilihan -->
+                                                        <Pilihan title="Pilihan Program Studi" :peserta="$page.props.auth.peserta" :prodi_12="props.prodi_12" :prodi_34="props.prodi_34" />
+
+                                                        <!-- Data Prestasi Non Akademik -->
+                                                        <Prestasi title="Data Prestasi Non Akademik" :bidang="props.bidang" :inkel ="props.inkel" :tingkat="props.tingkat" :prestasi="props.prestasi" />
+
+                                                        <!-- <div class="tab-pane fade" id="v-pills-bill-address"
                                                             role="tabpanel" aria-labelledby="v-pills-bill-address-tab">
                                                             <div>
                                                                 <h5>Shipping Address</h5>
@@ -186,8 +195,8 @@ nexttab" data-nexttab="v-pills-payment-tab"><i class="ri-arrow-right-line label-
                                                                     Payment</button>
                                                             </div>
                                                         </div>
-                                                        <!-- end tab pane -->
-                                                        <div class="tab-pane fade" id="v-pills-payment" role="tabpanel"
+                                                        end tab pane -->
+                                                        <!-- <div class="tab-pane fade" id="v-pills-payment" role="tabpanel"
                                                             aria-labelledby="v-pills-payment-tab">
                                                             <div>
                                                                 <h5>Payment</h5>
@@ -274,9 +283,9 @@ nexttab" data-nexttab="v-pills-payment-tab"><i class="ri-arrow-right-line label-
 nexttab" data-nexttab="v-pills-finish-tab"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i> Order
                                                                     Complete</button>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- end tab pane -->
-                                                        <div class="tab-pane fade" id="v-pills-finish" role="tabpanel"
+                                                        <!-- <div class="tab-pane fade" id="v-pills-finish" role="tabpanel"
                                                             aria-labelledby="v-pills-finish-tab">
                                                             <div class="text-center pt-4 pb-2">
 
@@ -289,7 +298,7 @@ nexttab" data-nexttab="v-pills-finish-tab"><i class="ri-arrow-right-line label-i
                                                                 <p class="text-muted">You Will receive an order
                                                                     confirmation email with details of your order.</p>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- end tab pane -->
                                                     </div>
                                                     <!-- end tab content -->
@@ -319,6 +328,8 @@ import Tilebox from '@/Components/Tilebox.vue';
 import Titlebox from '@/Components/Titlebox.vue';
 import Breadcrumb from '@/Components/Breadcrumb.vue';
 import Dapri from '@/Components/Portofolio/Dapri.vue';
+import Pilihan from '@/Components/Portofolio/Pilihan.vue';
+import Prestasi from '@/Components/Portofolio/Prestasi.vue';
 
 defineOptions({ layout: LayoutApp });
 
@@ -338,8 +349,16 @@ const breadcrumbs = computed(() => {
 const props = defineProps({
     provinsi: Object,
     agama: Object,
-    peserta: Object
+    peserta: Object,
+    sekolah: Object,
+    prodi_12: Object,
+    prodi_34: Object,
+    bidang: Object,
+    tingkat: Object,
+    inkel : Object,
+    prestasi : Object
 });
+
 </script>
 
 <style>

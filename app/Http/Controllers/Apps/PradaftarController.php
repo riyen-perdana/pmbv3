@@ -37,7 +37,8 @@ class PradaftarController extends Controller
                     'first_password' => $password,
                     'pin' => rand(992100000, 992999999),
                     'tgllhr_siswa' => $request->tgllhr,
-                    'jlmbayar_siswa' => '250000'
+                    'jlmbayar_siswa' => '250000',
+                    'notlpn_siswa' => $request->telepon
                 ]);
                 DB::commit();
 

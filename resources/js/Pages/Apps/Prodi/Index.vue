@@ -97,7 +97,9 @@
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td class="r_atas"><span :class="prd.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ prd.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span></td>
+                                                            <td class="r_atas">Status Pil 1-2 &nbsp;: <span :class="prd.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ prd.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span>
+                                                                <br>Status Pil 3-4 : <span :class="prd.is_pil_34 == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ prd.is_pil_34 == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span>
+                                                            </td>
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->

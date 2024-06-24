@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Peserta extends Authenticatable
 {
@@ -42,6 +42,7 @@ class Peserta extends Authenticatable
         'prodills_siswa',
         'is_vrf_op',
         'dok_nilai_siswa',
+        'is_vrf_siswa',
     ];
 
     public $keyType = 'string';
@@ -89,6 +90,11 @@ class Peserta extends Authenticatable
     public function sekolah() : BelongsTo
     {
         return $this->belongsTo(Sekolah::class, 'npsn', 'id');
+    }
+
+    public function prestasi() : HasMany
+    {
+        return $this->hasMany(Prestasi::class, 'id_peserta');
     }
 
 }

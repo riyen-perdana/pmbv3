@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Tingkat extends Model
 {
@@ -29,6 +30,11 @@ class Tingkat extends Model
             set: fn (string $value) => strtolower($value),
             get: fn (string $value) => ucwords($value)
         );
+    }
+
+    public function prestasi() : HasMany
+    {
+        return $this->hasMany(Prestasi::class,'id_tingkat');
     }
 
 }

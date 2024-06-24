@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Inkel extends Model
 {
@@ -28,5 +29,10 @@ class Inkel extends Model
             set: fn (string $value) => strtolower($value),
             get: fn (string $value) => ucwords($value)
         );
+    }
+
+    public function prestasi() : HasMany
+    {
+        return $this->hasMany(Prestasi::class,'id_jenis');
     }
 }

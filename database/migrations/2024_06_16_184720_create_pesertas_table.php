@@ -26,13 +26,14 @@ return new class extends Migration
             $table->char('jklmn_siswa',1)->nullable()->comment('Jenis Kelamin Siswa');
             $table->text('foto_siswa')->nullable()->comment('Foto Siswa');
             $table->text('almt_siswa')->nullable()->comment('Alamat Lengkap Siswa');
-            $table->unsignedInteger('agm_siswa')->nullable()->comment('Agama Siswa');
+            $table->string('agm_siswa')->nullable()->comment('Agama Siswa');
             $table->string('email_siswa')->comment('Email Siswa')->nullable();
             $table->string('notlpn_siswa')->nullable()->comment('Nomor Telepon Siswa');
             $table->string('pil1_siswa')->comment('Pilihan Program Studi Pertama Siswa')->nullable();
             $table->string('pil2_siswa')->comment('Pilihan Program Studi Kedua Siswa')->nullable();
             $table->string('pil3_siswa')->comment('Pilihan Program Studi Kedua Siswa')->nullable();
             $table->string('pil4_siswa')->comment('Pilihan Program Studi Kedua Siswa')->nullable();
+            $table->enum('is_vrf_siswa',['Y','N'])->default('N')->comment('Status Verifikasi Siswa');
             $table->unsignedBigInteger('jlmbayar_siswa')->comment('Jumlah Pembayaran Siswa');
             $table->char('is_bayar','1')->default('0')->comment('Status Pembayaran Siswa');
             $table->date('tglbayar_siswa')->nullable()->comment('Tanggal Bayar Siswa');

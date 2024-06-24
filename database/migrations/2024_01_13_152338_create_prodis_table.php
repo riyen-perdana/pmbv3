@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('url_prodi')->comment('Alamat URL Website Program Studi')->nullable();
             $table->string('url_akr_prodi')->comment('Alamat URL Website Akreditasi Program Studi')->nullable();
             $table->enum('is_aktif',['Y','N'])->comment('Status Aktif Program Studi')->default('Y');
+            $table->enum('is_pil_34',['Y','N'])->comment('Status Pilihan Program Studi 3-4')->default('N');
             $table->timestamps();
         });
     }

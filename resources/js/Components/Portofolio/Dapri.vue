@@ -1,5 +1,5 @@
 <template>
-    <div class="tab-pane fade show active" id="v-pills-bill-info" role="tabpanel"
+    <div class="tab-pane fade show active" id="v-tab-data-pribadi" role="tabpanel"
         aria-labelledby="v-pills-bill-info-tab">
         <div>
             <h5>{{ props.title }}</h5>
@@ -177,7 +177,7 @@
 
 <script setup>
 import { router, useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, reactive, watchEffect } from 'vue';
+import { watch, ref, reactive, watchEffect, onMounted } from 'vue';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
 import 'flatpickr/dist/flatpickr.css';
@@ -185,29 +185,31 @@ import axios from 'axios';
 
 const page = usePage()
 
+const props = defineProps({
+    provinsi: Object,
+    title: String,
+    agama: Object,
+    sekolahData: Object
+});
+
+console.log(props.sekolahData.sekolah)
 
 const form = useForm({
     txtNamaLengkap: page.props.auth.peserta.nm_siswa,
     txtNIK: page.props.auth.peserta.nik_siswa,
     txtTptLhr: page.props.auth.peserta.tptlhr_siswa,
     txtTglLhr: page.props.auth.peserta.tgllhr_siswa,
-    cboJenKel: page.props.auth.peserta.jklmn_siswa,
+    cboJenKel: '',
     txtFoto: '',
-    cboAgama: page.props.auth.peserta.agm_siswa,
+    cboAgama: '',
     txtAlmt: page.props.auth.peserta.almt_siswa,
     txtEmail: page.props.auth.peserta.email_siswa,
     txtNoHp: page.props.auth.peserta.notlpn_siswa,
     cboProvinsi: '',
     cboKabkot: '',
     cboKecamatan: '',
-    cboSekolah: ''
+    cboSekolah: '',
 })
-
-const props = defineProps({
-    provinsi: Object,
-    title: String,
-    agama: Object
-});
 
 const kabkot = ref([]);
 const kecamatan = ref([]);
@@ -217,18 +219,27 @@ const btnDataPribadi = ref(false);
 watch(() => form.cboProvinsi, (newValue) => {
     if (newValue) {
         fetchDataKabkot()
+        if(props.sekolahData.sekolah?.kecamatan.kabkot.id) {
+            form.cboKabkot = props.sekolahData.sekolah.kecamatan.kabkot.id
+        }
     }
 })
 
 watch(() => form.cboKabkot, (newValue) => {
     if (newValue) {
         fetchDataKecamatan()
+        if(props.sekolahData.sekolah?.kecamatan?.id) {
+            form.cboKecamatan = props.sekolahData.sekolah.kecamatan.id
+        }
     }
 })
 
 watch(() => form.cboKecamatan, (newValue) => {
     if (newValue) {
         fetchDataSekolah()
+        if(props.sekolahData.sekolah?.id) {
+            form.cboSekolah = props.sekolahData.sekolah.id
+        }
     }
 })
 
@@ -249,6 +260,20 @@ const fetchDataSekolah = async () => {
     const response = await axios.get(`/peserta/sekolah/kecamatan/${form.cboKecamatan}`);
     sekolah.value = response.data
 }
+
+onMounted(() => {
+    if(props.sekolahData.sekolah?.kecamatan.kabkot.provinsi?.id) {
+        form.cboProvinsi = props.sekolahData.sekolah?.kecamatan.kabkot.provinsi?.id
+    }
+
+    if(page.props.auth.peserta.jklmn_siswa) {
+        form.cboJenKel = page.props.auth.peserta.jklmn_siswa
+    }
+
+    if(page.props.auth.peserta.agm_siswa) {
+        form.cboAgama = page.props.auth.peserta.agm_siswa
+    }
+})
 
 function submitDataPribadi() {
     console.log(form)

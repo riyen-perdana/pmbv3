@@ -12,6 +12,7 @@ use App\Models\Bidang;
 use App\Models\Inkel;
 use App\Models\Prestasi;
 use App\Models\Prodi;
+use App\Models\Rapor;
 use App\Models\Tingkat;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,7 @@ class DashboardController extends Controller
     public function __invoke(Request $request)
     {
 
+        $rapor = Rapor::where('peserta_id',Auth('peserta')->user()->id)->get();
         $sekolah = Peserta::with('sekolah','sekolah.kecamatan','sekolah.kecamatan.kabkot','sekolah.kecamatan.kabkot.provinsi')->where('npsn','=',Auth('peserta')->user()->npsn)->first();
         $provinsi = Provinsi::all();
         $agama = Agama::all();
@@ -42,7 +44,8 @@ class DashboardController extends Controller
             'bidang' => $bidang,
             'tingkat' => $tingkat,
             'inkel' => $inkel,
-            'prestasi' => $prestasi
+            'prestasi' => $prestasi,
+            'rapor' => $rapor
         ]);
     }
 }

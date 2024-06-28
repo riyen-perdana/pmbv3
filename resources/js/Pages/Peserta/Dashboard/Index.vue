@@ -80,9 +80,9 @@
                                                         </span>
                                                         Data Prestasi Non Akademik
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-finish-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#v-pills-finish"
-                                                        type="button" role="tab" aria-controls="v-pills-finish"
+                                                    <button class="nav-link" id="v-data-rapor"
+                                                        data-bs-toggle="pill" data-bs-target="#v-tab-data-rapor"
+                                                        type="button" role="tab" aria-controls="v-tab-data-rapor"
                                                         aria-selected="false">
                                                         <span class="step-title me-2">
                                                             <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -90,15 +90,15 @@
                                                         </span>
                                                         Nilai Rapor
                                                     </button>
-                                                    <button class="nav-link" id="v-pills-finish-tab"
-                                                        data-bs-toggle="pill" data-bs-target="#v-pills-finish"
-                                                        type="button" role="tab" aria-controls="v-pills-finish"
+                                                    <button class="nav-link" id="v-verifikasi"
+                                                        data-bs-toggle="pill" data-bs-target="#v-tab-verifikasi"
+                                                        type="button" role="tab" aria-controls="v-tab-verifikasi"
                                                         aria-selected="false">
                                                         <span class="step-title me-2">
                                                             <i class="ri-close-circle-fill step-icon me-2"></i>
                                                             Langkah 5
                                                         </span>
-                                                        Cetak kartu Peserta
+                                                        Verifikasi Data
                                                     </button>
                                                 </div>
                                                 <!-- end nav -->
@@ -109,13 +109,19 @@
 
                                                         <!-- Data Pribadi -->
                                                         <Dapri title="Data Pribadi" :agama="agama" :peserta="$page.props.auth.peserta"
-                                                            :provinsi="provinsi" :sekolahData="sekolah" />
+                                                            :provinsi="provinsi" :sekolahData="sekolah"/>
 
                                                         <!-- Data Pilihan -->
                                                         <Pilihan title="Pilihan Program Studi" :peserta="$page.props.auth.peserta" :prodi_12="props.prodi_12" :prodi_34="props.prodi_34" />
 
                                                         <!-- Data Prestasi Non Akademik -->
                                                         <Prestasi title="Data Prestasi Non Akademik" :bidang="props.bidang" :inkel ="props.inkel" :tingkat="props.tingkat" :prestasi="props.prestasi" />
+
+                                                        <!--Data Rapor-->
+                                                        <Rapor title="Data Nilai Rapor" :rapor="props.rapor" />
+
+                                                        <!--Verifikasi Data-->
+                                                        <Verifikasi title="Verifikasi Data" />
 
                                                         <!-- <div class="tab-pane fade" id="v-pills-bill-address"
                                                             role="tabpanel" aria-labelledby="v-pills-bill-address-tab">
@@ -330,6 +336,8 @@ import Breadcrumb from '@/Components/Breadcrumb.vue';
 import Dapri from '@/Components/Portofolio/Dapri.vue';
 import Pilihan from '@/Components/Portofolio/Pilihan.vue';
 import Prestasi from '@/Components/Portofolio/Prestasi.vue';
+import Rapor from '@/Components/Portofolio/Rapor.vue';
+import Verifikasi from '@/Components/Portofolio/Verifikasi.vue';
 
 defineOptions({ layout: LayoutApp });
 
@@ -346,6 +354,8 @@ const breadcrumbs = computed(() => {
     ]
 });
 
+const buttonTab = ref(1);
+
 const props = defineProps({
     provinsi: Object,
     agama: Object,
@@ -356,8 +366,14 @@ const props = defineProps({
     bidang: Object,
     tingkat: Object,
     inkel : Object,
-    prestasi : Object
+    prestasi : Object,
+    rapor: Object
 });
+
+const nextTab = () => {
+    buttonTab.value += 1;
+    console.log(buttonTab.value);
+}
 
 </script>
 

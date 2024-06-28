@@ -23,16 +23,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mt-2 mt-lg-0 ms-auto" id="navbar-example">
                     <li class="nav-item">
-                        <Link class="nav-link fs-14 fw-semibold" href="#hero">Beranda</Link>
+                        <a class="nav-link fs-14 fw-semibold" href="/#hero">Beranda</a>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link fs-14 fw-semibold" href="#pembayaran">Pembayaran</Link>
+                        <a class="nav-link fs-14 fw-semibold" href="/#pembayaran">Pembayaran</a>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link fs-14 fw-semibold" href="#jalur">Jalur Masuk</Link>
+                        <a class="nav-link fs-14 fw-semibold" href="/#jalur">Jalur Masuk</a>
                     </li>
                     <li class="nav-item">
-                        <Link class="nav-link fs-14 fw-semibold" href="#footer">Kontak</Link>
+                        <a class="nav-link fs-14 fw-semibold" href="/#footer">Kontak</a>
                     </li>
                 </ul>
             </div>

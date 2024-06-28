@@ -61,7 +61,8 @@
 
                     <div class="col-md-4">
                         <label for="txtFoto" class="form-label">Foto Peserta</label>
-                        <input type="file" class="form-control" @input="form.txtFoto = $event.target.files[0]" :class="{ 'is-invalid': $page.props.errors.txtFoto }">
+                        <input type="file" class="form-control" @input="form.txtFoto = $event.target.files[0]"
+                            :class="{ 'is-invalid': $page.props.errors.txtFoto }">
                         <div v-if="$page.props.errors.txtFoto" class="invalid-feedback">
                             {{ $page.props.errors.txtFoto }}
                         </div>
@@ -168,10 +169,13 @@
         </div>
 
         <div class="d-flex align-items-start gap-3 mt-4">
-            <button type="button" class="btn btn-success btn-label right ms-auto nexttab nexttab"
-                data-nexttab="v-pills-bill-address-tab" :disabled="btnDataPribadi" @click="submitDataPribadi"><i
-                    class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Simpan dan Lanjutkan</button>
+            <button type="button" class="btn btn-success btn-label left ms-auto nexttab nexttab"
+                data-nexttab="v-pills-bill-address-tab" :disabled="btnDataPribadi" @click="submitDataPribadi">Simpan</button>
         </div>
+        <div class="d-flex align-items-start gap-3 mt-4">
+            <p class="text-danger">*Setelah Data Tersimpan, Silahkan Tekan Tombol Langkah 2 Data Pilihan Program Studi Untuk Melanjutkan</p>
+        </div>
+
     </div>
 </template>
 
@@ -219,7 +223,7 @@ const btnDataPribadi = ref(false);
 watch(() => form.cboProvinsi, (newValue) => {
     if (newValue) {
         fetchDataKabkot()
-        if(props.sekolahData.sekolah?.kecamatan.kabkot.id) {
+        if (props.sekolahData.sekolah?.kecamatan.kabkot.id) {
             form.cboKabkot = props.sekolahData.sekolah.kecamatan.kabkot.id
         }
     }
@@ -228,7 +232,7 @@ watch(() => form.cboProvinsi, (newValue) => {
 watch(() => form.cboKabkot, (newValue) => {
     if (newValue) {
         fetchDataKecamatan()
-        if(props.sekolahData.sekolah?.kecamatan?.id) {
+        if (props.sekolahData.sekolah?.kecamatan?.id) {
             form.cboKecamatan = props.sekolahData.sekolah.kecamatan.id
         }
     }
@@ -237,16 +241,20 @@ watch(() => form.cboKabkot, (newValue) => {
 watch(() => form.cboKecamatan, (newValue) => {
     if (newValue) {
         fetchDataSekolah()
-        if(props.sekolahData.sekolah?.id) {
+        if (props.sekolahData.sekolah?.id) {
             form.cboSekolah = props.sekolahData.sekolah.id
         }
     }
 })
 
 const fetchDataKabkot = async () => {
-    form.reset('cboKabkot')
     const response = await axios.get(`/peserta/kabkot/propinsi/${form.cboProvinsi}`);
-    kabkot.value = response.data
+    if(response.data.length > 0) {
+        kabkot.value = response.data
+    } else {
+        form.cboKabkot = ''
+        kabkot.value = []
+    }
 }
 
 const fetchDataKecamatan = async () => {
@@ -262,45 +270,44 @@ const fetchDataSekolah = async () => {
 }
 
 onMounted(() => {
-    if(props.sekolahData.sekolah?.kecamatan.kabkot.provinsi?.id) {
+    if (props.sekolahData.sekolah?.kecamatan.kabkot.provinsi?.id) {
         form.cboProvinsi = props.sekolahData.sekolah?.kecamatan.kabkot.provinsi?.id
     }
 
-    if(page.props.auth.peserta.jklmn_siswa) {
+    if (page.props.auth.peserta.jklmn_siswa) {
         form.cboJenKel = page.props.auth.peserta.jklmn_siswa
     }
 
-    if(page.props.auth.peserta.agm_siswa) {
+    if (page.props.auth.peserta.agm_siswa) {
         form.cboAgama = page.props.auth.peserta.agm_siswa
     }
 })
 
 function submitDataPribadi() {
-    console.log(form)
     btnDataPribadi.value = true
-    router.post(`/peserta/data-pribadi/${page.props.auth.peserta.id}`,form,
-    {
-        _method: 'put',
-        preserveScroll: true,
-        preserveState: true,
-        onStart: () => btnDataPribadi.value = true,
-        onFinish: () => btnDataPribadi.value = false,
-        onError: () => {
-            btnDataPribadi.value = false
-            form.cancel()
-        },
-        onSuccess: () => {
-            createToast(
-                {
-                    title: 'Berhasil',
-                    description: 'Data Peserta Berhasil Diubah.'
-                }, {
+    router.post(`/peserta/data-pribadi/${page.props.auth.peserta.id}`, form,
+        {
+            _method: 'put',
+            preserveScroll: true,
+            preserveState: true,
+            onStart: () => btnDataPribadi.value = true,
+            onFinish: () => btnDataPribadi.value = false,
+            onError: () => {
+                btnDataPribadi.value = false
+                form.cancel()
+            },
+            onSuccess: () => {
+                createToast(
+                    {
+                        title: 'Berhasil Disimpan',
+                        description: 'Tekan Tombol Langkah 2 Untuk Melanjutkan'
+                    }, {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
-                }
-            )
-        },
-    })
+                })
+                form.txtFoto = null
+            },
+        })
 }
 </script>

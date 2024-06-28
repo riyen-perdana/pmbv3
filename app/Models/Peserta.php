@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Peserta extends Authenticatable
 {
@@ -95,6 +96,11 @@ class Peserta extends Authenticatable
     public function prestasi() : HasMany
     {
         return $this->hasMany(Prestasi::class, 'id_peserta');
+    }
+
+    public function rapor() : HasOne
+    {
+        return $this->hasOne(Rapor::class, 'peserta_id');
     }
 
 }

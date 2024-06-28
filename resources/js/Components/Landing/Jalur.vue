@@ -71,7 +71,7 @@
                                                     <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Cetak Kartu Ujian</b><br>[15 Juni - 17 Juli 2024]
+                                                    <b>Cetak Kartu Peserta</b><br>[15 Juni - 17 Juli 2024]
                                                 </div>
                                             </div>
                                         </li>
@@ -91,24 +91,13 @@
                                                     <i class="ri-close-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Rapat Kelulusan</b><br>[18 Juli 2024]
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="d-flex">
-                                                <div class="flex-shrink-0 text-success me-1">
-                                                    <i class="ri-close-circle-fill fs-15 align-middle"></i>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <b>Pengumuman Kelulusan</b><br>[18 Juli 2024]
+                                                    <b>Pengumuman Kelulusan</b><br>[19 Juli 2024]
                                                 </div>
                                             </div>
                                         </li>
                                     </ul>
                                     <div class="mt-4 justify-content-end d-flex">
-                                        <Link href="/pradaftar" class="btn btn-success primary w-50">Pradaftar</Link>&nbsp;
-                                        <Link href="/peserta/login" class="btn btn-danger w-50">Daftar</Link>
+                                        <Link href="/syarat-ketentuan#latar-belakang" class="btn btn-danger w-100">Syarat dan Ketentuan</Link>
                                     </div>
                                 </div>
                             </div>

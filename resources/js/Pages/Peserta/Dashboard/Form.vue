@@ -1,6 +1,7 @@
 <template>
     <Modal id="mPrestasi" size="modal-lg" @close="closeModal">
-        <template #modalTitle>{{ props.isEdit == false ? "Tambah Data" : "Ubah Data" }} Prestasi Akademik dan Non Akademik</template>
+        <template #modalTitle>Tambah Data Prestasi Akademik dan Non
+            Akademik</template>
         <template #modalBody>
             <form @submit.prevent="submitData()">
                 <div class="row">
@@ -15,7 +16,8 @@
                     </div>
                     <div class="col-md-6 col-lg-6 mb-3">
                         <label for="cboKelompokPrestasi" class="form-label">Kelompok Prestasi</label>
-                        <select v-model="form.cboKelompokPrestasi" class="form-select" :class="{ 'is-invalid': $page.props.errors.cboKelompokPrestasi }">
+                        <select v-model="form.cboKelompokPrestasi" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.cboKelompokPrestasi }">
                             <option disabled value="">Pilih Kelompok Prestasi</option>
                             <option v-for="(kel, index) in props.inkel" :key="index" :value="kel.id">
                                 {{ kel.nama }}
@@ -27,7 +29,8 @@
                     </div>
                     <div class="col-md-6 col-lg-6 mb-3">
                         <label for="cboBidangPrestasi" class="form-label">Bidang Prestasi</label>
-                        <select v-model="form.cboBidangPrestasi" class="form-select" :class="{ 'is-invalid': $page.props.errors.cboBidangPrestasi }">
+                        <select v-model="form.cboBidangPrestasi" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.cboBidangPrestasi }">
                             <option disabled value="">Pilih Bidang Prestasi</option>
                             <option v-for="(bdg, index) in props.bidang" :key="index" :value="bdg.id">
                                 {{ bdg.nama }}
@@ -39,7 +42,8 @@
                     </div>
                     <div class="col-md-6 col-lg-6 mb-3">
                         <label for="cboTingkatPrestasi" class="form-label">Tingkat Prestasi</label>
-                        <select v-model="form.cboTingkatPrestasi" class="form-select" :class="{ 'is-invalid': $page.props.errors.cboTingkatPrestasi }">
+                        <select v-model="form.cboTingkatPrestasi" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.cboTingkatPrestasi }">
                             <option disabled value="">Pilih Tingkat Prestasi</option>
                             <option v-for="(tk, index) in props.tingkat" :key="index" :value="tk.id">
                                 {{ tk.nama }}
@@ -52,7 +56,8 @@
 
                     <div class="col-md-6 col-lg-6 mb-3">
                         <label for="txtFile" class="form-label">File Bukti Prestasi (PDF Max. 2 MB)</label>
-                        <input type="file" class="form-control" @input="form.txtFile = $event.target.files[0]" :class="{ 'is-invalid': $page.props.errors.txtFile }">
+                        <input type="file" class="form-control" @input="form.txtFile = $event.target.files[0]"
+                            :class="{ 'is-invalid': $page.props.errors.txtFile }">
                         <div v-if="$page.props.errors.txtFile" class="invalid-feedback">
                             {{ $page.props.errors.txtFile }}
                         </div>
@@ -63,7 +68,7 @@
         <template #modalFooter>
             <button type="button" class="btn btn-light" @click="closeModal()">Tutup</button>
             <button type="submit" @click="submitData" class="btn btn-primary" :disabled="btnDisabled">
-                {{ props.isEdit == false ? "Simpan" : "Ubah" }}</button>
+                Simpan</button>
         </template>
     </Modal>
 </template>
@@ -79,8 +84,8 @@ import { useModal } from "@/Composables/useModal.js";
 const emit = defineEmits(['close']);
 
 const props = defineProps({
-    tingkat : Object,
-    bidang : Object,
+    tingkat: Object,
+    bidang: Object,
     inkel: Object,
     show: Boolean,
     isEdit: Boolean,
@@ -89,10 +94,10 @@ const props = defineProps({
 
 const form = useForm({
     txtNmPrestasi: '',
-    cboKelompokPrestasi : '',
-    cboBidangPrestasi : '',
-    cboTingkatPrestasi : '',
-    txtFile : ''
+    cboKelompokPrestasi: '',
+    cboBidangPrestasi: '',
+    cboTingkatPrestasi: '',
+    txtFile: null
 });
 
 const modal = ref(null);
@@ -102,12 +107,13 @@ const closeModal = () => {
     modal.value.hide()
     emit('close')
     form.reset()
-    form.txtFile = ''
+    form.txtFile = null
     router.reload()
 }
 
 const openModal = () => {
     modal.value.show();
+    form.txtFile = null
 }
 
 onMounted(() => {
@@ -125,56 +131,31 @@ watchEffect(() => {
 });
 
 const submitData = () => {
-    if (props.isEdit) {
-        router.put(`/peserta/prestasi/${props.dataEdit.id}`, {
-            txtNmPrestasi : form.txtNmPrestasi,
-            cboKelompokPrestasi : form.cboKelompokPrestasi,
-            cboBidangPrestasi : form.cboBidangPrestasi,
-            cboTingkatPrestasi : form.cboTingkatPrestasi,
-            txtFile : form.txtFile
-         }, {
-            preserveScroll : true,
-            preserveState : true,
-            onSuccess: () => {
-                closeModal(),
-                    createToast(
-                        {
-                            title: 'Berhasil',
-                            description: 'Perubahan Data Prestasi Berhasil Dilakukan.'
-                        }, {
-                            type: 'success',
-                            showIcon: 'true',
-                        })
-
-                },
-         })
-    } else {
-        router.post('/peserta/prestasi', {
-            txtNmPrestasi : form.txtNmPrestasi,
-            cboKelompokPrestasi : form.cboKelompokPrestasi,
-            cboBidangPrestasi : form.cboBidangPrestasi,
-            cboTingkatPrestasi : form.cboTingkatPrestasi,
-            txtFile : form.txtFile
-        }, {
-            preserveState: true,
-            preserveScroll: true,
-            onSuccess: () => {
-                closeModal(),
-                    createToast(
-                        {
-                            title: 'Berhasil',
-                            description: 'Menambahkan Data Prestasi Berhasil Dilakukan.'
-                        }, {
-                            type: 'success',
-                            showIcon: 'true',
-                            Transition: 'zoom',
-                        })
-                },
-                onError: form.cancel(),
-                onStart: () => btnDisabled.value = true,
-                onFinish: () => btnDisabled.value = false
-        })
-    }
-};
+    router.post('/peserta/prestasi', {
+        txtNmPrestasi: form.txtNmPrestasi,
+        cboKelompokPrestasi: form.cboKelompokPrestasi,
+        cboBidangPrestasi: form.cboBidangPrestasi,
+        cboTingkatPrestasi: form.cboTingkatPrestasi,
+        txtFile: form.txtFile
+    }, {
+        preserveState: true,
+        preserveScroll: true,
+        onSuccess: () => {
+            closeModal(),
+                createToast(
+                    {
+                        title: 'Berhasil',
+                        description: 'Menambahkan Data Prestasi Berhasil Dilakukan.'
+                    }, {
+                    type: 'success',
+                    showIcon: 'true',
+                    Transition: 'zoom',
+                })
+        },
+        onError: form.cancel(),
+        onStart: () => btnDisabled.value = true,
+        onFinish: () => btnDisabled.value = false
+    })
+}
 
 </script>

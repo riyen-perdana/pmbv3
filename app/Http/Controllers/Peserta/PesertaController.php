@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Peserta\PesertaDataPilihanUpdateRequest;
 use App\Http\Requests\Peserta\PesertaDataPribadiStoreRequest;
 use App\Http\Requests\Peserta\PesertaPrestasiNonAkademikStoreRequest;
+use App\Http\Requests\Peserta\PesertaRaporStoreRequest;
 use App\Models\Peserta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Prestasi;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Rapor;
 
 class PesertaController extends Controller
 {
@@ -111,7 +113,70 @@ class PesertaController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
         }
-
-
     }
+
+    public function insertDataRapor(PesertaRaporStoreRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            $rapor = Rapor::where('peserta_id', Auth('peserta')->user()->id)->first();
+            if($rapor) {
+                //Update Data Rapor
+
+                //Hapus Data Dari Storage
+                Storage::delete('public/rapor/'.$rapor->file);
+
+                $file = $request->file('txtFile');
+                $file->storeAs('public/rapor', $file->hashName());
+
+                $rapor->update([
+                    'n_mtk' => $request->txtNmtk,
+                    'n_bing' => $request->txtNbing,
+                    'file' => $file->hashName()
+                ]);
+
+            } else {
+                //Insert Data Rapor
+                $rapor = new Rapor();
+                $rapor->peserta_id = Auth('peserta')->user()->id;
+                $rapor->n_mtk = $request->txtNmtk;
+                $rapor->n_bing = $request->txtNbing;
+
+                $file = $request->file('txtFile');
+                $file->storeAs('public/rapor', $file->hashName());
+
+                $rapor->file = $file->hashName();
+                $rapor->save();
+            }
+            DB::commit();
+
+            return redirect()->route('peserta.dashboard');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function deleteDataRapor($id)
+    {
+        DB::beginTransaction();
+        try {
+            
+            $rapor = Rapor::findOrFail($id);
+
+            Storage::delete('public/rapor/'.$rapor->file);
+
+            $rapor->delete();
+
+            DB::commit();
+            return redirect()->route('peserta.dashboard');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+
 }

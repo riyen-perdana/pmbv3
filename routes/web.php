@@ -17,6 +17,11 @@ Route::get('/', function () {
     return \Inertia\Inertia::render('Landing/Index');
 })->middleware('guest');
 
+//Syarat Ketentuan
+Route::get('syarat-ketentuan', function () {
+    return \Inertia\Inertia::render('Landing/Syarat');
+})->middleware('guest');
+
 //Pradaftar
 Route::get('pradaftar',[\App\Http\Controllers\Apps\PradaftarController::class, 'index'])->name('pradaftar.index')->middleware('guest');
 Route::post('/pradaftar/cek', [\App\Http\Controllers\Apps\PradaftarController::class, 'cek'])->name('cekPeserta')->middleware('guest');
@@ -47,6 +52,8 @@ Route::prefix('peserta')->group(function () {
         Route::post('/data-pilihan/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataPilihan'])->name('updateDataPilihan');
         Route::post('/prestasi', [\App\Http\Controllers\Peserta\PesertaController::class, 'insertDataPrestasi'])->name('insertDataPrestasi');
         Route::post('/prestasi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataPrestasi'])->name('deleteDataPrestasi');
+        Route::post('/rapor', [\App\Http\Controllers\Peserta\PesertaController::class, 'insertDataRapor'])->name('insertDataRapor');
+        Route::post('/rapor/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataRapor'])->name('deleteDataRapor');
     });
 });
 

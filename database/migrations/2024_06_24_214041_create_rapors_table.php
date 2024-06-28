@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rapors', function (Blueprint $table) {
-            $table->id();
+        Schema::create('rapor', function (Blueprint $table) {
+            $table->string('id')->primary();
+            $table->string('peserta_id')->comment('ID Peserta');
+            $table->float('n_mtk')->comment('Nilai Matematika');
+            $table->float('n_bing')->comment('Nilai Bahasa Inggris');
+            $table->text('file')->comment('Hasil Scan Rapor');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rapors');
+        Schema::dropIfExists('rapor');
     }
 };

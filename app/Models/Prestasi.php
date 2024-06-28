@@ -50,7 +50,7 @@ class Prestasi extends Model
         return $this->belongsTo(Inkel::class,'id_jenis');
     }
 
-    protected function file(): Attribute
+    protected function File(): Attribute
     {
         return Attribute::make(
             get: fn (string $value) => url('/storage/prestasi/' .$value),

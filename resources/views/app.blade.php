@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('/frontend/css/bootstrap.css')}}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/custom.css')}}">
     <link rel="stylesheet" href="{{ asset('/frontend/css/icons.css')}}">
-    @vite('resources/js/app.js','resources/css/app.css')
+    @vite(['resources/js/app.js','resources/css/app.css'])
     @inertiaHead
 </head>
 <body>

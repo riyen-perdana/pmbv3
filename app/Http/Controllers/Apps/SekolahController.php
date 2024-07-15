@@ -26,7 +26,7 @@ class SekolahController extends Controller
         $sekolah = Sekolah::query()->with('kecamatan','kecamatan.kabkot','kecamatan.kabkot.provinsi');
         if($request->has('search')) {
             $sekolah->where('id','like','%'. $request->search .'%');
-            $sekolah->where('nm_sekolah','like','%'. $request->search .'%');
+            $sekolah->orWhere('nama','like','%'. $request->search .'%');
         }
 
         $perPage = $request->has('perPage') ? $request->perPage : 10;

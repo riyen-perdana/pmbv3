@@ -16,14 +16,14 @@ class LoginController extends Controller
             'password'  => 'required',
         ]);
 
-        $peserta = Peserta::where('nisn_siswa','=',$request->nisn)->first();
+        $peserta = Peserta::where([['nisn_siswa','=',$request->nisn], ['is_bayar', '=', 1]])->first();
 
         if(!$peserta) {
             return redirect()->back()->with('error', 'Nomor Induk Siswa Nasional Tidak Terdaftar');
         } else {
             $pass = Hash::check($request->password, $peserta->password);
             if(!$pass) {
-                return redirect()->back()->with('error', 'Kata Kunci Anda Salah');
+                return redirect()->back()->with('error', 'Nomor Induk Siswa Nasional atau Kata Kunci Anda Salah');
             } else {
                 if($peserta->is_bayar == 0) {
                     return redirect()->back()->with('error', 'Anda Belum Melakukan Pembayaran');

@@ -1,6 +1,6 @@
 <template>
     <Modal id="mView" size="modal-lg" @close="closeModal">
-        <template #modalTitle>File Prestasi Akademik dan Non Akademik</template>
+        <template #modalTitle>File Prestasi Non Akademik</template>
         <template #modalBody>
             <div v-if="props.file" class="text-center overflow-auto">
                 <iframe :src="`/storage/prestasi/${props.file}`" frameborder="0" height="500" width="700"></iframe>

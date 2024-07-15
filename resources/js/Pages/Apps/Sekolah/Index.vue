@@ -201,6 +201,15 @@ const destroy = (id) => {
     data.id = id
 };
 
+watch(() => cloneDeep(data.params), debounce(() => {
+    let param = pickBy(data.params)
+    router.get('/apps/sekolah', param, {
+        replace: true,
+        preserveState: true,
+        preserveScroll: true
+    })
+}, 150));
+
 </script>
 
 <style>

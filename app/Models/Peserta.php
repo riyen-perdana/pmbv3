@@ -42,7 +42,7 @@ class Peserta extends Authenticatable
         'is_lulus',
         'prodills_siswa',
         'is_vrf_op',
-        'dok_nilai_siswa',
+        'nomor',
         'is_vrf_siswa',
     ];
 
@@ -101,6 +101,26 @@ class Peserta extends Authenticatable
     public function rapor() : HasOne
     {
         return $this->hasOne(Rapor::class, 'peserta_id');
+    }
+
+    public function pil_1() : BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'pil1_siswa');
+    }
+
+    public function pil_2() : BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'pil2_siswa');
+    }
+
+    public function pil_3() : BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'pil3_siswa');
+    }
+
+    public function pil_4() : BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'pil4_siswa');
     }
 
 }

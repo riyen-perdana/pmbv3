@@ -54,6 +54,8 @@ Route::prefix('peserta')->group(function () {
         Route::post('/prestasi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataPrestasi'])->name('deleteDataPrestasi');
         Route::post('/rapor', [\App\Http\Controllers\Peserta\PesertaController::class, 'insertDataRapor'])->name('insertDataRapor');
         Route::post('/rapor/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataRapor'])->name('deleteDataRapor');
+        Route::post('/verifikasi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataVerifikasi'])->name('updateDataVerifikasi');
+        Route::get('/cetak/pdf/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'cetak'])->name('cetak-kartu-peserta');
     });
 });
 
@@ -123,5 +125,11 @@ Route::prefix('apps')->group(function () {
 
         //Jenis Prestasi
         Route::resource('jenis', \App\Http\Controllers\Apps\InkelController::class)->except('create','edit','show');
+
+        //Peserta
+        Route::get('/peserta/datapeserta/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'getData'])->name('getDataPeserta');
+        Route::post('/peserta/updateprestasi/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataPrestasi'])->name('updateDataPrestasi');
+        Route::post('/peserta/updaterapor/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataRapor'])->name('updateDataRapor');
+        Route::resource('peserta', \App\Http\Controllers\Apps\PesertaController::class )->except('create','edit','show');
     });
 });

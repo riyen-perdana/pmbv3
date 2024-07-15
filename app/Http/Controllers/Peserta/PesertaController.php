@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Prestasi;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Rapor;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class PesertaController extends Controller
 {
@@ -162,7 +163,7 @@ class PesertaController extends Controller
     {
         DB::beginTransaction();
         try {
-            
+
             $rapor = Rapor::findOrFail($id);
 
             Storage::delete('public/rapor/'.$rapor->file);
@@ -176,6 +177,49 @@ class PesertaController extends Controller
             DB::rollBack();
             return redirect()->back()->with('error', $th->getMessage());
         }
+    }
+
+    public function updateDataVerifikasi($id)
+    {
+        DB::beginTransaction();
+        try {
+            $peserta = Peserta::findOrFail($id);
+
+            if($peserta->nomor != null) {
+
+                $peserta->update([
+                    'is_vrf_siswa' => 'Y',
+                ]);
+
+            } else {
+
+                $count_peserta = Peserta::where('is_vrf_siswa', 'Y')
+                                ->lockForUpdate()
+                                ->count();
+
+                $peserta->update([
+                    'is_vrf_siswa' => 'Y',
+                    'nomor' => '124'.str_pad($count_peserta+1, 5, '0', STR_PAD_LEFT)
+                ]);
+
+            }
+
+            DB::commit();
+            return redirect()->route('peserta.dashboard');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function cetak($id)
+    {
+        $data = Peserta::with('sekolah','pil_1','pil_2')->where('id','=',$id)->first();
+        $pdf  = PDF::loadView('pdf.kartu',compact('data'));
+        $pdf->setPaper('a4','potrait');
+        return $pdf->stream('cetak-kartu-peserta.pdf');
+        exit();
     }
 
 

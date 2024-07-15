@@ -19,7 +19,28 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-3 col-md-6">
-                            <Tilebox title="Jumlah Pengguna" :jumlah="user_count" satuan="Orang" uri="/apps/pengguna" uri_title="Lihat Pengguna" />
+                            <Tilebox
+                                title="Jumlah Pengguna"
+                                :jumlah="user_count"
+                                satuan="Orang"
+                                uri="/apps/pengguna"
+                                uri_title="Lihat Pengguna"
+                                color="text-success"
+                                icon="bx bx-user-circle"
+                                colorSpan="bg-soft-success" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <Tilebox
+                                title="Jumlah Pendaftar"
+                                :jumlah="peserta_count"
+                                satuan="Orang"
+                                uri=""
+                                uri_title=""
+                                color="text-success"
+                                icon="bx bxs-user-account"
+                                colorSpan="bg-soft-success" />
                         </div>
                     </div>
                 </div>
@@ -48,6 +69,7 @@ export default {
 },
     props: {
         user_count : Number,
+        peserta_count : Number
     },
     computed : {
         breadcrumbs() {

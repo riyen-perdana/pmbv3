@@ -22,7 +22,7 @@ class PradaftarStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nisn' => 'required|string|max:10',
+            'nisn' => 'required|numeric|digits:10',
             'tglLhr' => 'required',
             'telepon' => 'required|regex:/^08[0-9]{9,12}$/',
         ];
@@ -32,8 +32,7 @@ class PradaftarStoreRequest extends FormRequest
     {
         return [
             'nisn.required' => 'Kolom Nomor Induk Siswa Nasional Harus Diisi',
-            'nisn.min' => 'Kolom Nomor Induk Siswa Nasional Minimal 10 Digit',
-            'nisn.max' => 'Kolom Nomor Induk Siswa Nasional Maksimal 10 Digit',
+            'nisn.digits' => 'Kolom Nomor Induk Siswa Nasional Harus 10 Digit',
             'tglLhr.required' => 'Kolom Tanggal Lahir Harus Diisi',
             'telepon.required' => 'Kolom Nomor Telepon/HP Harus Diisi',
             'telepon.regex' => 'Kolom Nomor Telepon/HP Tidak Valid',

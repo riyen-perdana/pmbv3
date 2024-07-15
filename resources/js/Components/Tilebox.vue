@@ -15,14 +15,12 @@
                             >{{ jumlah }}
                         </span> {{ satuan }}
                     </h4>
-                    <div v-if="uri">
-                        <Link :href="uri" class="text-decoration-underline text-muted">{{ uri_title }}</Link>
-                    </div>
+                    <Link :href="uri" class="text-decoration-underline text-muted">{{ uri_title }}</Link>
                 </div>
                 <div>
                     <div class="avatar-sm flex-shrink-0">
-                        <span class="avatar-title bg-soft-success rounded fs-3">
-                            <i class="bx bx bx-user-pin text-success"></i>
+                        <span class="avatar-title rounded fs-3" :class="colorSpan">
+                            <i :class="icon + ' ' + color"></i>
                         </span>
                     </div>
                 </div>
@@ -42,7 +40,9 @@ const props = defineProps({
   uri   : String,
   uri_title : String,
   satuan: String,
-  icon  : String
+  icon  : String,
+  color : String,
+  colorSpan : String
 })
 
 </script>

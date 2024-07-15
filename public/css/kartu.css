@@ -1,0 +1,114 @@
+/* CSS For www.wisuda.uin-suska.ac.id --> Created By Riyen Perdana, ST
+	@UIN SUSKA RIAU
+	@Sub Bagian Registrasi Akademik UIN SUSKA RIAU
+*/
+
+body {
+	margin     	: 0 auto;
+	padding    	: 0;
+	font       	: 70% "Trebuchet MS",Geneva,Verdana,Arial, Helvetica, sans-serif;
+}
+
+h3,h4 {
+	padding		:0;
+	margin		:0;
+	text-align	:center;
+}
+
+.left {
+	width: 50px;
+	height: 50px;
+}
+
+p{
+	padding		: 1px 0px 0px 5px;
+	margin		: 0;
+	text-align	: left;
+	font		: 70% "Trebuchet MS",Geneva,Verdana,Arial, Helvetica, sans-serif !important;
+	/* font-weight	: 600px; */
+}
+
+.label {
+	padding-bottom:10px;
+}
+
+#container {
+	width		: 500px;
+ 	height		: 595px;
+	text-align	: center;
+	margin-top  : 10px;
+	margin-left : 10px;
+	border		: solid 1px #c2c2c2;
+}
+
+#wrapper {
+	width  		 : 340px;
+	margin 		 : auto;
+}
+
+#header {
+	margin		: 5px 5px 0 5px;
+	/* float		: left; */
+	border		: solid 1px #c2c2c2;
+	height		: 70px;
+	width		: 487px;
+}
+
+.L {
+	margin		: 5px 30px 0 5px;
+	float		: left;
+}
+
+.R {
+	margin		: 5px 150px 5px 5px;
+	float		: left;
+}
+
+#content.L {
+	margin		: 5px 0 0 5px;
+	/* float		: left; */
+	border		: solid 1px #c2c2c2;
+	height		: 230px;
+	width		: 170px;
+	overflow	: hidden;
+}
+
+#content.R{
+	margin		: 0 0 5px 0px;
+	/* float		: left; */
+	border		: solid 1px #c2c2c2;
+	height		: 230px;
+	width		: 315px;
+}
+
+#prodi {
+	margin		: 0 0 0 5px;
+	/* float		: left; */
+	border		: solid 1px #c2c2c2;
+	width		: 477px;
+	padding		: 5px;
+}
+
+#prodilist {
+	margin		: 0 0 0 5px;
+	/* float		: left; */
+	border		: solid 1px #c2c2c2;
+	width		: 477px;
+	padding		: 5px;
+}
+
+#pernyataan {
+	margin		: 5px 0 0 5px;
+	/* float		: left; */
+	width		: 477px;
+	padding		: 5px;
+}
+
+.col-md-12 {
+	width: 100%;
+}
+
+.col-md-6 {
+	width: 50%;
+	float: left;
+}

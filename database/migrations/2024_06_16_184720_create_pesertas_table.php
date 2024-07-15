@@ -40,7 +40,7 @@ return new class extends Migration
             $table->char('is_lulus')->nullable()->comment('Status Kelulusan Siswa');
             $table->char('prodills_siswa','4')->nullable()->comment('Program Studi Kelulusan Siswa');
             $table->enum('is_vrf_op',['Y','N'])->default('N')->comment('Status Verifikasi Nilai Oleh Operator');
-            $table->text('dok_nilai_siswa')->nullable()->comment('Lokasi File Dokumen Nilai Siswa');
+            $table->string('nomor')->nullable()->comment('Nomor Pendaftaran');
             $table->timestamps();
         });
     }

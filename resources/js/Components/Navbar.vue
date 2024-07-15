@@ -140,6 +140,21 @@
                                 </ul>
                             </div>
                         </li>
+                        <li class="nav-item">
+                            <Link class="nav-link menu-link" href="#sidebarPeserta" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarPeserta">
+                            <i class="bx bx-data"></i> <span data-key="t-sidebarPeserta">Peserta</span>
+                            </Link>
+                            <div class="collapse menu-dropdown" id="sidebarPeserta">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item" style="width: 200px !important;">
+                                        <Link class="nav-link menu-link" href="/apps/peserta">
+                                            <i class="bx bx-book-bookmark"></i> <span data-key="t-peserta">Undangan Mandiri</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
                 <div v-else>

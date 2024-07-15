@@ -18,7 +18,7 @@
                 <div class="row">
                     <p class="text-success mb-0 mt-4">Nilai Matematika = Nilai Bidang Studi Matematika Tiap Semester
                         Sampai Kelas XII Semester 1 dibagi 5</p>
-                    <p class="mb-0 text-success">Nilai Bahasa Inggris = Nilai Bidang Studi Bahasa Inggris Tiap Semester
+                    <p class="mb-0 text-success">Nilai Pendidikan Agama Islam = Nilai Bidang Studi Pendidikan Agama Islam Tiap Semester
                         Sampai Kelas XII Semester 1 dibagi 5</p>
                     <p class="mb-0 text-danger">Jika ada kesalahan dalam proses input data, silahkan hapus baris data
                         yang salah, kemudian tambahkan kembali</p>

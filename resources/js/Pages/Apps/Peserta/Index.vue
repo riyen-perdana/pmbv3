@@ -288,7 +288,10 @@
                                                         <!-- {{ peserta }} -->
                                                     </tbody>
                                                 </table>
-                                                <!-- <Emptytable :data="props.peserta" /> -->
+                                                <Emptytable :data="props.peserta" />
+                                            </div>
+                                            <div v-if="peserta.data.length != 0">
+                                                <Pagination :links="peserta.links" :count="peserta" :perPage="props.perPage" />
                                             </div>
                                         </div>
                                     </div>

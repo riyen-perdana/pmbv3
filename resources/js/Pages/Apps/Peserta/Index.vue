@@ -272,12 +272,26 @@
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->
-                                                                    <button type="button"
-                                                                        class="btn btn-secondary btn-sm"
-                                                                        @click="clickButton(psr.id, psr)"
-                                                                        :disabled="psr.is_vrf_siswa === 'N'"><i
-                                                                            class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
-                                                                        Verifikasi&nbsp;&nbsp;&nbsp;</button>
+                                                                     <div v-if="psr.is_vrf_op == 'N'">
+                                                                        <button
+                                                                            type="button"
+                                                                            class="btn btn-secondary btn-sm"
+                                                                            @click="clickButton(psr.id, psr)"
+                                                                            :disabled="psr.is_vrf_siswa === 'N'"><i
+                                                                                class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
+                                                                            Verifikasi&nbsp;&nbsp;&nbsp;
+                                                                        </button>
+                                                                     </div>
+                                                                     <div v-else>
+                                                                        <button
+                                                                            type="button"
+                                                                            class="btn btn-warning btn-sm"
+                                                                            @click="cancelVerOP(psr.id)"
+                                                                            :disabled="psr.is_vrf_siswa === 'N'"><i
+                                                                                class="ri-arrow-go-back-line label-icon align-middle fs-10 me-1"></i>
+                                                                            Batalkan&nbsp;&nbsp;&nbsp;
+                                                                        </button>
+                                                                     </div>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         @click="destroy(psr.id)"><i
                                                                             class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
@@ -319,6 +333,8 @@ import Emptytable from "@/Components/Emptytable.vue";
 import { cloneDeep, debounce, pickBy } from "lodash";
 import Alert from '@/Components/Alert.vue';
 import RightBar from "@/Components/right-bar.vue";
+import { createToast } from 'mosha-vue-toastify';
+import 'mosha-vue-toastify/dist/style.css';
 
 defineOptions({ layout: LayoutApp });
 
@@ -353,6 +369,39 @@ const closeAlert = () => {
 const destroy = (id) => {
     data.openAlert = true
     data.id = id
+}
+
+const cancelVerOP = (id) => {
+    router.post(`/apps/peserta/cancelverop/${id}`, {
+        preserveState: true,
+        preserveScroll: true
+    },{
+        onSuccess: () => {
+            createToast(
+                {
+                    title: 'Berhasil',
+                    description: 'Verifikasi Peserta Berhasil Dibatalkan.'
+                }, {
+                    type: 'success',
+                    showIcon: true,
+                    transition: 'zoom',
+                }
+            )
+        },
+        onError: () => {
+            createToast(
+                {
+                    title: 'Error',
+                    description: 'Verifikasi Peserta Gagal Dilakukan.'
+                },
+                {
+                    type: 'danger',
+                    showIcon: 'true',
+                    transition: 'zoom',
+                }
+            )
+        }
+    })
 }
 
 const deletePeserta = (id) => {

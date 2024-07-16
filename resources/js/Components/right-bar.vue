@@ -18,10 +18,12 @@
                                 <div class="simplebar-content" style="padding: 0px;">
                                     <div class="p-4">
                                         <div class="row">
-                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Personal Peserta</h6>
+                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Personal Peserta
+                                            </h6>
                                             <hr>
-                                            <h6 class="mb-2 fw-semibold text-uppercase">No. Pendaftaran : <span class="text-danger fw-bold">{{
-                                                props.peserta?.nomor }}</span></h6>
+                                            <h6 class="mb-2 fw-semibold text-uppercase">No. Pendaftaran : <span
+                                                    class="text-danger fw-bold">{{
+                                                        props.peserta?.nomor }}</span></h6>
                                             <div class="d-flex flex-row">
                                                 <div class="me-3">
                                                     <div class="mx-auto">
@@ -66,29 +68,35 @@
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Pilihan Peserta</h6>
+                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Pilihan Peserta
+                                            </h6>
                                             <hr>
                                             <div class="d-flex flex-column">
                                                 <div class="d-flex flex-row">
                                                     <div class="d-flex justify-content-start w-100">Pilihan 1</div>
-                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{ props.peserta?.pil_1?.nm_prodi }}</div>
+                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{
+                                                        props.peserta?.pil_1?.nm_prodi }}</div>
                                                 </div>
                                                 <div class="d-flex flex-row">
                                                     <div class="d-flex justify-content-start w-100">Pilihan 2</div>
-                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{ props.peserta?.pil_2?.nm_prodi }}</div>
+                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{
+                                                        props.peserta?.pil_2?.nm_prodi }}</div>
                                                 </div>
                                                 <div class="d-flex flex-row">
                                                     <div class="d-flex justify-content-start w-100">Pilihan 3</div>
-                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{ props.peserta?.pil_3?.nm_prodi }}</div>
+                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{
+                                                        props.peserta?.pil_3?.nm_prodi }}</div>
                                                 </div>
                                                 <div class="d-flex flex-row">
                                                     <div class="d-flex justify-content-start w-100">Pilihan 4</div>
-                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{ props.peserta?.pil_4?.nm_prodi }}</div>
+                                                    <div class="d-flex justify-content-end w-100 fst-italic">{{
+                                                        props.peserta?.pil_4?.nm_prodi }}</div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row mt-3">
-                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Prestasi Peserta</h6>
+                                            <h6 class="mb-2 fw-bold text-uppercase text-primary">Data Prestasi Peserta
+                                            </h6>
                                             <hr>
                                             <div class="table-responsive">
                                                 <table class="table table-hover align-middle table-nowrap mb-0">
@@ -100,8 +108,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr v-for="(prst, index) in showDataPrestasi"
-                                                            :key="index">
+                                                        <tr v-for="(prst, index) in showDataPrestasi" :key="index">
                                                             <td class="r_atas">{{ index + 1 }}.</td>
                                                             <td>
                                                                 <p class="mb-0 text-dark">{{ prst.nm_prestasi }}</p>
@@ -120,7 +127,9 @@
                                                             </td>
                                                         </tr>
                                                         <tr v-if="showDataPrestasi.length == 0">
-                                                            <td colspan="3" class="text-center text-danger fst-italic" style="font-size: small !important;">Data Prestasi Tidak Ditemukan [Error]</td>
+                                                            <td colspan="3" class="text-center text-danger fst-italic"
+                                                                style="font-size: small !important;">Data Prestasi Tidak
+                                                                Ditemukan [Error]</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -152,7 +161,9 @@
                                                             </td>
                                                         </tr>
                                                         <tr v-if="showDataRapor.length == 0">
-                                                            <td colspan="3" class="text-center text-danger fst-italic" style="font-size: small !important;">Data Rapor Tidak Ditemukan [Error]</td>
+                                                            <td colspan="3" class="text-center text-danger fst-italic"
+                                                                style="font-size: small !important;">Data Rapor Tidak
+                                                                Ditemukan [Error]</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -161,7 +172,8 @@
                                         <div class="row mt-3">
                                             <h6 class="mb-2 fw-bold text-uppercase text-primary">Verifikasi Peserta</h6>
                                             <hr>
-                                            <button class="btn btn-danger" @click="cancelVer()">Batalkan Verifikasi Peserta</button>
+                                            <button class="btn btn-danger" @click="cancelVer()">Batalkan Verifikasi
+                                                Peserta</button>
                                         </div>
                                     </div>
                                 </div>
@@ -179,12 +191,14 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <button :disabled="props.peserta?.is_vrf_siswa ? false : true" type="button" class="btn btn-primary w-100">Verifikasi Operator</button>
+                    <button @click="verSiswa()" :disabled="props.peserta?.is_vrf_op == 'Y' ? true : false" type="button"
+                        class="btn btn-primary w-100">Verifikasi Operator</button>
                 </div>
             </div>
         </div>
     </div>
-    <FormPrestasi :show="showFormPrestasi" :tingkat="props.tingkat" :bidang="props.bidang" :prestasi="prestasi" :inkel="props.inkel" @close-form-prestasi="closeFormPrestasi" />
+    <FormPrestasi :show="showFormPrestasi" :tingkat="props.tingkat" :bidang="props.bidang" :prestasi="prestasi"
+        :inkel="props.inkel" @close-form-prestasi="closeFormPrestasi" />
     <FormRapor :show="showFormRapor" :rapor="rapor" @close-form-rapor="closeFormRapor" />
     <CancelVer :show="openAlert" :id="props.id" @close-alert="cancelVer" @cancel-ver="cancelData" />
 </template>
@@ -205,9 +219,9 @@ const props = defineProps({
     show: Boolean,
     id: String,
     peserta: Object,
-    inkel:Object,
-    bidang:Object,
-    tingkat:Object
+    inkel: Object,
+    bidang: Object,
+    tingkat: Object
 });
 
 const show = ref(false);
@@ -220,12 +234,12 @@ const rapor = ref({});
 const showDataPrestasi = ref({});
 const showDataRapor = ref({});
 
-const closeFormPrestasi = async() => {
+const closeFormPrestasi = async () => {
     showFormPrestasi.value = !showFormPrestasi.value
     fetchDataPrestasi()
 }
 
-const closeFormRapor = async() => {
+const closeFormRapor = async () => {
     showFormRapor.value = !showFormRapor.value
     fetchDataPrestasi()
 }
@@ -265,50 +279,50 @@ const previewDataRapor = (dataRapor) => {
     rapor.value = dataRapor
 }
 
-const cancelData = async(id) => {
+const cancelData = async (id) => {
     closeCanvas()
     router.post(`/apps/peserta/${id}`,
-    {
-        _method: 'put',
-        preserveScroll: true,
-        preserveState: true,
-        onSuccess : async() => {
-            closeAlert
-            createToast(
-                {
-                    title: 'Berhasil',
-                    description: 'Verifikasi Siswa Berhasil Dibatalkan.'
-                }, {
+        {
+            _method: 'put',
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: async () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Berhasil',
+                        description: 'Verifikasi Siswa Berhasil Dibatalkan.'
+                    }, {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
                 }
-            )
-        },
-        onError : () => {
-            closeAlert
-            createToast(
-                {
-                    title: 'Error',
-                    description: 'Verifikasi Siswa Gagal Dibatalkan.'
-                }, {
+                )
+            },
+            onError: () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Error',
+                        description: 'Verifikasi Siswa Gagal Dibatalkan.'
+                    }, {
                     type: 'danger',
                     showIcon: 'true',
                     transition: 'zoom',
                 }
-            )
-        }
-    })
+                )
+            }
+        })
 }
 
 const fetchDataPrestasi = () => {
     axios.get(`/apps/peserta/datapeserta/${props.peserta?.id}`)
-    .then((res) => {
-        showDataPrestasi.value = res.data.prestasi
-        showDataRapor.value = res.data.rapor
-    }).catch((err) => {
-        console.log(err)
-    })
+        .then((res) => {
+            showDataPrestasi.value = res.data.prestasi
+            showDataRapor.value = res.data.rapor
+        }).catch((err) => {
+            console.log(err)
+        })
 }
 
 watchEffect(() => {
@@ -316,6 +330,24 @@ watchEffect(() => {
         fetchDataPrestasi()
     }
 });
+
+const verSiswa = () => {
+    router.post(`/apps/peserta/updateverifikasi/${props.peserta?.id}`, {
+        preserveScroll: true,
+        preserveState: true
+    }),
+        closeCanvas()
+        createToast(
+            {
+                title: 'Berhasil',
+                description: 'Verifikasi Siswa Berhasil Dilakukan.'
+            }, {
+            type: 'success',
+            showIcon: true,
+            transition: 'zoom',
+        }
+    )
+}
 
 </script>
 

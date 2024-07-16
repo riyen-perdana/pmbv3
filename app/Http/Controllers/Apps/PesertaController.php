@@ -167,4 +167,42 @@ class PesertaController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function updateVerifikasi(String $id)
+    {
+        DB::beginTransaction();
+        try {
+            $peserta = Peserta::findOrFail($id);
+            $peserta->update([
+                'is_vrf_op' => 'Y'
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('peserta.index');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function cancelVerifikasi(String $id)
+    {
+        DB::beginTransaction();
+        try {
+            $peserta = Peserta::findOrFail($id);
+            $peserta->update([
+                'is_vrf_op' => 'N'
+            ]);
+
+            DB::commit();
+
+            return redirect()->route('peserta.index');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
 }

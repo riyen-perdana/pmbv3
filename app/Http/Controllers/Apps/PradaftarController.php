@@ -16,8 +16,8 @@ class PradaftarController extends Controller
 
     public function index()
     {
-        //abort(500);
-        return Inertia::render('Landing/Pradaftar');
+        abort(500);
+        //return Inertia::render('Landing/Pradaftar');
     }
 
 

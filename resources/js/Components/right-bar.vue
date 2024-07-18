@@ -150,7 +150,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="text-center" v-if="!showDataRapor">
+                                                        <tr class="text-center" v-if="!showDataRapor.length==0">
                                                             <td colspan="3" class="text-center text-danger fst-italic"
                                                                 style="font-size: small !important;">Data Rapor Tidak
                                                                 Ditemukan [Error]

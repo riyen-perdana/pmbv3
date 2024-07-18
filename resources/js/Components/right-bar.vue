@@ -150,7 +150,13 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr class="text-center" v-if="Object.keys(showDataRapor).length == 0">
+                                                        <tr class="text-center" v-if="!showDataRapor">
+                                                            <td colspan="3" class="text-center text-danger fst-italic"
+                                                                style="font-size: small !important;">Data Rapor Tidak
+                                                                Ditemukan [Error]
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="text-center" v-else>
                                                             <td class="r_atas">1.</td>
                                                             <td class="r_atas">{{ showDataRapor.n_bing }}</td>
                                                             <td class="r_atas">{{ showDataRapor.n_mtk }}</td>
@@ -160,11 +166,6 @@
                                                                     Lihat Data
                                                                 </button>
                                                             </td>
-                                                        </tr>
-                                                        <tr class="text-center" v-else>
-                                                            <td colspan="3" class="text-center text-danger fst-italic"
-                                                                style="font-size: small !important;">Data Rapor Tidak
-                                                                Ditemukan [Error]</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>

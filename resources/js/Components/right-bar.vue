@@ -151,7 +151,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr class="text-center" v-if="!showDataRapor">
-                                                            <td colspan="3" class="text-center text-danger fst-italic"
+                                                            <td colspan="4" class="text-center text-danger fst-italic"
                                                                 style="font-size: small !important;">Data Rapor Tidak
                                                                 Ditemukan [Error]
                                                             </td>

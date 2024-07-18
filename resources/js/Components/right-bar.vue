@@ -109,7 +109,7 @@
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="(prst, index) in showDataPrestasi" :key="index">
-                                                            <td class="r_atas"><input class="form-check-input" type="checkbox" :value="prst.id" v-model="selected" @change="changeData(prst.id)"/></td>
+                                                            <td class="r_atas"><input :id="prst.id" class="form-check-input" type="checkbox" :value="prst.id" v-model="selected" @change="changeData(prst.id)"/></td>
                                                             <td>
                                                                 <p class="mb-0 text-dark fw-semibold">{{ prst.nm_prestasi }}</p>
                                                                 <p class="mb-0 text-dark fst-italic">Bidang : {{
@@ -231,7 +231,7 @@ const showFormRapor = ref(false);
 const openAlert = ref(false);
 const prestasi = ref({});
 const rapor = ref({});
-const selected = ref({})
+const selected = ref([])
 
 const showDataPrestasi = ref({});
 const showDataRapor = ref({});
@@ -242,11 +242,6 @@ const closeFormPrestasi = async () => {
 }
 
 const changeData = (id) => {
-    // if (watchDataChecked.value == true) {
-    //     console.log(id)
-    // } else {
-    //     console.log('not checked')
-    // }
     router.post('peserta/update-check-prestasi',
         {
             id: id,
@@ -260,7 +255,11 @@ const changeData = (id) => {
 }
 
 const watchDataChecked = computed(() => {
-    return selected.value
+    if(selected.value.length > 0) {
+        return 'true'
+    } else {
+        return 'false'
+    }
 })
 
 const closeFormRapor = async () => {

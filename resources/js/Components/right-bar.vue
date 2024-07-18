@@ -102,22 +102,23 @@
                                                 <table class="table table-hover align-middle table-nowrap mb-0">
                                                     <thead class="table-light boder-white">
                                                         <tr>
-                                                            <th scope="col" style="width:4%;">No.</th>
+                                                            <th scope="col" style="width:4%;">#</th>
                                                             <th scope="col" style="width:80%;">Prestasi</th>
                                                             <th scope="col" style="width: 13%;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="(prst, index) in showDataPrestasi" :key="index">
-                                                            <td class="r_atas">{{ index + 1 }}.</td>
+                                                            <td class="r_atas"><input class="form-check-input" type="checkbox" :value="prst.id" v-model="selected" @change="changeData(prst.id)"/></td>
                                                             <td>
-                                                                <p class="mb-0 text-dark">{{ prst.nm_prestasi }}</p>
+                                                                <p class="mb-0 text-dark fw-semibold">{{ prst.nm_prestasi }}</p>
                                                                 <p class="mb-0 text-dark fst-italic">Bidang : {{
                                                                     prst.bidang?.nama }}</p>
                                                                 <p class="mb-0 text-dark fst-italic">Tingkat : {{
                                                                     prst.tingkat?.nama }}</p>
                                                                 <p class="mb-0 text-dark fst-italic">Jenis : {{
                                                                     prst.inkel?.nama }}</p>
+                                                                <p class="mb-0 text-dark fw-bold">Nilai : {{ prst.bidang?.nilai + prst.tingkat?.nilai + prst.inkel?.nilai }}</p>
                                                             </td>
                                                             <td class="r_atas">
                                                                 <button type="button" class="btn btn-primary btn-sm"
@@ -205,7 +206,7 @@
 
 <script setup>
 import { router } from '@inertiajs/vue3';
-import { onUnmounted, reactive, ref, watchEffect } from 'vue';
+import { computed, onUnmounted, reactive, ref, watch, watchEffect } from 'vue';
 import CancelVer from '@/Components/CancelVer.vue';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
@@ -230,6 +231,7 @@ const showFormRapor = ref(false);
 const openAlert = ref(false);
 const prestasi = ref({});
 const rapor = ref({});
+const selected = ref({})
 
 const showDataPrestasi = ref({});
 const showDataRapor = ref({});
@@ -238,6 +240,28 @@ const closeFormPrestasi = async () => {
     showFormPrestasi.value = !showFormPrestasi.value
     fetchDataPrestasi()
 }
+
+const changeData = (id) => {
+    // if (watchDataChecked.value == true) {
+    //     console.log(id)
+    // } else {
+    //     console.log('not checked')
+    // }
+    router.post('peserta/update-check-prestasi',
+        {
+            id: id,
+            checked: watchDataChecked.value
+        },
+        {
+            preserveScroll: true,
+            preserveState: true,
+        }
+    )
+}
+
+const watchDataChecked = computed(() => {
+    return selected.value
+})
 
 const closeFormRapor = async () => {
     showFormRapor.value = !showFormRapor.value

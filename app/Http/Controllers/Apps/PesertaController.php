@@ -196,8 +196,39 @@ class PesertaController extends Controller
                 'is_vrf_op' => 'N'
             ]);
 
+            //Update Data Prestasi
+            $prestasi = Prestasi::where([['id_peserta', $id],['is_checked', 'true']])->first();
+            $prestasi->update([
+                'is_checked' => 'false'
+            ]);
+
             DB::commit();
 
+            return redirect()->route('peserta.index');
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function updateCheckPrestasi(Request $request)
+    {
+        //return $request->all();
+        DB::beginTransaction();
+        if($request->checked == 'true'){
+            $status = 'true';
+        }else{
+            $status = 'false';
+        }
+
+        try {
+            $prestasi = Prestasi::findOrFail($request->id);
+            $prestasi->update([
+                'is_checked' => $status
+            ]);
+
+            DB::commit();
             return redirect()->route('peserta.index');
 
         } catch (\Throwable $th) {

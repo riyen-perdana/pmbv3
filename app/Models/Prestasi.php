@@ -17,6 +17,7 @@ class Prestasi extends Model
         'id_tingkat',
         'id_jenis',
         'file',
+        'is_checked'
     ];
 
     public $keyType = 'string';

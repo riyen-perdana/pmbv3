@@ -127,6 +127,7 @@ Route::prefix('apps')->group(function () {
         Route::resource('jenis', \App\Http\Controllers\Apps\InkelController::class)->except('create','edit','show');
 
         //Peserta
+        Route::post('/peserta/update-check-prestasi', [\App\Http\Controllers\Apps\PesertaController::class, 'updateCheckPrestasi'])->name('updateCheckPrestasi');
         Route::post('/peserta/cancelverop/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'cancelVerifikasi'])->name('cancelVerifikasi');
         Route::post('/peserta/updateverifikasi/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateVerifikasi'])->name('updateVerifikasi');
         Route::get('/peserta/datapeserta/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'getData'])->name('getDataPeserta');

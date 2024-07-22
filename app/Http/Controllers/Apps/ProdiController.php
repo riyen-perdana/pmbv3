@@ -192,7 +192,7 @@ class ProdiController extends Controller
 
     public function forceDownloadFile()
     {
-        $filePath = storage_path("/app/public/Laporan Kelulusan.docx");
+        $filePath = storage_path('/app/public/Laporan Kelulusan.docx');
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         $fileName = 'Laporan Kelulusan'.date(now()).'.docx';
         return response()->download($filePath, $fileName, $headers);

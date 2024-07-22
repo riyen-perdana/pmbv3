@@ -8,6 +8,7 @@ use App\Http\Requests\Fakultas\FakultasUpdateRequest;
 use App\Models\Akreditasi;
 use Illuminate\Http\Request;
 use App\Models\Fakultas;
+use App\Models\User;
 use Inertia\Inertia;
 use DB;
 
@@ -20,8 +21,11 @@ class FakultasController extends Controller
     public function index(Request $request)
     {
         //Query Fakultas
-        $fakultas = Fakultas::query()->with('akreditasi');
+        $fakultas = Fakultas::query()->with('akreditasi','user');
         $akreditasi = Akreditasi::orderBy('created_at','ASC')->get();
+        $dekan = User::whereHas('roles', function ($query) {
+            $query->where('role_id', '7');
+        })->get();
 
         if ($request->has('search')) {
             $fakultas->where('nm_fakultas','like','%'. $request->search .'%');
@@ -36,7 +40,8 @@ class FakultasController extends Controller
             'perPage' => intval($perPage),
             'fakultas' => $fakultas->paginate($perPage),
             'akreditasi' => $akreditasi,
-            'filters' => $request->all(['search'])
+            'filters' => $request->all(['search']),
+            'dekan' => $dekan
         ]);
     }
 
@@ -50,6 +55,7 @@ class FakultasController extends Controller
         try {
             Fakultas::create([
                 'id_akr_fakultas' => $request['akreditasi'],
+                'id_user' => $request['dekan'],
                 'nm_fakultas' => $request['nmFakultas'],
                 'url_fakultas' => $request['linkWebFakultas'],
                 'url_akr_fakultas' => $request['linkWebAkreditasiFakultas'],
@@ -76,6 +82,7 @@ class FakultasController extends Controller
             $fakultas = Fakultas::findOrFail($id);
             $fakultas->update([
                 'id_akr_fakultas' => $request['akreditasi'],
+                'id_user' => $request['dekan'],
                 'nm_fakultas' => $request['nmFakultas'],
                 'url_fakultas' => $request['linkWebFakultas'],
                 'url_akr_fakultas' => $request['linkWebAkreditasiFakultas'],

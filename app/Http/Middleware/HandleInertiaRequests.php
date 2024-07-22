@@ -48,7 +48,9 @@ class HandleInertiaRequests extends Middleware
                 'user'          => $request->user() ? $request->user() : null,
                 'peserta'       => auth()->guard('peserta')->user() ? auth()->guard('peserta')->user() : null,
                 'permissions'   => $request->user() ? $request->user()->getPermissionArray() : [],
-                'roles'         => $request->user() ? $request->user()->roles()->first()->name : []
+                'roles'         => $request->user() ? $request->user()->roles()->first()->name : [],
+                'fakultas'      => isset($request->user()->fakultas) ? $request->user()->fakultas : null,
+                'prodi'         => isset($request->user()->fakultas[0]->prodi) ? $request->user()->fakultas[0]->prodi : null
                 // 'roles'         => $request->user() ? $request->user()->roles()->pluck('name') : []
             ],
             //route

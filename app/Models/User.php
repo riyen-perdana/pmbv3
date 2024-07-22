@@ -122,4 +122,9 @@ class User extends Authenticatable
         return $this->hasMany(Rektor::class,'id_user');
     }
 
+    public function fakultas() : HasMany
+    {
+        return $this->hasMany(Fakultas::class,'id_user');
+    }
+
 }

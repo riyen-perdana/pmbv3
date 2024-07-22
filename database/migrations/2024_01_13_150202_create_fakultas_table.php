@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('fakultas', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('id_akr_fakultas')->comment('UUID Akreditasi Fakultas');
+            $table->string('id_user')->comment('UUID User')->nullable();
             $table->string('nm_fakultas')->comment('Nama Fakultas');
             $table->string('url_fakultas')->comment('Alamat URL Website Fakultas')->nullable();
             $table->string('url_akr_fakultas')->comment('Alamat URL Akreditasi Fakultas')->nullable();

@@ -93,6 +93,8 @@ Route::prefix('apps')->group(function () {
         Route::resource('agama', \App\Http\Controllers\Apps\AgamaController::class)->except('create','edit','show');
 
         //Prodi
+        Route::post('/prodi/cetak/{id}',[\App\Http\Controllers\Apps\ProdiController::class, 'cetak'])->name('prodi.cetak');
+        Route::get('/prodi/download', [\App\Http\Controllers\Apps\ProdiController::class, 'forceDownloadFile'])->name('prodi.download');
         Route::resource('prodi', \App\Http\Controllers\Apps\ProdiController::class)->except('create','edit','show');
 
         //Provinsi
@@ -134,5 +136,11 @@ Route::prefix('apps')->group(function () {
         Route::post('/peserta/updateprestasi/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataPrestasi'])->name('updateDataPrestasi');
         Route::post('/peserta/updaterapor/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataRapor'])->name('updateDataRapor');
         Route::resource('peserta', \App\Http\Controllers\Apps\PesertaController::class )->except('create','edit','show');
+
+        //Kelulusan
+        Route::get('/dekan/prodi/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'index'])->name('dekan.prodi');
+        Route::post('/dekan/prodi/lulus/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'lulus'])->name('dekan.lulus');
+        Route::post('/dekan/prodi/batal/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'cancel'])->name('dekan.batal');
+        Route::post('/dekan/prodi/finalisasi/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'finalisasi'])->name('dekan.finalisasi');
     });
 });

@@ -71,7 +71,11 @@
                                                     <tbody>
                                                         <tr v-for="(fkt, index) in fakultas.data" :key="index">
                                                             <td class="r_atas">{{ (fakultas.current_page - 1) * fakultas.per_page + index + 1 }}.</td>
-                                                            <td class="r_atas">{{ fkt.nm_fakultas }}</td>
+                                                            <td class="r_atas">
+                                                                {{ fkt.nm_fakultas }}<br>
+                                                                Nama Dekan : {{ fkt.user?.full_nm_user ? fkt.user?.full_nm_user : " -"  }}<br>
+                                                                NIP Dekan&nbsp;&nbsp;&nbsp;&nbsp; : {{ fkt.user?.nip ? fkt.user?.nip : " -" }}
+                                                            </td>
                                                             <td class="r_atas">{{ fkt.akreditasi.jns_akreditasi }}</td>
                                                             <td class="r_atas">{{ fkt.url_fakultas ? fkt.url_fakultas : "-" }}</td>
                                                             <td class="r_atas">{{ fkt.url_akr_fakultas ? fkt.url_akr_fakultas : "-" }}</td>
@@ -106,7 +110,7 @@
                 </div>
             </div>
         </div>
-        <Form :show="data.createOpen" :akreditasi="props.akreditasi" :isEdit="data.isEdit" :dataEdit="data.dataEdit" @close="closeModal" />
+        <Form :show="data.createOpen" :dekan="props.dekan" :akreditasi="props.akreditasi" :isEdit="data.isEdit" :dataEdit="data.dataEdit" @close="closeModal" />
         <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deleteFakultas" />
     </div>
 </template>
@@ -131,7 +135,8 @@ const props = defineProps({
     filters: Object,
     perPage: Number,
     akreditasi: Object,
-    fakultas: Object
+    fakultas: Object,
+    dekan: Object
 });
 
 const data = reactive({

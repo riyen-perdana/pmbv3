@@ -2,7 +2,7 @@
     <div v-if="isDashboard">
         <div v-if="$page.props.auth.user != null">
             <h4 class="fs-16 mb-1">
-                Assalamualaikum, {{ $page.props.auth.user.name }}
+                Assalamualaikum, {{ $page.props.auth.user.full_nm_user }}
             </h4>
         </div>
         <div v-else>

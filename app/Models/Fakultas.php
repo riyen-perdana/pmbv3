@@ -15,6 +15,8 @@ class Fakultas extends Model
     protected $fillable = [
         'nm_fakultas',
         'id_akr_fakultas',
+        //Refactoring Kelulusan Ujian Mandiri
+        'id_user',
         'url_fakultas',
         'url_akr_fakultas',
         'is_aktif'
@@ -63,5 +65,11 @@ class Fakultas extends Model
     public function akreditasi() : BelongsTo
     {
         return $this->belongsTo(Akreditasi::class,'id_akr_fakultas');
+    }
+
+    //Refactoring Kelulusan Ujian Mandiri
+    public function user() : BelongsTo
+    {
+        return $this->belongsTo(User::class,'id_user');
     }
 }

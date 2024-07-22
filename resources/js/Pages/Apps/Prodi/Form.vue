@@ -70,6 +70,27 @@
                             {{ $page.props.errors.optStatusAktif }}
                         </div>
                     </div>
+                    <div class="col-md-6 lg-6 mb-3">
+                        <label for="txtQuota" class="form-label">Quota Program Studi</label>
+                        <input v-model="form.txtQuota" class="form-control"
+                            :class="{ 'is-invalid': $page.props.errors.txtQuota }" type="text"
+                            placeholder="Isikan Kuota Program Studi">
+                        <div v-if="$page.props.errors.txtQuota" class="invalid-feedback">
+                            {{ $page.props.errors.txtQuota }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="optStatusValidasi" class="form-label">Status Validasi Dekan</label>
+                        <select v-model="form.optStatusValidasi" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.optStatusValidasi }">
+                            <option disabled value="">Pilih Status Validasi</option>
+                            <option value="Y">Sudah Validasi</option>
+                            <option value="N">Belum Validasi</option>
+                        </select>
+                        <div v-if="$page.props.errors.optStatusValidasi" class="invalid-feedback">
+                            {{ $page.props.errors.optStatusValidasi }}
+                        </div>
+                    </div>
                     <div class="col-md-12 lg-12 mb-3">
                         <label for="cboPil34" class="form-label">Pilihan 3 dan 4</label>
                         <select v-model="form.cboPil34" class="form-select"
@@ -143,7 +164,9 @@ const form = useForm({
     optStatusAktif: '',
     txtLinkProdi: '',
     txtLinkAkreditasiProdi: '',
-    cboPil34: ''
+    cboPil34: '',
+    txtQuota: '',
+    optStatusValidasi: '',
 });
 
 const modal = ref(null);
@@ -166,7 +189,9 @@ const submitData = () => {
             txtLinkProdi: form.txtLinkProdi,
             txtLinkAkreditasiProdi: form.txtLinkAkreditasiProdi,
             optStatusAktif: form.optStatusAktif,
-            cboPil34: form.cboPil34
+            cboPil34: form.cboPil34,
+            txtQuota: form.txtQuota,
+            optStatusValidasi: form.optStatusValidasi,
         }, {
             preserveScroll: true,
             preserveState: true,
@@ -197,7 +222,9 @@ const submitData = () => {
             txtLinkProdi: form.txtLinkProdi,
             txtLinkAkreditasiProdi: form.txtLinkAkreditasiProdi,
             optStatusAktif: form.optStatusAktif,
-            cboPil34: form.cboPil34
+            cboPil34: form.cboPil34,
+            txtQuota: form.txtQuota,
+            optStatusValidasi: form.optStatusValidasi,
         }, {
             preserveState: true,
             preserveScroll: true,
@@ -245,7 +272,9 @@ watchEffect(() => {
             form.optStatusAktif = props.dataEdit?.is_aktif,
             form.txtLinkProdi = props.dataEdit?.url_prodi,
             form.txtLinkAkreditasiProdi = props.dataEdit?.url_akr_prodi
-            form.cboPil34 = props.dataEdit?.is_pil_34
+            form.cboPil34 = props.dataEdit?.is_pil_34,
+            form.txtQuota = props.dataEdit?.quota,
+            form.optStatusValidasi = props.dataEdit?.is_valid
         }
     }
 });

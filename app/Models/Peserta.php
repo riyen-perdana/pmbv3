@@ -123,4 +123,13 @@ class Peserta extends Authenticatable
         return $this->belongsTo(Prodi::class, 'pil4_siswa');
     }
 
+    public function nilai() : HasOne
+    {
+        return $this->hasOne(Nilai::class, 'peserta_id');
+    }
+
+    public function prodi() : BelongsTo
+    {
+        return $this->belongsTo(Prodi::class, 'prodills_siswa');
+    }
 }

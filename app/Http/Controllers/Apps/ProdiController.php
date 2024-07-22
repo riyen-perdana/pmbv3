@@ -12,6 +12,8 @@ use DB;
 Use App\Models\Prodi;
 use App\Http\Requests\Prodi\ProdiStoreRequest;
 use App\Http\Requests\Prodi\ProdiUpdateRequest;
+use App\Models\Peserta;
+use Illuminate\Support\Facades\Response;
 
 class ProdiController extends Controller
 {
@@ -67,6 +69,8 @@ class ProdiController extends Controller
                 'url_akr_prodi' => $request['txtLinkAkreditasiProdi'],
                 'is_aktif' => $request['optStatusAktif'],
                 'is_pil_34' => $request['cboPil34'],
+                'quota' => $request['txtQuota'],
+                'is_valid' => $request['optStatusValidasi'],
             ]);
 
             DB::commit();
@@ -113,7 +117,9 @@ class ProdiController extends Controller
                 'url_prodi' => $request['txtLinkProdi'],
                 'url_akr_prodi' => $request['txtLinkAkreditasiProdi'],
                 'is_aktif' => $request['optStatusAktif'],
-                'is_pil_34' => $request['cboPil34']
+                'is_pil_34' => $request['cboPil34'],
+                'quota' => $request['txtQuota'],
+                'is_valid' => $request['optStatusValidasi'],
             ]);
 
             DB::commit();
@@ -144,5 +150,51 @@ class ProdiController extends Controller
             DB::rollback();
             return back()->with('error', $th->getMessage());
         }
+    }
+
+    public function cetak($id)
+    {
+        $peserta = Peserta::where([['is_lulus','Y'],['prodills_siswa',$id]])->get();
+        $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('format_kelulusan.docx'));
+
+        $jumlahlls = $peserta->count();
+        $template->cloneRow('no', $jumlahlls);
+
+        $i = 1;
+        foreach ($peserta as $pst) {
+            $template->setValue('no#'.$i,$i);
+            $template->setValue('no_daftar#'.$i,ucwords($pst->nomor));
+            $template->setValue('nama#'.$i,ucwords($pst->nm_siswa));
+            $template->setValue('ket#'.$i,'LULUS');
+            $i++;
+        }
+
+        $template->setValue('tgl',tanggal_indonesia(date("Y-m-d"),false));
+
+        $prodi = Prodi::where('id',$id)->first();
+        $template->setValue('dkn_nm',$prodi->fakultas->user->full_nm_user);
+        $template->setValue('dkn_nip',$prodi->fakultas->user->nip);
+        $template->setValue('fak',$prodi->fakultas->nm_fakultas);
+        $template->setValue('prodi',$prodi->nm_prodi);
+
+        $ta_a = date("Y");
+        $ta_n = $ta_a+1;
+
+        $template->setValue('ta_a',$ta_a);
+        $template->setValue('ta_n',$ta_n);
+
+        $filename       = 'Laporan Kelulusan.docx';
+        header('Content-Type: application/octet-stream');
+        header('Content-Disposition: attachment; filename='.$filename);
+        // $template->saveAs('php://output');
+        $template->saveAs(storage_path($filename));
+    }
+
+    public function forceDownloadFile()
+    {
+        $filePath = storage_path("Laporan Kelulusan.docx");
+        $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+        $fileName = 'Laporan Kelulusan'.date(now()).'.docx';
+        return response()->download($filePath, $fileName, $headers);
     }
 }

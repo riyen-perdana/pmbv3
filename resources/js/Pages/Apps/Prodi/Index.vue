@@ -61,12 +61,12 @@
                                                     <thead class="table-light boder-white">
                                                         <tr>
                                                             <th scope="col" style="width:4%;">No.</th>
-                                                            <th scope="col" style="width:25%;">Kode Prodi/Nama Prodi/Akreditasi</th>
+                                                            <th scope="col" style="width:20%;">Kode Prodi/Nama Prodi/Akreditasi</th>
                                                             <th scope="col" style="width:19%;">Fakultas</th>
                                                             <th scope="col" style="width:10%;">Jenjang</th>
                                                             <th scope="col" style="width:10%;">Link Website/Akreditasi</th>
                                                             <th scope="col" style="width:10%;">Status</th>
-                                                            <th scope="col" style="width: 13%;">Aksi</th>
+                                                            <th scope="col" style="width: 18%;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -111,6 +111,13 @@
                                                                         @click="destroy(prd.id)"><i
                                                                             class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Hapus</button>
+                                                                    <div v-if="prd.is_valid == 'Y'">
+                                                                        <button type="button" class="btn btn-warning btn-sm"
+                                                                            @click="print(prd.id)"><i
+                                                                            class="ri-printer-line label-icon align-middle fs-10 me-1"></i>
+                                                                            Cetak
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -148,6 +155,7 @@ import Form from "@/Pages/Apps/Prodi/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
+import axios from "axios";
 
 defineOptions({ layout: LayoutApp });
 
@@ -256,6 +264,27 @@ watch(() => cloneDeep(data.params), debounce(() => {
         preserveScroll: true
     })
 }, 150));
+
+const print = (id) => {
+    router.post(`/apps/prodi/cetak/${id}`, {
+        preserveScroll: true,
+        preserveState: true,
+    })
+    cetak()
+}
+
+const cetak = () => {
+    axios.get('/apps/prodi/download', { responseType: 'blob' })
+    .then((res) => {
+        console.log(res.data)
+        let blob = new Blob([res.data], {type:'application/*'})
+        let link = document.createElement('a')
+        link.href = window.URL.createObjectURL(blob)
+        link.download = 'Laporan.docx'
+        link._target = 'blank'
+        link.click();
+    })
+}
 
 </script>
 

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Prodi extends Model
 {
@@ -22,6 +23,8 @@ class Prodi extends Model
         'url_akr_prodi',
         'is_aktif',
         'is_pil_34',
+        'quota',
+        'is_valid'
     ];
 
     public $keyType = 'string';

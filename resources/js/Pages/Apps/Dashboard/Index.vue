@@ -17,30 +17,32 @@
                             <Breadcrumb :items="breadcrumbs" />
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <Tilebox
-                                title="Jumlah Pengguna"
-                                :jumlah="user_count"
-                                satuan="Orang"
-                                uri="/apps/pengguna"
-                                uri_title="Lihat Pengguna"
-                                color="text-success"
-                                icon="bx bx-user-circle"
-                                colorSpan="bg-soft-success" />
+                    <div v-if="$page.props.auth.user.roles[0].id != 7" class="row">
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <Tilebox
+                                    title="Jumlah Pengguna"
+                                    :jumlah="user_count"
+                                    satuan="Orang"
+                                    uri="/apps/pengguna"
+                                    uri_title="Lihat Pengguna"
+                                    color="text-success"
+                                    icon="bx bx-user-circle"
+                                    colorSpan="bg-soft-success" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <Tilebox
-                                title="Jumlah Pendaftar"
-                                :jumlah="peserta_count"
-                                satuan="Orang"
-                                uri=""
-                                uri_title=""
-                                color="text-success"
-                                icon="bx bxs-user-account"
-                                colorSpan="bg-soft-success" />
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6">
+                                <Tilebox
+                                    title="Jumlah Pendaftar"
+                                    :jumlah="peserta_count"
+                                    satuan="Orang"
+                                    uri=""
+                                    uri_title=""
+                                    color="text-success"
+                                    icon="bx bxs-user-account"
+                                    colorSpan="bg-soft-success" />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,6 +58,7 @@ import LayoutApp from '@/Layouts/App.vue';
 import Tilebox from '@/Components/Tilebox.vue';
 import Titlebox from '@/Components/Titlebox.vue';
 import Breadcrumb from '@/Components/Breadcrumb.vue';
+import { usePage } from '@inertiajs/vue3';
 
 export default {
     //Layout
@@ -87,7 +90,8 @@ export default {
     },
 
     setup() {
-
+        const page = usePage()
+        return { page }
     }
 
 }

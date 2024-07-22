@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('dekan', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->string('id_dekan')->unique()->comment('UUID Dekan pada Tabel User');
-            //$table->string('id_user')->constrained()->unique()->comment('ID User Relasi Dengan Tabel ');
-            $table->string('id_prodi')->comment('ID Program Studi Dekan');
+            $table->string('id_fakultas')->comment('ID Fakultas Dekan');
             $table->enum('is_dekan_aktif',['Y','N'])->comment('Apakah Dekan Aktif Menjabat?')->default('N');
             $table->enum('is_dekan_plt',['Y','N'])->comment('Apakah Dekan PLT?')->default('N');
             $table->softDeletes();

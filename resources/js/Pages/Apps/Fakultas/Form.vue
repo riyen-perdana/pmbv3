@@ -23,7 +23,7 @@
                             {{ $page.props.errors.isAktif }}
                         </div>
                     </div>
-                    <div class="col-md-12 lg-12 mb-3">
+                    <div class="col-md-6 lg-6 mb-3">
                         <label for="txtAkreditasi" class="form-label">Akreditasi</label>
                         <select v-model="form.akreditasi" class="form-select"
                             :class="{ 'is-invalid': $page.props.errors.akreditasi }">
@@ -33,6 +33,18 @@
                         </select>
                         <div v-if="$page.props.errors.akreditasi" class="invalid-feedback">
                             {{ $page.props.errors.akreditasi }}
+                        </div>
+                    </div>
+                    <div class="col-md-6 lg-6 mb-3">
+                        <label for="txtDekan" class="form-label">Dekan Fakultas</label>
+                        <select v-model="form.dekan" class="form-select"
+                            :class="{ 'is-invalid': $page.props.errors.dekan }">
+                            <option disabled value="">Pilih Dekan</option>
+                            <option v-for="(dkn, index) in props.dekan" :key="index" :value="dkn.id">{{
+                                dkn.full_nm_user }}</option>
+                        </select>
+                        <div v-if="$page.props.errors.dekan" class="invalid-feedback">
+                            {{ $page.props.errors.dekan }}
                         </div>
                     </div>
                     <div class="col-md-12 lg-12 mb-3">
@@ -78,15 +90,17 @@ const props = defineProps({
     show: Boolean,
     isEdit: Boolean,
     dataEdit: Object,
-    akreditasi : Array
+    akreditasi : Array,
+    dekan : Object
 });
 
 const form = useForm({
     nmFakultas: '',
-    isAktif:'',
-    linkWebFakultas:'',
-    linkWebAkreditasiFakultas:'',
-    akreditasi:''
+    isAktif: '',
+    linkWebFakultas: '',
+    linkWebAkreditasiFakultas: '',
+    akreditasi: '',
+    dekan: ''
 });
 
 const modal = ref(null);
@@ -101,6 +115,7 @@ const closeModal = () => {
 const submitData = () => {
     if (props.isEdit) {
         router.put(`/apps/fakultas/${props.dataEdit.id}`, {
+            dekan : form.dekan,
             nmFakultas : form.nmFakultas,
             isAktif : form.isAktif,
             akreditasi : form.akreditasi,
@@ -128,6 +143,7 @@ const submitData = () => {
         })
     } else {
         router.post('/apps/fakultas', {
+            dekan : form.dekan,
             nmFakultas : form.nmFakultas,
             isAktif : form.isAktif,
             akreditasi : form.akreditasi,
@@ -173,6 +189,7 @@ watchEffect(() => {
         openModal()
         if(props.isEdit) {
             form.nmFakultas = props.dataEdit?.nm_fakultas,
+            form.dekan = props.dataEdit?.id_user,
             form.isAktif = props.dataEdit?.is_aktif,
             form.linkWebFakultas = props.dataEdit?.url_fakultas,
             form.linkWebAkreditasiFakultas = props.dataEdit?.url_akr_fakultas,

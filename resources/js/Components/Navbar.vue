@@ -3,7 +3,7 @@
     <div class="app-menu navbar-menu">
         <div id="scrollbar">
             <div class="container-fluid">
-                <div v-if="$page.props.auth.user">
+                <div v-if="$page.props.auth.user && $page.props.auth.user.roles[0].id != 7">
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
@@ -165,6 +165,21 @@
                             <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
                             </Link>
                         </li>
+                        <li class="nav-item">
+                            <Link class="nav-link menu-link" href="#sidebarProdi" data-bs-toggle="collapse" role="button"
+                                aria-expanded="false" aria-controls="sidebarProdi">
+                            <i class="bx bx-data"></i> <span data-key="t-sidebarProdi">Fakultas {{ $page.props.auth.fakultas[0].nm_fakultas }}</span>
+                            </Link>
+                            <div class="collapse menu-dropdown" id="sidebarProdi">
+                                <ul class="nav nav-sm flex-column">
+                                    <li class="nav-item" v-for="(prodi,index) in $page.props.auth.prodi" :key="prodi.id">
+                                        <Link class="nav-link menu-link" :href="`/apps/dekan/prodi/${prodi.id}`">
+                                            <i class="bx bx-building-house"></i> <span data-key="t-prodi">{{ prodi.nm_prodi }}</span>
+                                        </Link>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -174,12 +189,18 @@
 
 <script>
 import { Link } from '@inertiajs/vue3';
+import { usePage } from '@inertiajs/vue3';
 
 export default {
     components: {
         Link
     },
     setup() {
+
+      const page = usePage()
+      return { page }
+
+
     },
 }
 </script>

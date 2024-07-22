@@ -26,6 +26,7 @@ class FakultasStoreRequest extends FormRequest
             'nmFakultas' => 'required',
             'isAktif' => 'required',
             'akreditasi' => 'required',
+            'dekan' => 'required',
             'linkWebFakultas' => 'sometimes|nullable|regex:'.$regex,
             'linkWebAkreditasiFakultas' => 'sometimes|nullable|regex:'.$regex
         ];
@@ -42,6 +43,7 @@ class FakultasStoreRequest extends FormRequest
             'nmFakultas.required' => 'Kolom Nama Fakultas Harus Diisi',
             'isAktif.required' => 'Pilih Status Aktif Fakultas',
             'akreditasi.required' => 'Pilih Akreditasi Fakultas',
+            'dekan.required' => 'Pilih Dekan Fakultas',
             'linkWebFakultas.regex' => 'Format Link Website Fakultas Salah',
             'linkWebAkreditasiFakultas.regex' => 'Format Link Akreditasi Fakultas Salah'
         ];

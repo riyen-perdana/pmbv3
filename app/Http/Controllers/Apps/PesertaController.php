@@ -37,7 +37,7 @@ class PesertaController extends Controller
                         'prestasi.bidang',
                         'prestasi.tingkat',
                         'prestasi.inkel',
-                        'rapor',
+                        'rapor'
                     );
 
         if ($request->has('search')) {

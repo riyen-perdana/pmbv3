@@ -113,7 +113,7 @@
                                                                         Hapus</button>
                                                                     <div v-if="prd.is_valid == 'Y'">
                                                                         <button type="button" class="btn btn-warning btn-sm"
-                                                                            @click="cetak(prd.id)"><i
+                                                                            @click="print(prd.id)"><i
                                                                             class="ri-printer-line label-icon align-middle fs-10 me-1"></i>
                                                                             Cetak
                                                                         </button>

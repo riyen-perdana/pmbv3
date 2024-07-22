@@ -266,11 +266,11 @@ watch(() => cloneDeep(data.params), debounce(() => {
 }, 150));
 
 const print = (id) => {
-    router.post(`/apps/prodi/cetak/${id}`, {
+    router.post(`/apps/prodi/cetak/`, {
         preserveScroll: true,
         preserveState: true,
     })
-    //cetak()
+    cetak()
 }
 
 const cetak = () => {

@@ -232,9 +232,10 @@
                                                             <td class="r_atas text-center">
                                                                 <div v-if="n.peserta.is_lulus == 'Y'">
                                                                     <button type="button" class="btn btn-danger btn-sm"
-                                                                        @click="cancel_lls(n.peserta.id)" :disabled="prodi.is_valid == 'Y' ? true : false"><i
+                                                                        @click="cancel_lls(n.peserta.id)" :disabled="prodi.is_valid == 'Y' || n.peserta.prodills_siswa != prodi.id ? true : false"><i
                                                                             class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
-                                                                        Batalkan&nbsp;&nbsp;&nbsp;</button>
+                                                                        Batalkan&nbsp;&nbsp;&nbsp;
+                                                                    </button>
                                                                 </div>
                                                                 <div v-else>
                                                                     <button type="button" class="btn btn-primary btn-sm"

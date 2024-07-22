@@ -54,7 +54,8 @@ class KelulusanController extends Controller
                 'peserta.sekolah.kecamatan.kabkot.provinsi',
                 'peserta.prodi'
                 )->whereHas('peserta', function ($query) use ($prodi) {
-                    $query->where([['pil2_siswa', $prodi->id],['is_lulus','=',NULL]]);
+                    $query->where([['pil2_siswa', $prodi->id],['is_lulus','=',NULL]])
+                          ->orWhere('pil2_siswa','=',$prodi->id);
                 })->orderBy('total','DESC')
                 ->orderBy('prestasi','DESC')
                 ->get();
@@ -67,7 +68,8 @@ class KelulusanController extends Controller
                 'peserta.sekolah.kecamatan.kabkot.provinsi',
                 'peserta.prodi'
                 )->whereHas('peserta', function ($query) use ($prodi) {
-                    $query->where([['pil3_siswa', $prodi->id],['is_lulus','=',NULL]]);
+                    $query->where([['pil3_siswa', $prodi->id],['is_lulus','=',NULL]])
+                          ->orWhere('pil3_siswa','=',$prodi->id);
                 })->orderBy('total','DESC')
                 ->orderBy('prestasi','DESC')
                 ->get();
@@ -80,7 +82,8 @@ class KelulusanController extends Controller
                 'peserta.sekolah.kecamatan.kabkot.provinsi',
                 'peserta.prodi'
                 )->whereHas('peserta', function ($query) use ($prodi) {
-                    $query->where([['pil4_siswa', $prodi->id],['is_lulus','=',NULL]]);
+                    $query->where([['pil4_siswa', $prodi->id],['is_lulus','=',NULL]])
+                          ->orWhere('pil4_siswa','=',$prodi->id);
                 })->orderBy('total','DESC')
                 ->orderBy('prestasi','DESC')
                 ->get();

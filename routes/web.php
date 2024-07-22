@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return \Inertia\Inertia::render('Landing/Index');
-})->middleware('guest');
+Route::get('/', [\App\Http\Controllers\Apps\LandingController::class, 'index'])->name('landing.index')->middleware('guest');
+Route::get('kelulusan/{id}', [\App\Http\Controllers\Apps\LandingController::class, 'kelulusan'])->name('kelulusan')->middleware('guest');
+
 
 //Syarat Ketentuan
 Route::get('syarat-ketentuan', function () {

@@ -186,8 +186,8 @@ class ProdiController extends Controller
         $filename       = 'Laporan Kelulusan.docx';
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename='.$filename);
-        $template->saveAs('php://output');
-        //$template->saveAs(storage_path('/app/public/'.$filename));
+        //$template->saveAs('php://output');
+        $template->saveAs(storage_path('/app/public/'.$filename));
     }
 
     public function forceDownloadFile()

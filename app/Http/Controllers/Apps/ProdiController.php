@@ -187,12 +187,12 @@ class ProdiController extends Controller
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename='.$filename);
         // $template->saveAs('php://output');
-        $template->saveAs(public_path($filename));
+        $template->saveAs(storage_path('/app/public/'.$filename));
     }
 
     public function forceDownloadFile()
     {
-        $filePath = public_path("Laporan Kelulusan.docx");
+        $filePath = storage_path("/app/public/Laporan Kelulusan.docx");
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         $fileName = 'Laporan Kelulusan'.date(now()).'.docx';
         return response()->download($filePath, $fileName, $headers);

@@ -14,6 +14,7 @@ use App\Http\Requests\Prodi\ProdiStoreRequest;
 use App\Http\Requests\Prodi\ProdiUpdateRequest;
 use App\Models\Peserta;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
 
 class ProdiController extends Controller
 {
@@ -195,6 +196,7 @@ class ProdiController extends Controller
         $filePath = storage_path('/app/public/Laporan Kelulusan.docx');
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         $fileName = 'Laporan Kelulusan'.date(now()).'.docx';
-        return response()->download($filePath, $fileName, $headers);
+        return Storage::download($filePath, $fileName, $headers);
+        // return response()->download($filePath, $fileName, $headers);
     }
 }

@@ -270,7 +270,7 @@ const print = (id) => {
         preserveScroll: true,
         preserveState: true,
     })
-    //cetak()
+    cetak()
 }
 
 const cetak = () => {

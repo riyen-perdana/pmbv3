@@ -95,7 +95,7 @@
                                                 <Emptytable :data="pengguna" />
                                             </div>
                                             <div v-if="pengguna.data.length != 0">
-                                                <Pagination :links="pengguna.links" :count="pengguna" />
+                                                <Pagination :links="pengguna.links" :count="pengguna" :perPage="props.perPage" />
                                             </div>
                                         </div>
                                     </div>

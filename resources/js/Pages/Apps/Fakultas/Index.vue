@@ -73,8 +73,8 @@
                                                             <td class="r_atas">{{ (fakultas.current_page - 1) * fakultas.per_page + index + 1 }}.</td>
                                                             <td class="r_atas">
                                                                 <span class="fw-semibold">{{fkt.nm_fakultas }}</span><br>
-                                                                Nama Dekan : {{ fkt.user?.full_nm_user ? fkt.user?.full_nm_user : " -"  }}<br>
-                                                                NIP Dekan&nbsp;&nbsp;&nbsp;&nbsp; : {{ fkt.user?.nip ? fkt.user?.nip : " -" }}
+                                                                Nama Dekan - {{ fkt.user?.full_nm_user ? fkt.user?.full_nm_user : " -"  }}<br>
+                                                                NIP Dekan - {{ fkt.user?.nip ? fkt.user?.nip : " -" }}
                                                             </td>
                                                             <td class="r_atas">{{ fkt.akreditasi.jns_akreditasi }}</td>
                                                             <td class="r_atas">{{ fkt.url_fakultas ? fkt.url_fakultas : "-" }}</td>

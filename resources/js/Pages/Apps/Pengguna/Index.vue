@@ -1,4 +1,5 @@
 <template>
+
     <Head>
         <title>
             .:: E-admisi Universitas Islam Negeri Sultan Syarif Kasim Riau ::.
@@ -36,7 +37,8 @@
                                         <div class="col-md-4">
                                             <div class="search-box">
                                                 <input type="text" class="form-control search bg-light"
-                                                    placeholder="Cari Data NIP/NIK, Nama, Email" v-model="data.params.search">
+                                                    placeholder="Cari Data NIP/NIK, Nama, Email"
+                                                    v-model="data.params.search">
                                                 <i class="ri-search-line search-icon"></i>
                                             </div>
                                         </div>
@@ -56,30 +58,52 @@
                                     <div class="row">
                                         <div>
                                             <div class="table-responsive table-card mb-3 mt-3">
-                                                <table class="table table-hover align-middle table-nowrap mb-0" id="penggunaTable">
+                                                <table class="table table-hover align-middle table-nowrap mb-0"
+                                                    id="penggunaTable">
                                                     <thead class="table-light boder-white">
                                                         <tr>
-                                                            <th scope="col" style="width:4%;">No.</th>
-                                                            <th class="sort" data-sort="nip" scope="col" style="width: 16%;">NIP/NIK</th>
+                                                            <th scope="col" style="width:2%;">
+                                                                <Checkbox :checked="allChecked"
+                                                                    classes="form-check-danger"
+                                                                    @update:checked="handleCheckAll" />
+                                                            </th>
+                                                            <th scope="col" style="width:3%;">No.</th>
+                                                            <th class="sort" data-sort="nip" scope="col"
+                                                                style="width: 16%;">NIP/NIK</th>
                                                             <th scope="col" style="width: 20%;">Nama</th>
                                                             <th scope="col" style="width: 20%;">Email</th>
                                                             <th scope="col" style="width: 10%;">Hak Akses</th>
                                                             <th scope="col" style="width: 10%;">Status</th>
-                                                            <th scope="col" style="width: 13%;">Aksi</th>
+                                                            <th scope="col" style="width: 16%;">Aksi</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="(user, index) in props.pengguna.data" :key="index">
-                                                            <td class="r_atas">{{ (pengguna.current_page - 1) * pengguna.per_page + index + 1 }}.</td>
+                                                            <td class="r_atas">
+                                                                <Checkbox
+                                                                    :checked="selectedItems.includes(user.id)"
+                                                                    @update:checked="handleItemCheck(user.id)"
+                                                                    classes="form-check-danger"
+                                                                />
+                                                            </td>
+                                                            <td class="r_atas">{{ (pengguna.current_page - 1) *
+                                                                pengguna.per_page + index + 1 }}.</td>
                                                             <td class="r_atas">{{ user.nip }}</td>
                                                             <td class="r_atas">{{ user.full_nm_user }}</td>
                                                             <td class="r_atas">{{ user.email }}</td>
-                                                            <td class="r_atas"><span v-for="(role,index) in user.roles" :key="index">{{ role.name }}</span></td>
-                                                            <td class="r_atas"><span :class="user.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">{{ user.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}</span></td>
+                                                            <td class="r_atas"><span v-for="(role, index) in user.roles"
+                                                                    :key="index">{{ role.name }}</span></td>
+                                                            <td class="r_atas">
+                                                                <span
+                                                                    :class="user.is_aktif == 'Y' ? 'badge bg-success' : 'badge bg-danger'">
+                                                                    {{ user.is_aktif == 'Y' ? 'Aktif' : 'Tidak Aktif'}}
+                                                                </span>
+                                                            </td>
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->
-                                                                    <button type="button" class="btn btn-secondary btn-sm"
+                                                                    <button type="button"
+                                                                        class="btn btn-secondary btn-sm"
                                                                         @click="clickButton(user.id, user)"><i
                                                                             class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
                                                                         Edit&nbsp;&nbsp;&nbsp;</button>
@@ -95,7 +119,8 @@
                                                 <Emptytable :data="pengguna" />
                                             </div>
                                             <div v-if="pengguna.data.length != 0">
-                                                <Pagination :links="pengguna.links" :count="pengguna" :perPage="props.perPage" />
+                                                <Pagination :links="pengguna.links" :count="pengguna"
+                                                    :perPage="props.perPage" />
                                             </div>
                                         </div>
                                     </div>
@@ -108,14 +133,15 @@
         </div>
     </div>
     <div>
-        <Form :show="data.createOpen" :id="data.id" :isEdit="data.isEdit" :data="props.role" :dataEdit="data.dataEdit" @close="closeModal" />
+        <Form :show="data.createOpen" :id="data.id" :isEdit="data.isEdit" :data="props.role" :dataEdit="data.dataEdit"
+            @close="closeModal" />
         <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deletePengguna" />
     </div>
 </template>
 
 <script setup>
 import { Head, router } from "@inertiajs/vue3";
-import { reactive, computed, watch } from "vue";
+import { reactive, computed, watch, ref } from "vue";
 import LayoutApp from "@/Layouts/App.vue";
 import Titlebox from "@/Components/Titlebox.vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -126,6 +152,7 @@ import Form from "@/Pages/Apps/Pengguna/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
+import Checkbox from "@/Components/Checkbox.vue";
 
 
 defineOptions({ layout: LayoutApp });
@@ -136,6 +163,22 @@ const props = defineProps({
     pengguna: Object,
     role: Array
 });
+
+const selectedItems = ref([]);
+const allChecked = computed(() => props.pengguna.data.length > 0 && props.pengguna.data.every(item => selectedItems.value.includes(item.id)));
+const handleCheckAll = (checked) => {
+    selectedItems.value = checked ? props.pengguna.data.map(item => item.id) : [];
+    console.log(selectedItems.value)
+};
+
+const handleItemCheck = (id) => {
+    const index = selectedItems.value.indexOf(id);
+    if (index > -1) {
+        selectedItems.value.splice(index, 1);
+    } else {
+        selectedItems.value.push(id);
+    }
+};
 
 const clickButton = (id, user) => {
     data.createOpen = true
@@ -161,36 +204,36 @@ const destroy = (id) => {
 
 const deletePengguna = (id) => {
     router.delete(`/apps/pengguna/${id}`,
-    {
-        preserveState: true,
-        preserveScroll: true,
-        onSuccess : () => {
-            closeAlert
-            createToast(
-                {
-                    title: 'Berhasil',
-                    description: 'Data Pengguna Berhasil Dihapus.'
-                }, {
+        {
+            preserveState: true,
+            preserveScroll: true,
+            onSuccess: () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Berhasil',
+                        description: 'Data Pengguna Berhasil Dihapus.'
+                    }, {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
                 }
-            )
-        },
-        onError : () => {
-            closeAlert
-            createToast(
-                {
-                    title: 'Error',
-                    description: 'Gagal Menghapus Data Pengguna.'
-                }, {
+                )
+            },
+            onError: () => {
+                closeAlert
+                createToast(
+                    {
+                        title: 'Error',
+                        description: 'Gagal Menghapus Data Pengguna.'
+                    }, {
                     type: 'danger',
                     showIcon: 'true',
                     transition: 'zoom',
                 }
-            )
-        }
-    })
+                )
+            }
+        })
 }
 
 const breadcrumbs = computed(() => {

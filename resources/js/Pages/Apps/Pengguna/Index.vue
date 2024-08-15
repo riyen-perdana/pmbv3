@@ -29,6 +29,14 @@
                                                 @click="clickButton(data.id)">
                                                 <i class="ri-add-line align-bottom me-1"></i>Tambah Data
                                             </button>
+                                            <button
+                                                type="button"
+                                                class="btn btn-danger delete-btn ms-2"
+                                                @click="deleteButton(data.id)"
+                                                :disabled="isButtonDeleteEnable"
+                                            >
+                                                <i class="ri-delete-bin-line align-bottom me-1"></i>Hapus Data
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -168,8 +176,17 @@ const selectedItems = ref([]);
 const allChecked = computed(() => props.pengguna.data.length > 0 && props.pengguna.data.every(item => selectedItems.value.includes(item.id)));
 const handleCheckAll = (checked) => {
     selectedItems.value = checked ? props.pengguna.data.map(item => item.id) : [];
-    console.log(selectedItems.value)
 };
+
+const isButtonDeleteEnable = ref(true);
+
+watch(() => selectedItems.value.length, () => {
+    if (selectedItems.value.length === 0) {
+        isButtonDeleteEnable.value = true
+    } else {
+        isButtonDeleteEnable.value = false
+    }
+});
 
 const handleItemCheck = (id) => {
     const index = selectedItems.value.indexOf(id);
@@ -178,6 +195,7 @@ const handleItemCheck = (id) => {
     } else {
         selectedItems.value.push(id);
     }
+    console.log(selectedItems.value)
 };
 
 const clickButton = (id, user) => {

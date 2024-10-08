@@ -40,6 +40,25 @@
                                 icon="bx bx-bookmark-alt" colorSpan="bg-soft-primary" />
                         </div>
                     </div>
+                    <div class="row align-items-center mb-4 g-3">
+                        <div class="col-sm-auto ms-auto">
+                            <!-- <button type="button" class="btn btn-success add-btn" @click="downloadData()">
+                                <i class="ri-file-download-line align-bottom me-1"></i>Download Data
+                            </button> -->
+                            <div class="btn-group" role="group">
+                                <div class="btn-group" role="group">
+                                    <button id="btnDownload" type="button" class="btn btn-success dropdown-toggle"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Download Data
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="/apps/peserta/downloadPendaftar" preserve-state>Data Pendaftar</a></li>
+                                        <li><a class="dropdown-item" href="/apps/peserta/downloadLulus" preserve-state>Data Lulus</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12">
                             <div class="card" id="t_peserta">
@@ -178,7 +197,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.sekolah?.kecamatan.nm_kecamatan ?
-                                                                        psr.sekolah?.kecamatan.nm_kecamatan : '-' }}
+                                                                            psr.sekolah?.kecamatan.nm_kecamatan : '-' }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row w-100">
@@ -187,7 +206,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.sekolah?.kecamatan.kabkot.nm_kabkot ?
-                                                                        psr.sekolah?.kecamatan.kabkot.nm_kabkot : '-' }}
+                                                                            psr.sekolah?.kecamatan.kabkot.nm_kabkot : '-' }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row w-100">
@@ -197,9 +216,9 @@
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{
                                                                             psr.sekolah?.kecamatan.kabkot.provinsi.nm_provinsi
-                                                                        ?
-                                                                        psr.sekolah?.kecamatan.kabkot.provinsi.nm_provinsi
-                                                                        : '-' }}
+                                                                                ?
+                                                                                psr.sekolah?.kecamatan.kabkot.provinsi.nm_provinsi
+                                                                                : '-' }}
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -211,7 +230,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.pil_1?.nm_prodi ? psr.pil_1?.nm_prodi :
-                                                                        '-' }}
+                                                                            '-' }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row w-100">
@@ -220,7 +239,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.pil_2?.nm_prodi ? psr.pil_2?.nm_prodi :
-                                                                        '-' }}
+                                                                            '-' }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row w-100">
@@ -229,7 +248,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.pil_3?.nm_prodi ? psr.pil_3?.nm_prodi :
-                                                                        '-' }}
+                                                                            '-' }}
                                                                     </div>
                                                                 </div>
                                                                 <div class="d-flex flex-row w-100">
@@ -238,7 +257,7 @@
                                                                     <div
                                                                         class="d-flex justify-content-end w-100 fst-italic">
                                                                         {{ psr.pil_4?.nm_prodi ? psr.pil_4?.nm_prodi :
-                                                                        '-' }}
+                                                                            '-' }}
                                                                     </div>
                                                                 </div>
                                                             </td>
@@ -272,26 +291,24 @@
                                                             <td class="r_atas">
                                                                 <div class="hstack gap-2 flex-wrap">
                                                                     <!-- Buttons Group -->
-                                                                     <div v-if="psr.is_vrf_op == 'N'">
-                                                                        <button
-                                                                            type="button"
+                                                                    <div v-if="psr.is_vrf_op == 'N'">
+                                                                        <button type="button"
                                                                             class="btn btn-secondary btn-sm"
                                                                             @click="clickButton(psr.id, psr)"
                                                                             :disabled="psr.is_vrf_siswa === 'N'"><i
                                                                                 class="ri-edit-2-line label-icon align-middle fs-10 me-1"></i>
                                                                             Verifikasi&nbsp;&nbsp;&nbsp;
                                                                         </button>
-                                                                     </div>
-                                                                     <div v-else>
-                                                                        <button
-                                                                            type="button"
+                                                                    </div>
+                                                                    <div v-else>
+                                                                        <button type="button"
                                                                             class="btn btn-warning btn-sm"
                                                                             @click="cancelVerOP(psr.id)"
                                                                             :disabled="psr.is_vrf_siswa === 'N'"><i
                                                                                 class="ri-arrow-go-back-line label-icon align-middle fs-10 me-1"></i>
                                                                             Batalkan&nbsp;&nbsp;&nbsp;
                                                                         </button>
-                                                                     </div>
+                                                                    </div>
                                                                     <button type="button" class="btn btn-danger btn-sm"
                                                                         @click="destroy(psr.id)"><i
                                                                             class="ri-delete-bin-2-line label-icon align-middle fs-10 me-1"></i>
@@ -305,7 +322,8 @@
                                                 <Emptytable :data="props.peserta" />
                                             </div>
                                             <div v-if="peserta.data.length != 0">
-                                                <Pagination :links="peserta.links" :count="peserta" :perPage="props.perPage" />
+                                                <Pagination :links="peserta.links" :count="peserta"
+                                                    :perPage="props.perPage" />
                                             </div>
                                         </div>
                                     </div>
@@ -317,12 +335,13 @@
             </div>
         </div>
     </div>
-    <RightBar :show="data.openDetail" @close-canvas="closeCanvas" :peserta="data.dataPeserta" :id="data.id" :inkel="inkel" :bidang="bidang" :tingkat="tingkat" />
+    <RightBar :show="data.openDetail" @close-canvas="closeCanvas" :peserta="data.dataPeserta" :id="data.id"
+        :inkel="inkel" :bidang="bidang" :tingkat="tingkat" />
     <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deletePeserta" />
 </template>
 
 <script setup>
-import { Head, router } from "@inertiajs/vue3";
+import { Head, router, Link } from "@inertiajs/vue3";
 import { computed, reactive, watch, onMounted } from "vue";
 import Titlebox from "@/Components/Titlebox.vue";
 import Tilebox from '@/Components/Tilebox.vue';
@@ -375,17 +394,17 @@ const cancelVerOP = (id) => {
     router.post(`/apps/peserta/cancelverop/${id}`, {
         preserveState: true,
         preserveScroll: true
-    },{
+    }, {
         onSuccess: () => {
             createToast(
                 {
                     title: 'Berhasil',
                     description: 'Verifikasi Peserta Berhasil Dibatalkan.'
                 }, {
-                    type: 'success',
-                    showIcon: true,
-                    transition: 'zoom',
-                }
+                type: 'success',
+                showIcon: true,
+                transition: 'zoom',
+            }
             )
         },
         onError: () => {
@@ -454,7 +473,7 @@ const breadcrumbs = computed(() => {
 const clickButton = (id, psr) => {
     data.openDetail = !data.openDetail
     data.id = id,
-    data.dataPeserta = psr
+        data.dataPeserta = psr
 }
 
 const closeCanvas = () => {

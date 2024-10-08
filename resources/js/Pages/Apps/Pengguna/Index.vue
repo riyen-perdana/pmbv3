@@ -32,7 +32,7 @@
                                             <button
                                                 type="button"
                                                 class="btn btn-danger delete-btn ms-2"
-                                                @click="deleteButton(data.id)"
+                                                @click="deleteButton(selectedItems)"
                                                 :disabled="isButtonDeleteEnable"
                                             >
                                                 <i class="ri-delete-bin-line align-bottom me-1"></i>Hapus Data
@@ -143,7 +143,7 @@
     <div>
         <Form :show="data.createOpen" :id="data.id" :isEdit="data.isEdit" :data="props.role" :dataEdit="data.dataEdit"
             @close="closeModal" />
-        <Alert :show="data.openAlert" :id="data.id" @close-alert="closeAlert" @delete-data="deletePengguna" />
+        <Alert :show="data.openAlert" :id="data.idChecked" @close-alert="closeAlert" @delete-data="deletePengguna" />
     </div>
 </template>
 
@@ -199,6 +199,7 @@ const handleItemCheck = (id) => {
 };
 
 const clickButton = (id, user) => {
+    selectedItems.value = []
     data.createOpen = true
     data.id = id
     if (id == 0) {
@@ -217,10 +218,15 @@ const closeModal = () => {
 
 const destroy = (id) => {
     data.openAlert = true
-    data.id = id
+    data.idChecked = id
 }
 
 const deletePengguna = (id) => {
+    // if (id.length > 0) {
+    //     console.log('array')
+    // } else {
+    //     console.log('number')
+    // }
     router.delete(`/apps/pengguna/${id}`,
         {
             preserveState: true,
@@ -235,7 +241,7 @@ const deletePengguna = (id) => {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
-                }
+                    }
                 )
             },
             onError: () => {
@@ -276,13 +282,14 @@ const data = reactive({
     isEdit: false,
     openAlert: false,
     id: 0,
+    idChecked : [],
     dataEdit: {}
 });
 
 const closeAlert = () => {
     data.openAlert = !data.openAlert
     data.isEdit = false
-    data.id = 0
+    data.idChecked = []
 }
 
 watch(() => cloneDeep(data.params), debounce(() => {
@@ -293,6 +300,11 @@ watch(() => cloneDeep(data.params), debounce(() => {
         preserveScroll: true
     })
 }, 150));
+
+const deleteButton = (id) => {
+    data.openAlert = true
+    data.idChecked = id
+}
 
 </script>
 

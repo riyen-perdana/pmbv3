@@ -219,7 +219,7 @@
                 </ol>
             </div>
             <div class="row justify-content-end mt-5">
-                <Link href="/" class="btn btn-success primary w-25"><i class="ri-mark-pen-line align-middle me-2"></i>Sudah Yakin, Lanjut Pradaftar</Link>&nbsp;
+                <Link href="/pradaftar" class="btn btn-success primary w-25"><i class="ri-mark-pen-line align-middle me-2"></i>Sudah Yakin, Lanjut Pradaftar</Link>&nbsp;
                 <Link href="/peserta/login" class="btn btn-danger w-25">Sudah Membayar, Lanjut Ke Pendaftaran</Link>
             </div>
         </div>

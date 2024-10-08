@@ -14,6 +14,10 @@ use App\Models\Prestasi;
 use App\Models\Tingkat;
 use App\Models\Rapor;
 use Illuminate\Support\Facades\DB;
+use App\Exports\PendaftarUndanganExport;
+use App\Exports\LulusUndanganExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Carbon\Carbon;
 
 class PesertaController extends Controller
 {
@@ -236,4 +240,47 @@ class PesertaController extends Controller
             return redirect()->back()->with('error', $th->getMessage());
         }
     }
+
+    public function exportDataPeserta(Request $request) {
+
+        $dataPeserta = DB::table('peserta')
+                       ->select('nisn_siswa','nm_siswa','nomor','npsn','sekolah.nama as nm_sekolah','kabkot.nm_kabkot','provinsi.nm_provinsi','pil_1.nm_prodi as pil_1','pil_2.nm_prodi as pil_2','pil_3.nm_prodi as pil_3','pil_4.nm_prodi as pil_4')
+                       ->leftjoin('sekolah', 'peserta.npsn', '=', 'sekolah.id')
+                       ->leftjoin('kecamatan', 'sekolah.kecamatan_id', '=', 'kecamatan.id')
+                       ->leftjoin('kabkot', 'kecamatan.kabkot_id', '=', 'kabkot.id')
+                       ->leftjoin('provinsi', 'kabkot.prov_id', '=', 'provinsi.id')
+                       ->leftjoin('prodi as pil_1', 'peserta.pil1_siswa', '=', 'pil_1.id')
+                       ->leftjoin('prodi as pil_2', 'peserta.pil2_siswa', '=', 'pil_2.id')
+                       ->leftjoin('prodi as pil_3', 'peserta.pil3_siswa', '=', 'pil_3.id')
+                       ->leftjoin('prodi as pil_4', 'peserta.pil4_siswa', '=', 'pil_4.id')
+                       ->whereNotNull('peserta.nomor')
+                       ->orderBy('nomor', 'desc')
+                       ->get();
+
+        //return $dataPeserta;
+        return Excel::download(new PendaftarUndanganExport($dataPeserta), 'PendaftarUndangan — '.Carbon::now().'.xlsx');
+    }
+
+    public function exportDataPesertaLulus(Request $request) {
+
+        $dataPeserta = DB::table('peserta')
+                       ->select('nisn_siswa','nm_siswa','nomor','npsn','sekolah.nama as nm_sekolah','kabkot.nm_kabkot','provinsi.nm_provinsi','pil_1.nm_prodi as pil_1','pil_2.nm_prodi as pil_2','pil_3.nm_prodi as pil_3','pil_4.nm_prodi as pil_4','lulus.nm_prodi as prodills')
+                       ->leftjoin('sekolah', 'peserta.npsn', '=', 'sekolah.id')
+                       ->leftjoin('kecamatan', 'sekolah.kecamatan_id', '=', 'kecamatan.id')
+                       ->leftjoin('kabkot', 'kecamatan.kabkot_id', '=', 'kabkot.id')
+                       ->leftjoin('provinsi', 'kabkot.prov_id', '=', 'provinsi.id')
+                       ->leftjoin('prodi as pil_1', 'peserta.pil1_siswa', '=', 'pil_1.id')
+                       ->leftjoin('prodi as pil_2', 'peserta.pil2_siswa', '=', 'pil_2.id')
+                       ->leftjoin('prodi as pil_3', 'peserta.pil3_siswa', '=', 'pil_3.id')
+                       ->leftjoin('prodi as pil_4', 'peserta.pil4_siswa', '=', 'pil_4.id')
+                       ->leftJoin('prodi as lulus', 'peserta.prodills_siswa', '=', 'lulus.id')
+                       ->where('is_lulus','Y')
+                       ->whereNotNull('peserta.nomor')
+                       ->orderBy('nomor', 'desc')
+                       ->get();
+
+        //return $dataPeserta;
+        return Excel::download(new LulusUndanganExport($dataPeserta), 'LulusUndangan — '.Carbon::now().'.xlsx');
+    }
+
 }

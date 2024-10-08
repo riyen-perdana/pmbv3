@@ -141,23 +141,24 @@ class PenggunaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        DB::beginTransaction();
-        try {
-            //find user by ID
-            $user = User::findOrFail($id);
+        var_dump($id);
+        // DB::beginTransaction();
+        // try {
+        //     //find user by ID
+        //     $user = User::findOrFail($id);
 
-            //delete role
-            $user->delete();
+        //     //delete role
+        //     $user->delete();
 
-            DB::commit();
-            //redirect
-            return redirect()->route('pengguna.index');
+        //     DB::commit();
+        //     //redirect
+        //     return redirect()->route('pengguna.index');
 
-        } catch (\Throwable $th) {
-            DB::rollBack();
-            return back()->with('errors', $th->getMessage());
-        }
+        // } catch (\Throwable $th) {
+        //     DB::rollBack();
+        //     return back()->with('errors', $th->getMessage());
+        // }
     }
 }

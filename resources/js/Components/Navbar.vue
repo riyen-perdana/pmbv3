@@ -157,7 +157,7 @@
                         </li>
                     </ul>
                 </div>
-                <div v-else>
+                <div v-else-if="$page.props.auth.user && $page.props.auth.user.roles[0].id == 7">
                     <ul class="navbar-nav" id="navbar-nav">
                         <li class="menu-title"><span data-key="t-menu">Menu</span></li>
                         <li class="nav-item">
@@ -179,6 +179,16 @@
                                     </li>
                                 </ul>
                             </div>
+                        </li>
+                    </ul>
+                </div>
+                <div v-else>
+                    <ul class="navbar-nav" id="navbar-nav">
+                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                        <li class="nav-item">
+                            <Link class="nav-link menu-link" href="/peserta/dashboard">
+                            <i class="bx bxs-dashboard"></i> <span data-key="t-dashboards">Dashboard</span>
+                            </Link>
                         </li>
                     </ul>
                 </div>

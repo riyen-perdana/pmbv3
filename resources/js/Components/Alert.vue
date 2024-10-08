@@ -17,7 +17,7 @@
                         <p class="text-muted mb-4">Data Yang Sudah Terhapus Tidak Akan Bisa Dikembalikan Lagi</p>
                         <div class="hstack gap-2 justify-content-center">
                             <form @submit.prevent="destroy(props.id)">
-                                <input type="hidden" v-model="props.id">
+                                <!-- <input type="hidden" v-model="props.id"> -->
                             </form>
                             <button class="btn link-success fw-medium" @click="closeModalAlert"><i class="ri-close-line me-1 align-middle"></i> Tutup</button>
                             <button class="btn btn-success" @click="destroy(props.id)">Hapus</button>
@@ -38,9 +38,9 @@ import { useModal } from "@/Composables/useModal.js";
 const defaultOptions = ref({ animationData: Danger });
 
 const props = defineProps({
-    id: {
-        type: [Number,String],
-        required: true
+    id : {
+        type: [Array,String,Number],
+        required: true,
     },
     show: {
         type: Boolean,

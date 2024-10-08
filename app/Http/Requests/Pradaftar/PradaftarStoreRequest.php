@@ -33,6 +33,7 @@ class PradaftarStoreRequest extends FormRequest
         return [
             'nisn.required' => 'Kolom Nomor Induk Siswa Nasional Harus Diisi',
             'nisn.digits' => 'Kolom Nomor Induk Siswa Nasional Harus 10 Digit',
+            'nisn.numeric' => 'Kolom Nomor Induk Siswa Nasional Harus Angka',
             'tglLhr.required' => 'Kolom Tanggal Lahir Harus Diisi',
             'telepon.required' => 'Kolom Nomor Telepon/HP Harus Diisi',
             'telepon.regex' => 'Kolom Nomor Telepon/HP Tidak Valid',

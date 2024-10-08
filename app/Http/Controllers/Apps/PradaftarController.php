@@ -16,8 +16,8 @@ class PradaftarController extends Controller
 
     public function index()
     {
-        abort(500);
-        //return Inertia::render('Landing/Pradaftar');
+        //abort(500);
+        return Inertia::render('Landing/Pradaftar');
     }
 
 
@@ -27,7 +27,7 @@ class PradaftarController extends Controller
         try {
             $lunas = Lunas::where('id', $request->nisn)->first();
             if($lunas) {
-                return back()->with('error', 'Maaf Anda Tidak Dapat Mendaftar, Karena Sudah Dinyatakan Lulus SNBP');
+                return back()->with('error', 'Maaf Anda Tidak Dapat Mendaftar, Karena Sudah Dinyatakan Lulus SNBP/SNBT');
             } else {
                 $password = rand(100000,600000);
                 $peserta = Peserta::create([
@@ -36,7 +36,7 @@ class PradaftarController extends Controller
                     'password' => bcrypt($password),
                     'first_password' => $password,
                     'pin' => rand(992100000, 992999999),
-                    'tgllhr_siswa' => $request->tgllhr,
+                    'tgllhr_siswa' => $request->tglLhr,
                     'jlmbayar_siswa' => '250000',
                     'notlpn_siswa' => $request->telepon
                 ]);

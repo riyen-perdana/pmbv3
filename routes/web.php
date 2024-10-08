@@ -135,6 +135,8 @@ Route::prefix('apps')->group(function () {
         Route::get('/peserta/datapeserta/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'getData'])->name('getDataPeserta');
         Route::post('/peserta/updateprestasi/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataPrestasi'])->name('updateDataPrestasi');
         Route::post('/peserta/updaterapor/{id}', [\App\Http\Controllers\Apps\PesertaController::class, 'updateDataRapor'])->name('updateDataRapor');
+        Route::get('/peserta/downloadPendaftar',[\App\Http\Controllers\Apps\PesertaController::class, 'exportDataPeserta'])->name('downloadPendaftar');
+        Route::get('/peserta/downloadLulus',[\App\Http\Controllers\Apps\PesertaController::class, 'exportDataPesertaLulus'])->name('downloadPendaftarLulus');
         Route::resource('peserta', \App\Http\Controllers\Apps\PesertaController::class )->except('create','edit','show');
 
         //Kelulusan

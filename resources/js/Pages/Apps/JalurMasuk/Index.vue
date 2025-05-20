@@ -7,7 +7,7 @@ import Titlebox from "@/Components/Titlebox.vue";
 import Breadcrumb from "@/Components/Breadcrumb.vue";
 import Emptytable from "@/Components/Emptytable.vue";
 import Pagination from "@/Components/Pagination.vue";
-import Form from "@/Pages/Apps/Jenjang/Form.vue";
+import Form from "@/Pages/Apps/JalurMasuk/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { cloneDeep, debounce, pickBy } from "lodash";
 

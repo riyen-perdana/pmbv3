@@ -19,6 +19,11 @@
                             <div class="collapse menu-dropdown" id="sidebarMD">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
+                                        <Link class="nav-link menu-link" href="/apps/jalur-masuk">
+                                        <i class="bx bxs-map-alt"></i> <span data-key="t-jalur-masuk">Jalur Masuk</span>
+                                        </Link>
+                                    </li>
+                                    <li class="nav-item">
                                         <Link class="nav-link menu-link" href="/apps/rektor">
                                         <i class="bx bx-group"></i> <span data-key="t-rektor">Rektor</span>
                                         </Link>

@@ -144,5 +144,8 @@ Route::prefix('apps')->group(function () {
         Route::post('/dekan/prodi/lulus/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'lulus'])->name('dekan.lulus');
         Route::post('/dekan/prodi/batal/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'cancel'])->name('dekan.batal');
         Route::post('/dekan/prodi/finalisasi/{id}', [\App\Http\Controllers\Apps\KelulusanController::class, 'finalisasi'])->name('dekan.finalisasi');
+
+        //Jalur Masuk
+        Route::resource('jalur-masuk', \App\Http\Controllers\Apps\JalurMasukController::class)->except('create','edit','show');
     });
 });

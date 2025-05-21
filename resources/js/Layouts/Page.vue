@@ -24,27 +24,27 @@
                 <div class="card-header">
                   <div class="d-flex align-items-center">
                     <h5 class="card-title mb-0 flex-grow-1"></h5>
-                    <div class="flex-shrink-0 mb-3">
+                    <div class="flex-shrink-0">
                       <slot name="action" />
                     </div>
                   </div>
-                  <div class="card-body doted">
-                    <div class="row g-3">
-                      <div class="col-md-4">
-                        <div class="search-box">
-                          <slot name="search" />
-                        </div>
-                      </div>
-                      <div class="col-md-auto ms-auto">
-                        <div class="d-flex flex-row align-items-center gap-2">
-                          <slot name="entries" />
-                        </div>
+                </div>
+                <div class="card-body doted">
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <div class="search-box">
+                        <slot name="search" />
                       </div>
                     </div>
-										<div class="row">
-											<slot name="table-pagination" />
-										</div>
+                    <div class="col-md-auto ms-auto">
+                      <div class="d-flex flex-row align-items-center gap-2">
+                        <slot name="entries" />
+                      </div>
+                    </div>
                   </div>
+									<div class="row">
+										<slot name="table-pagination" />
+									</div>
                 </div>
               </div>
             </div>
@@ -52,6 +52,8 @@
         </div>
       </div>
     </div>
+    <slot name="form" />
+    <slot name="alert" />
   </div>
 </template>
 

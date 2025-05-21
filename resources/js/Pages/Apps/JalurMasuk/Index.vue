@@ -10,6 +10,7 @@ import Pagination from "@/Components/Pagination.vue";
 import Form from "@/Pages/Apps/JalurMasuk/Form.vue";
 import Alert from "@/Components/Alert.vue";
 import { cloneDeep, debounce, pickBy } from "lodash";
+import { create } from "lodash";
 
 defineOptions({ layout: LayoutApp });
 
@@ -32,6 +33,17 @@ const breadcrumbs = computed(() => {
   ];
 });
 
+const clickButton = (id, jalurMasuk) => {
+  data.id = id;
+  if (id == "") {
+    data.isEdit = false;
+  } else {
+    data.isEdit = true;
+    data.dataEdit = jalurMasuk;
+  }
+  data.createOpen = true;
+};
+
 const data = reactive({
   params: {
     search: props.filters?.search,
@@ -43,6 +55,14 @@ const data = reactive({
   dataEdit: {},
   id: "",
 });
+
+const closeModal = () => {
+  data.createOpen = false;
+  data.isEdit = false;
+  data.id = "";
+  console.log(data.createOpen);
+};
+
 </script>
 
 <template>
@@ -89,32 +109,42 @@ const data = reactive({
       <span class="text-muted text-show">Entries</span>
     </template>
     <template #table-pagination>
-      <div class="table-responsive table-card mb-3 mt-3">
-        <table
-          class="table table-hover align-middle table-nowrap mb-0"
-          id="jalurMasukTable"
-        >
-          <thead class="table-light boder-white">
-            <tr>
-              <th scope="col" style="width: 4%">No.</th>
-              <th scope="col" style="width: 23%">Jalur Masuk</th>
-							<th scope="col" style="width: 10%">Tahun</th>
-							<th scope="col" style="width: 10%">Semester</th>
-							<th scope="col" style="width: 20%">Tanggal Penting</th>
-							<th scope="col" style="width: 10%">Status Aktif</th>
-							<th scope="col" style="width: 10%">Kode Prefiks</th>
-              <th scope="col" style="width: 13%">Aksi</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-          </tbody>
-        </table>
-        <!-- <Emptytable :data="jenjang" /> -->
+      <div>
+        <div class="table-responsive table-card mb-3 mt-3">
+          <table
+            class="table table-hover align-middle table-nowrap mb-0"
+            id="jalurMasukTable"
+          >
+            <thead class="table-light boder-white">
+              <tr>
+                <th scope="col" style="width: 4%">No.</th>
+                <th scope="col" style="width: 23%">Jalur Masuk</th>
+                <th scope="col" style="width: 10%">Tahun</th>
+                <th scope="col" style="width: 10%">Semester</th>
+                <th scope="col" style="width: 20%">Tanggal Penting</th>
+                <th scope="col" style="width: 10%">Status Aktif</th>
+                <th scope="col" style="width: 10%">Kode Prefiks</th>
+                <th scope="col" style="width: 13%">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+          </table>
+          <Emptytable :data="jalurMasuk" />
+        </div>
       </div>
       <!-- <div v-if="jenjang.data.length != 0">
         <Pagination :links="jenjang.links" :count="jenjang" />
       </div> -->
+    </template>
+    <template #form>
+      <Form
+        :show="data.createOpen"
+        :isEdit="data.isEdit"
+        :data="data.dataEdit"
+        @close="closeModal"
+      />
     </template>
   </PageLayout>
 </template>

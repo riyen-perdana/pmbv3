@@ -1,14 +1,14 @@
 <template>
     <Modal id="mJalurMasuk" size="modal-lg" @close="closeModal">
-        <template #modalTitle>{{ props.isEdit == false ? "Tambah Data" : "Ubah Data" }} Jalur Masuk</template>
+        <template #modalTitle>{{ props.isEdit == false ? "Tambah Data" : "Ubah Data" }} Jenjang Pendidikan</template>
         <template #modalBody>
             <form @submit.prevent="submitData()">
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="txtKdJenjang" class="form-label">Kode Jenjang Pendidikan</label>
-                        <input v-model="form.kdJenjangPendidikan" class="form-control" :class="{ 'is-invalid': $page.props.errors.kdJenjangPendidikan }" type="text" placeholder="Isikan Kode Jenjang Pendidikan">
-                        <div v-if="$page.props.errors.kdJenjangPendidikan" class="invalid-feedback">
-                            {{ $page.props.errors.kdJenjangPendidikan }}
+                        <label for="nmJalurMasuk" class="form-label">Nama Jalur Masuk</label>
+                        <input id="nmJalurMasuk" v-model="form.nmJalurMasuk" class="form-control" :class="{ 'is-invalid': $page.props.errors.nmJalurMasuk }" type="text" placeholder="Isikan Jalur Masuk">
+                        <div v-if="$page.props.errors.nmJalurMasuk" class="invalid-feedback">
+                            {{ $page.props.errors.nmJalurMasuk }}
                         </div>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="col-md-12 lg-12 mb-3">
-                        <label for="txtNmJenjang" class="form-label">Nama Jenjang Pendidikan</label>
-                        <input v-model="form.nMJenjangPendidikan" class="form-control" :class="{ 'is-invalid': $page.props.errors.nMJenjangPendidikan }" type="text" placeholder="Isikan Nama Jenjang Pendidikan">
-                        <div v-if="$page.props.errors.nMJenjangPendidikan" class="invalid-feedback">
-                            {{ $page.props.errors.nMJenjangPendidikan }}
+                        <label for="preJalurMasuk" class="form-label">Prefiks Jalur Masuk</label>
+                        <input v-model="form.preJalurMasuk" class="form-control" :class="{ 'is-invalid': $page.props.errors.preJalurMasuk }" type="text" placeholder="Isikan Prefiks Jalur Masuk">
+                        <div v-if="$page.props.errors.preJalurMasuk" class="invalid-feedback">
+                            {{ $page.props.errors.preJalurMasuk }}
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
 <script setup>
 import Modal from "@/Components/Modal.vue";
 import { useModal } from "@/Composables/useModal.js";
-import { ref, onMounted, onUnmounted, watchEffect } from "vue";
+import { ref, onMounted, onUnmounted, watchEffect, nextTick } from "vue";
 import { router, useForm } from "@inertiajs/vue3";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
@@ -62,9 +62,9 @@ const props = defineProps({
 });
 
 const form = useForm({
-    kdJenjangPendidikan : '',
+    nmJalurMasuk : '',
     isAktif : '',
-    nMJenjangPendidikan : ''
+    preJalurMasuk : ''
 });
 
 const modal = ref(null);
@@ -135,7 +135,7 @@ const openModal = () => {
 }
 
 onMounted(() => {
-    modal.value = useModal('#mJenjang')
+    modal.value = useModal('#mJalurMasuk')
 });
 
 onUnmounted(() => {
@@ -150,8 +150,8 @@ watchEffect(() => {
             form.isAktif = props.dataEdit?.is_aktif,
             form.nMJenjangPendidikan = props.dataEdit?.nm_jenjang
         }
+    } else {
+        closeModal;
     }
 });
-
-
 </script>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apps;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Models\JalurMasuk;
 
 class JalurMasukController extends Controller
 {
@@ -13,9 +14,15 @@ class JalurMasukController extends Controller
      */
     public function index(Request $request)
     {
+        $jalurMasuk = JalurMasuk::query();
+        if ($request->has('search')) {
+            $agama->where('nm_agama','like','%'. $request->search .'%');
+        }
         $perPage = $request->has('perPage') ? $request->perPage : 10;
+        
         return Inertia::render('Apps/JalurMasuk/Index', [
             'perPage' => intval($perPage),
+            'jalurMasuk' => $jalurMasuk->orderBy('created_at', 'desc')->paginate($perPage)->withQueryString(),
         ]);
     }
 

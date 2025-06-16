@@ -11,16 +11,17 @@
                                     <h1 class="display-10 text-dark fw-bold mb-4 lh-1">Ayo Kuliah Di UIN SUSKA Riau !!</h1>
                                 </div>
                                 <div class="mb-10">
-                                    <h2 class="display-10 text-dark fw-bold mb-4 lh-1">Bersama Menjadikan Universitas Islam Negeri Sultan Syarif Kasim Riau Gemilang dan Terbilang</h2>
+                                    <h2 class="display-10 text-dark fw-bold mb-4 lh-1">Universitas Islam Negeri Sultan Syarif Kasim Riau Maju dengan Inovasi Unggul dengan Prestasi</h2>
                                 </div>
                                 <div>
-                                    <p class="text-dark fw-semibold mb-4" style="font-size: 15px !important;">Prof. Dr. Khairunnas, M.Ag. - Rektor UIN SUSKA Riau</p>
+                                    <p class="text-dark fw-semibold mb-0" style="font-size: 16px !important;">Prof. Dr. Hj. Leny Nofianti MS, SE, M.Si, Ak, CA</p>
+                                    <p class="text-dark fw-semibold mb-4" style="font-size: 14px !important;">Rektor Universitas Islam Negeri Sultan Syarif Kasim Riau</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-6">
-                        <img src="../../../../public/images/rektor.jpeg" alt="logo" class="rounded-4 img-fluid">
+                        <img src="../../../../public/images/rektor.jpg" alt="logo" class="rounded-4 img-fluid mx-auto d-flex align-items-center" width="400px">
                     </div>
                 </div>
                 <!-- end row -->

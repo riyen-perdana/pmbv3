@@ -25,8 +25,8 @@ return new class extends Migration
             // $table->date('tgl_dft_tutup')->comment('Tanggal Pendaftaran Tutup');
             // $table->date('tgl_pengumuman')->comment('Tanggal pengumuman kelulusan jalur penerimaan')->nullable();
             // $table->text('pilihan')->comment('Pilihan Prodi');
-            $table->enum('is_aktif',['Y','N'])->comment('Apakah Jalur Aktif?')->default('N');
             $table->integer('prefiks')->comment('Prefiks Jalur');
+            $table->enum('is_aktif', ['Y', 'N'])->comment('Apakah Jalur Aktif?')->default('N');
             $table->timestamps();
         });
     }

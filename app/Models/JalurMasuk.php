@@ -9,20 +9,11 @@ class JalurMasuk extends Model
 {
     use HasFactory;
     protected $table = 'jalur_masuk';
+    public $keyType = 'string';
+    public $incrementing = false;
     protected $fillable = [
         'nama',
-        'tahun',
-        'semester',
-        'nominal_pendaftaran',
-        'tgl_pr_buka',
-        'tgl_pr_tutup',
-        'tgl_byr_buka',
-        'tgl_byr_tutup',
-        'tgl_dft_buka',
-        'tgl_dft_tutup',
-        'tgl_pengumuman',
-        'pilihan',
+        'prefiks',
         'is_aktif',
-        'prefiks'
     ];
 }

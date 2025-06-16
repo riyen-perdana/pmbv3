@@ -62,7 +62,6 @@ const closeModal = () => {
   data.id = "";
   console.log(data.createOpen);
 };
-
 </script>
 
 <template>
@@ -118,18 +117,13 @@ const closeModal = () => {
             <thead class="table-light boder-white">
               <tr>
                 <th scope="col" style="width: 4%">No.</th>
-                <th scope="col" style="width: 23%">Jalur Masuk</th>
-                <th scope="col" style="width: 10%">Tahun</th>
-                <th scope="col" style="width: 10%">Semester</th>
-                <th scope="col" style="width: 20%">Tanggal Penting</th>
-                <th scope="col" style="width: 10%">Status Aktif</th>
+                <th scope="col" style="width: 63%">Jalur Masuk</th>
                 <th scope="col" style="width: 10%">Kode Prefiks</th>
+                <th scope="col" style="width: 10%">Status Aktif</th>
                 <th scope="col" style="width: 13%">Aksi</th>
               </tr>
             </thead>
-            <tbody>
-              
-            </tbody>
+            <tbody></tbody>
           </table>
           <Emptytable :data="jalurMasuk" />
         </div>

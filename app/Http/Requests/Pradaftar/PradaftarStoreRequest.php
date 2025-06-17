@@ -23,6 +23,7 @@ class PradaftarStoreRequest extends FormRequest
     {
         return [
             'nisn' => 'required|numeric|digits:10',
+            'npsn' => 'required|numeric|digits:8',
             'tglLhr' => 'required',
             'telepon' => 'required|regex:/^08[0-9]{9,12}$/',
         ];
@@ -34,6 +35,9 @@ class PradaftarStoreRequest extends FormRequest
             'nisn.required' => 'Kolom Nomor Induk Siswa Nasional Harus Diisi',
             'nisn.digits' => 'Kolom Nomor Induk Siswa Nasional Harus 10 Digit',
             'nisn.numeric' => 'Kolom Nomor Induk Siswa Nasional Harus Angka',
+            'npsn.required' => 'Kolom Nomor Pokok Sekolah Nasional Harus Diisi',
+            'npsn.digits' => 'Kolom Nomor Pokok Sekolah Nasional Harus 8 Digit',
+            'npsn.numeric' => 'Kolom Nomor Pokok Sekolah Nasional Harus Angka',
             'tglLhr.required' => 'Kolom Tanggal Lahir Harus Diisi',
             'telepon.required' => 'Kolom Nomor Telepon/HP Harus Diisi',
             'telepon.regex' => 'Kolom Nomor Telepon/HP Tidak Valid',

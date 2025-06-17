@@ -16,7 +16,7 @@
                     potensi dan prestasi yang beragam.
                 </p>
                 <p class="text-muted">
-                    Jalur PMB Undangan Mandiri tahun 2024 dengan portofolio merupakan salah satu upaya strategis yang
+                    Jalur PMB Undangan Mandiri tahun 2025 dengan portofolio merupakan salah satu upaya strategis yang
                     dilakukan oleh Universitas Islam Negeri Sultan Syarif Kasim Riau untuk menjaring calon mahasiswa
                     yang memiliki prestasi luar biasa di bidang non-akademik. Portofolio memberikan gambaran menyeluruh
                     tentang potensi, minat, dan bakat calon mahasiswa yang tidak selalu terlihat dalam nilai akademik
@@ -29,13 +29,13 @@
                     masing-masing calon mahasiswa.
                 </p>
                 <p class="text-muted">
-                    Selain itu, penerimaan melalui jalur PMB Undangan Mandiri 2024 dengan portofolio juga merupakan
+                    Selain itu, penerimaan melalui jalur PMB Undangan Mandiri 2025 dengan portofolio juga merupakan
                     bentuk apresiasi kami terhadap kerja keras dan dedikasi yang telah ditunjukkan oleh calon mahasiswa
                     selama masa pendidikan di sekolah. Kami percaya bahwa prestasi yang diraih tidak lepas dari dukungan
                     dan bimbingan dari guru, orang tua, dan lingkungan sekitarnya.
                 </p>
                 <p class="text-muted">
-                    Dengan demikian, penerimaan mahasiswa baru melalui jalur PMB Undangan Mandiri Tahun 2024 dengan
+                    Dengan demikian, penerimaan mahasiswa baru melalui jalur PMB Undangan Mandiri Tahun 2025 dengan
                     portofolio ini diharapkan dapat menghasilkan lulusan yang tidak hanya berprestasi secara akademik,
                     tetapi juga memiliki karakter dan keterampilan yang mampu menghadapi tantangan zaman. Kami
                     berkomitmen untuk terus meningkatkan kualitas pendidikan dan memberikan kesempatan yang adil bagi
@@ -46,7 +46,7 @@
                     semakin kaya akan keragaman talenta dan dapat terus berkontribusi dalam pengembangan ilmu
                     pengetahuan, teknologi, seni, dan budaya.
                 </p>
-                <h3>Tujuan PMB Undangan Mandiri UIN Sultan Syarif Kasim Riau Tahun 2024</h3>
+                <h3>Tujuan PMB Undangan Mandiri UIN Sultan Syarif Kasim Riau Tahun 2025</h3>
                 <ol class="mt-2 text-muted">
                     <li class="ms-3">
                         <span class="text-muted fw-semibold">Mengidentifikasi dan Mengapresiasi Potensi Siswa</span>
@@ -94,17 +94,17 @@
                             lokal maupun global.</p>
                     </li>
                 </ol>
-                <p class="text-muted">Dengan tujuan-tujuan ini, kami berharap PMB Undangan Mandiri Tahun 2024 dengan
+                <p class="text-muted">Dengan tujuan-tujuan ini, kami berharap PMB Undangan Mandiri Tahun 2025 dengan
                     portofolio dapat menjadi sarana efektif untuk menyeleksi calon mahasiswa yang berpotensi dan
                     berprestasi di Universitas Islam Negeri Sultan Syarif Kasim Riau.</p>
                 <!--Ketentuan-->
-                <h3>Ketentuan Umum dan Persyaratan PMB Jalur Undangan UIN Sultan Syarif Kasim Riau Tahun 2024</h3>
+                <h3>Ketentuan Umum dan Persyaratan PMB Jalur Undangan UIN Sultan Syarif Kasim Riau Tahun 2025</h3>
                 <ol class="mt-2 text-muted">
                     <li class="ms-3">
                         <h5 class="text-muted">Persyaratan</h5>
                         <ul class="text-muted mb-2 ms-n3" style="list-style-type:square">
                             <li>Calon peserta merupakan siswa yang lulus pada tingkat SMA/SMK/MA atau sederajat tahun
-                                2024.</li>
+                                2025.</li>
                             <li>Belum diterima melalui jalur SNBP dan SNBT atau diterima melalui SNBT tapi belum daftar
                                 ulang.</li>
                         </ul>
@@ -172,15 +172,15 @@
                             lokal maupun global.</p>
                     </li>
                 </ol>
-                <h3>Prosedur Pendaftaran PMB Undangan Mandiri UIN Sultan Syarif Kasim Riau Tahun 2024</h3>
+                <h3>Prosedur Pendaftaran PMB Undangan Mandiri UIN Sultan Syarif Kasim Riau Tahun 2025</h3>
                 <ol class="mt-2 text-muted">
                     <li class="ms-3">
                         <h5 class="text-muted">Proses Pendaftaran</h5>
                         <ul class="text-muted mb-2 ms-n3" style="list-style-type:square">
-                            <li>Pendaftaran PMB Undangan Mandiri tahun 2024 dilakukan secara online.</li>
-                            <li>Melakukan Pradaftar melalui laman <a class="text-danger" href="https://pmb.uin-suska.ac.id/pradaftar">https://pmb.uin-suska.ac.id/pradaftar</a> untuk mendapatkan kode bayar.</li>
+                            <li>Pendaftaran PMB Undangan Mandiri tahun 2025 dilakukan secara online.</li>
+                            <li>Melakukan Pradaftar untuk mendapatkan kode bayar.</li>
                             <li>Melakukan pembayaran biaya pendaftaran ke Bank BSI dan BTN Syariah.</li>
-                            <li>Melakukan login melalui laman <a class="text-danger" href="https://pmb.uin-suska.ac.id/login">https://pmb.uin-suska.ac.id/login</a> dengan menggunakan NISN dan password yang diperoleh sewaktu pradaftar.</li>
+                            <li>Melakukan login dengan menggunakan NISN dan password yang diperoleh sewaktu pradaftar.</li>
                             <li>Mengisi biodata diri.</li>
                             <li>Mengisi dan mengupload portofolio prestasi Non Akademik.</li>
                             <li>Mengisi dan mengupload nilai rata-rata rapor mata pelajaran Pendidikan Agama Islam dan Matematika.</li>
@@ -196,9 +196,9 @@
                     </li>
                     <li class="ms-3">
                         <h5 class="text-muted">Waktu Pendaftaran dan Informasi Tambahan</h5>
-                        <p class="text-muted">Pendaftaran dimulai pada tanggal <strong>15 Juni 2024, pukul 00:01 WIB</strong> dan berakhir pada <strong>15 Juli 2024, pukul 16:00 WIB</strong>.
-                        Pembayaran biaya pendaftaran paling lambat dilakukan pada tanggal <strong>16 Juli 2024, pukul 16:00 WIB</strong>.
-                        Peserta yang belum menyelesaikan pengisian portofolio secara online dapat melakukannya dan melakukan verifikasi paling lambat pada tanggal <strong>17 Juli 2024, pukul 16:00 WIB</strong>.</p>
+                        <p class="text-muted">Pendaftaran dimulai pada tanggal <strong>15 Juni 2025, pukul 00:01 WIB</strong> dan berakhir pada <strong>15 Juli 2025, pukul 16:00 WIB</strong>.
+                        Pembayaran biaya pendaftaran paling lambat dilakukan pada tanggal <strong>16 Juli 2025, pukul 16:00 WIB</strong>.
+                        Peserta yang belum menyelesaikan pengisian portofolio secara online dapat melakukannya dan melakukan verifikasi paling lambat pada tanggal <strong>17 Juli 2025, pukul 16:00 WIB</strong>.</p>
                     </li>
                 </ol>
                 <h3>Biaya Pendaftaran PMB Undangan Mandiri</h3>

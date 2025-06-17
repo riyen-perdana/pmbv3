@@ -27,9 +27,17 @@
                     <div class="mb-2">
                         <label for="nisn" class="form-label">Nomor Induk Siswa Nasional<span
                                 class="text-danger"> *</span></label>
-                        <input type="text" v-model="form.nisn" ref="refnisn" class="form-control" required autofocus>
+                        <input type="text" v-model="form.nisn" ref="refnisn" class="form-control" required numeric autofocus>
                         <div v-if="$page.props.errors.nisn" class="text-danger mb-2">
                             {{ $page.props.errors.nisn }}
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label for="npsn" class="form-label">Nomor Pokok Sekolah Nasional<span
+                                class="text-danger"> *</span></label>
+                        <input type="text" v-model="form.npsn" ref="refnpsn" class="form-control" required numeric>
+                        <div v-if="$page.props.errors.npsn" class="text-danger mb-2">
+                            {{ $page.props.errors.npsn }}
                         </div>
                     </div>
                     <div class="mb-2">
@@ -69,6 +77,7 @@ defineOptions({ layout: Layout });
 
 const form = useForm({
     nisn: '',
+    npsn : '',
     nik: '',
     nama: '',
     telepon: '',
@@ -87,6 +96,7 @@ const clearAllData = () => {
 const submit = async() => {
     router.post('/pradaftar/cek', {
         nisn : form.nisn,
+        npsn : form.npsn,
         tglLhr : form.tglLhr,
         telepon : form.telepon
     },{

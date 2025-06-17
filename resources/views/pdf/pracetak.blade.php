@@ -12,7 +12,11 @@
         Pradaftar Undangan Mandiri Universitas Islam Negeri Sultan Syarif Kasim Riau
     </div>
     <div style="text-align: center">
-        TA. 2024/2025
+        TA. @php
+            $thn_a = date('Y');
+            $thn_n = $thn_a + 1;
+            echo $thn_a . '/' . $thn_n;
+        @endphp
     </div>
 </div>
 

@@ -16,7 +16,7 @@ class LoginController extends Controller
             'password'  => 'required',
         ]);
 
-        $peserta = Peserta::where([['nisn_siswa','=',$request->nisn], ['is_bayar', '=', 1]])->first();
+        $peserta = Peserta::where('nisn_siswa','=',$request->nisn)->first();
 
         if(!$peserta) {
             return redirect()->back()->with('error', 'Nomor Induk Siswa Nasional Tidak Terdaftar');

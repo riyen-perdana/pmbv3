@@ -5,6 +5,7 @@
     <Hero />
     <!-- <Kelulusan /> -->
     <Pembayaran />
+    <Prodi :prodi="props.prodi" />
     <Jalur />
 </template>
 
@@ -15,7 +16,12 @@ import Hero from '@/Components/Landing/Hero.vue';
 import Pembayaran from '@/Components/Landing/Pembayaran.vue';
 import Jalur from '@/Components/Landing/Jalur.vue';
 import Kelulusan from '@/Components/Landing/Kelulusan.vue';
+import Prodi from '@/Components/Landing/Prodi.vue';
 
 defineOptions({ layout: Layout });
+
+const props = defineProps({
+    prodi: Object,
+});
 
 </script>

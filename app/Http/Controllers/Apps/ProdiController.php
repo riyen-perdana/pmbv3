@@ -9,7 +9,7 @@ use App\Models\Jenjang;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use DB;
-Use App\Models\Prodi;
+use App\Models\Prodi;
 use App\Http\Requests\Prodi\ProdiStoreRequest;
 use App\Http\Requests\Prodi\ProdiUpdateRequest;
 use App\Models\Peserta;
@@ -24,13 +24,13 @@ class ProdiController extends Controller
     public function index(Request $request)
     {
         //Query Prodi
-        $prodi = Prodi::query()->with('fakultas','jenjang','akreditasi')->orderBy('created_at','ASC');
-        $fakultas = Fakultas::where('is_aktif','Y')->orderBy('created_at','ASC')->get();
-        $jenjang = Jenjang::where('is_aktif','Y')->orderBy('created_at','ASC')->get();
-        $akreditasi = Akreditasi::where('is_aktif','Y')->orderBy('created_at')->get();
-        if($request->has('search')) {
-            $prodi->where('kd_prodi','like','%' .$request->search . '%')
-                  ->orWhere('nm_prodi','like','%' .$request->search .'%');
+        $prodi = Prodi::query()->with('fakultas', 'jenjang', 'akreditasi')->orderBy('created_at', 'ASC');
+        $fakultas = Fakultas::where('is_aktif', 'Y')->orderBy('created_at', 'ASC')->get();
+        $jenjang = Jenjang::where('is_aktif', 'Y')->orderBy('created_at', 'ASC')->get();
+        $akreditasi = Akreditasi::where('is_aktif', 'Y')->orderBy('created_at')->get();
+        if ($request->has('search')) {
+            $prodi->where('kd_prodi', 'like', '%' . $request->search . '%')
+                ->orWhere('nm_prodi', 'like', '%' . $request->search . '%');
         }
 
         $perPage = $request->has('perPage') ? $request->perPage : 10;
@@ -77,7 +77,6 @@ class ProdiController extends Controller
             DB::commit();
 
             return redirect()->route('prodi.index');
-
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->back()->with('error', $th->getMessage());
@@ -126,7 +125,6 @@ class ProdiController extends Controller
             DB::commit();
 
             return redirect()->route('prodi.index');
-
         } catch (\Throwable $th) {
             DB::rollback();
             return redirect()->back()->with('error', $th->getMessage());
@@ -146,7 +144,6 @@ class ProdiController extends Controller
             DB::commit();
 
             return redirect()->route('Prodi.index');
-
         } catch (\Throwable $th) {
             DB::rollback();
             return back()->with('error', $th->getMessage());
@@ -155,7 +152,7 @@ class ProdiController extends Controller
 
     public function cetak($id)
     {
-        $peserta = Peserta::where([['is_lulus','Y'],['prodills_siswa',$id]])->get();
+        $peserta = Peserta::where([['is_lulus', 'Y'], ['prodills_siswa', $id]])->get();
         $template = new \PhpOffice\PhpWord\TemplateProcessor(storage_path('format_kelulusan.docx'));
 
         $jumlahlls = $peserta->count();
@@ -163,39 +160,39 @@ class ProdiController extends Controller
 
         $i = 1;
         foreach ($peserta as $pst) {
-            $template->setValue('no#'.$i,$i);
-            $template->setValue('no_daftar#'.$i,ucwords($pst->nomor));
-            $template->setValue('nama#'.$i,ucwords($pst->nm_siswa));
-            $template->setValue('ket#'.$i,'LULUS');
+            $template->setValue('no#' . $i, $i);
+            $template->setValue('no_daftar#' . $i, ucwords($pst->nomor));
+            $template->setValue('nama#' . $i, ucwords($pst->nm_siswa));
+            $template->setValue('ket#' . $i, 'LULUS');
             $i++;
         }
 
-        $template->setValue('tgl',tanggal_indonesia(date("Y-m-d"),false));
+        $template->setValue('tgl', tanggal_indonesia(date("Y-m-d"), false));
 
-        $prodi = Prodi::where('id',$id)->first();
-        $template->setValue('dkn_nm',$prodi->fakultas->user->full_nm_user);
-        $template->setValue('dkn_nip',$prodi->fakultas->user->nip);
-        $template->setValue('fak',$prodi->fakultas->nm_fakultas);
-        $template->setValue('prodi',$prodi->nm_prodi);
+        $prodi = Prodi::where('id', $id)->first();
+        $template->setValue('dkn_nm', $prodi->fakultas->user->full_nm_user);
+        $template->setValue('dkn_nip', $prodi->fakultas->user->nip);
+        $template->setValue('fak', $prodi->fakultas->nm_fakultas);
+        $template->setValue('prodi', $prodi->nm_prodi);
 
         $ta_a = date("Y");
-        $ta_n = $ta_a+1;
+        $ta_n = $ta_a + 1;
 
-        $template->setValue('ta_a',$ta_a);
-        $template->setValue('ta_n',$ta_n);
+        $template->setValue('ta_a', $ta_a);
+        $template->setValue('ta_n', $ta_n);
 
         $filename       = 'Laporan Kelulusan.docx';
         header('Content-Type: application/octet-stream');
-        header('Content-Disposition: attachment; filename='.$filename);
+        header('Content-Disposition: attachment; filename=' . $filename);
         //$template->saveAs('php://output');
-        $template->saveAs(storage_path('/app/public/'.$filename));
+        $template->saveAs(storage_path('/app/public/' . $filename));
     }
 
     public function forceDownloadFile()
     {
         $filePath = storage_path('/app/public/Laporan Kelulusan.docx');
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
-        $fileName = 'Laporan Kelulusan'.date(now()).'.docx';
+        $fileName = 'Laporan Kelulusan' . date(now()) . '.docx';
         //return Storage::download($filePath, $fileName);
         return response()->download($filePath, $fileName, $headers);
     }

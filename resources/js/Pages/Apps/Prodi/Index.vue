@@ -126,7 +126,7 @@
                                                 <Emptytable :data="prodi" />
                                             </div>
                                             <div v-if="prodi.data.length != 0">
-                                                <Pagination :links="prodi.links" :count="prodi" />
+                                                <Pagination :links="prodi.links" :count="prodi" :perPage="props.perPage" />
                                             </div>
                                         </div>
                                     </div>

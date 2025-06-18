@@ -2,17 +2,23 @@
 
 namespace App\Http\Controllers\Apps;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Peserta;
 use Inertia\Inertia;
+use App\Models\Prodi;
+use App\Models\Peserta;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class LandingController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Landing/Index');
+        $prodi = Prodi::with('fakultas','jenjang','akreditasi')
+                ->where('is_valid','!=','Y')
+                ->get();
+        return Inertia::render('Landing/Index',[
+            'prodi' => $prodi
+        ]);
     }
 
     public function kelulusan($id)

@@ -32,6 +32,9 @@
                         <a class="nav-link fs-14 fw-semibold" href="/#pembayaran">Pembayaran</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link fs-14 fw-semibold" href="/#prodi">Program Studi</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link fs-14 fw-semibold" href="/#jalur">Jalur Masuk</a>
                     </li>
                     <li class="nav-item">

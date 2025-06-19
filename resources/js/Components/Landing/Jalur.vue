@@ -1,6 +1,6 @@
 <template>
         <!-- start plan -->
-        <section class="section bg-light" id="jalur">
+        <section class="section" id="jalur">
             <div class="bg-overlay bg-overlay-pattern"></div>
             <div class="container">
                 <div class="row justify-content-center">
@@ -16,7 +16,7 @@
 
                 <div class="row gy-4 justify-content-center">
                     <div class="col-lg-4">
-                        <div class="card plan-box mb-0">
+                        <div class="card plan-box mb-0 border border-dark shadow-lg">
                             <div class="card-body p-4 m-2">
                                 <div class="d-flex align-items-center">
                                     <div class="flex-grow-1">

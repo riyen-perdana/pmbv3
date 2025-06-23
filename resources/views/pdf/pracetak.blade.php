@@ -6,7 +6,7 @@
         Jl. H.R Soebrantas No.155 KM 18
     </div>
     <div style="text-align: center">
-        Kel. Tuah Madani Kec. Tuah Madani Pekanbaru - Riau Telp: 0761-562223
+        Kel. Tuah Madani Kec. Tuah Madani Pekanbaru - Riau Telp: 081266400090
     </div>
     <div style="text-align: center">
         Pradaftar Undangan Mandiri Universitas Islam Negeri Sultan Syarif Kasim Riau
@@ -27,7 +27,7 @@
         <td>{{ $data->pin }}</td>
     </tr>
     <tr>
-        <td>Password/Kata Kunci</td>
+        <td>Password/Kata Sandi</td>
         <td>:</td>
         <td>{{ $data->first_password }}</td>
     </tr>
@@ -51,4 +51,3 @@
 <div style="margin-top: 10px;">
     <p style="font-size: 12px !important;text-align: center">Lakukan Pembayaran dengan memasukkan kode bayar di mobile banking, ATM atau menyebutkan kode tersebut pada teller Bank.</p>
 </div>
-

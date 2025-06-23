@@ -14,7 +14,7 @@ class LandingController extends Controller
     public function index()
     {
         $prodi = Prodi::with('fakultas','jenjang','akreditasi')
-                ->where('is_valid','!=','Y')
+                ->where('is_aktif','=','Y')
                 ->get();
         return Inertia::render('Landing/Index',[
             'prodi' => $prodi

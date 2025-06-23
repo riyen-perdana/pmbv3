@@ -51,10 +51,30 @@
                                                 <div v-if="$page.props.auth.peserta?.is_vrf_siswa != 'Y'">
                                                     <div class="nav flex-column custom-nav nav-pills" role="tablist"
                                                         aria-orientation="vertical">
-                                                        <button class="nav-link active" id="v-data-pribadi"
+                                                        <button 
+                                                            v-for="tab in tabsList" 
+                                                            :key="tab.idx" 
+                                                            id="v-{prv}" 
+                                                            data-bs-toggle="pill" 
+                                                            data-bs-target="#v-tab-{prv}"
+                                                            type="button"
+                                                            role="tab"
+                                                            class="nav-link"
+                                                            :class="{'active' : stepTab + 1 >= tab.idx }"
+                                                            disabled>
+                                                                <span class="step-title me-2">
+                                                                    <i class="ri-close-circle-fill step-icon me-2"></i>
+                                                                    {{ tab.name }}
+                                                                </span>
+                                                                {{ tab.title }}
+                                                        </button>
+
+
+
+                                                        <!-- <button class="nav-link active" id="v-data-pribadi"
                                                             data-bs-toggle="pill" data-bs-target="#v-tab-data-pribadi"
                                                             type="button" role="tab" aria-controls="v-tab-data-pribadi"
-                                                            aria-selected="true">
+                                                            aria-selected="true" disabled>
                                                             <span class="step-title me-2">
                                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                                 Langkah 1
@@ -64,7 +84,7 @@
                                                         <button class="nav-link" id="v-data-pilihan"
                                                             data-bs-toggle="pill" data-bs-target="#v-tab-data-pilihan"
                                                             type="button" role="tab" aria-controls="v-tab-data-pilihan"
-                                                            aria-selected="false">
+                                                            aria-selected="false" disabled>
                                                             <span class="step-title me-2">
                                                                 <i class="ri-close-circle-fill step-icon me-2"></i>
                                                                 Langkah 2
@@ -100,7 +120,7 @@
                                                                 Langkah 5
                                                             </span>
                                                             Verifikasi Data
-                                                        </button>
+                                                        </button> -->
                                                     </div>
                                                 </div>
                                                 <!-- end nav -->
@@ -113,7 +133,7 @@
 
                                                             <!-- Data Pribadi -->
                                                             <Dapri title="Data Pribadi" :agama="agama" :peserta="$page.props.auth.peserta"
-                                                                :provinsi="provinsi" :sekolahData="sekolah"/>
+                                                                :provinsi="provinsi" :sekolahData="sekolah" @nexTab="nextStep"/>
 
                                                             <!-- Data Pilihan -->
                                                             <Pilihan title="Pilihan Program Studi" :peserta="$page.props.auth.peserta" :prodi_12="props.prodi_12" :prodi_34="props.prodi_34" />
@@ -153,7 +173,7 @@
 
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed, ref } from 'vue';
+import { computed, reactive, ref } from 'vue';
 import LayoutApp from '@/Layouts/App.vue';
 import Tilebox from '@/Components/Tilebox.vue';
 import Titlebox from '@/Components/Titlebox.vue';
@@ -165,6 +185,41 @@ import Rapor from '@/Components/Portofolio/Rapor.vue';
 import Verifikasi from '@/Components/Portofolio/Verifikasi.vue';
 
 defineOptions({ layout: LayoutApp });
+
+const tabsList = ref(
+    [
+        {
+            'name' : 'Langkah 1',
+            'title' : 'Data Pribadi',
+            'prf' : 'data-pribadi',
+            'idx' : 1
+        },
+        {
+            'name' : 'Langkah 2',
+            'title' : 'Pilihan Program Studi',
+            'prf' : 'data-pilihan',
+            'idx' : 2
+        },
+        {
+            'name' : 'Langkah 3',
+            'title' : 'Data Prestasi Non Akademik',
+            'prf' : 'data-prestasi',
+            'idx' : 3
+        },
+        {
+            'name' : 'Langkah 4',
+            'title' : 'Data Nilai Rapor',
+            'prf' : 'data-rapor',
+            'idx' : 4
+        },
+        {
+            'name' : 'Langkah 5',
+            'title' : 'Verifikasi Data',
+            'prf' : 'verifikasi',
+            'idx' : 5
+        }
+    ]
+);
 
 const breadcrumbs = computed(() => {
     return [
@@ -181,8 +236,6 @@ const breadcrumbs = computed(() => {
 
 const page = usePage();
 
-const buttonTab = ref(1);
-
 const props = defineProps({
     provinsi: Object,
     agama: Object,
@@ -197,11 +250,13 @@ const props = defineProps({
     rapor: Object
 });
 
-const nextTab = () => {
-    buttonTab.value += 1;
-    console.log(buttonTab.value);
-}
+const stepTab = ref(page.props.auth.peserta.step);
 
+const nextStep = () => {
+    step.value++;
+    console.log(step.value);
+    // buttonTab.value = step.value;
+}
 </script>
 
 <style>

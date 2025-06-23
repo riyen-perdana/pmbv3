@@ -50,7 +50,8 @@ class HandleInertiaRequests extends Middleware
                 'permissions'   => $request->user() ? $request->user()->getPermissionArray() : [],
                 'roles'         => $request->user() ? $request->user()->roles()->first()->name : [],
                 'fakultas'      => isset($request->user()->fakultas) ? $request->user()->fakultas : null,
-                'prodi'         => isset($request->user()->fakultas[0]->prodi) ? $request->user()->fakultas[0]->prodi : null
+                'prodi'         => isset($request->user()->fakultas[0]->prodi) ? $request->user()->fakultas[0]->prodi : null,
+                'step'          => isset($request->user()->step) ? $request->user()->step : null,
                 // 'roles'         => $request->user() ? $request->user()->roles()->pluck('name') : []
             ],
             //route

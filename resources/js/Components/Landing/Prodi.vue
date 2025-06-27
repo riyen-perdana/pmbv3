@@ -19,9 +19,9 @@
                                             class="avatar-sm object-cover rounded" />
                                 </div>
                                 <div class="ms-3 flex-grow-1">
-                                    <a href="pages-profile">
+                                    <!-- <a href="pages-profile"> -->
                                         <h5 class="mb-3 fw-bold" style="font-size: 13px !important;">{{ item.nm_prodi }}</h5>
-                                    </a>
+                                    <!-- </a> -->
                                     <p class="mb-0 fw-semibold text-muted" style="font-size: 13px;">Akreditasi {{ item.akreditasi.jns_akreditasi }}</p>
                                     <p class="mb-0 fw-semibold text-danger" style="font-size: 13px;">Kuota Penerimaan : {{ item.quota }}</p>
                                 </div>

@@ -35,7 +35,7 @@ Route::get('login', function () {
 
 Route::get('/peserta/login', function () {
     return \Inertia\Inertia::render('Peserta/Login');
-})->middleware('guest')->name('peserta.login');
+})->middleware('guest');
 
 //login Peserta
 Route::post('/peserta/login', \App\Http\Controllers\Peserta\LoginController::class)->name('peserta.login');

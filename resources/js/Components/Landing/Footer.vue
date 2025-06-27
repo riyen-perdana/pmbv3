@@ -38,8 +38,8 @@
                             <h5 class="text-white mb-0">Support</h5>
                             <div class="text-muted mt-3">
                                 <ul class="list-unstyled ff-secondary footer-list fs-14">
-                                    <li><Link class="support" href="pages-faqs.html">C3 [08117627773 - WA Only]</Link></li>
-                                    <li><Link class="support" href="pages-faqs.html">085376037244 [Akademik]</Link></li>
+                                    <li><Link class="support" href="https://wa.me/628117627773">C3 [08117627773 - WA Only]</Link></li>
+                                    <li><Link class="support" href="https://wa.me/6285376037244">085376037244 [Akademik]</Link></li>
                                 </ul>
                             </div>
                         </div>

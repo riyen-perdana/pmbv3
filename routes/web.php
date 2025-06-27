@@ -29,13 +29,13 @@ Route::get('/pradaftar/cetak', [\App\Http\Controllers\Apps\PradaftarController::
 Route::get('/pradaftar/pdf/{id}', [\App\Http\Controllers\Apps\PradaftarController::class, 'pdf'])->name('pradaftar.pdf')->middleware('guest');
 
 
-Route::get('/login', function () {
+Route::get('login', function () {
     return \Inertia\Inertia::render('Auth/Login');
-})->middleware('guest');
+})->middleware('guest')->name('login');
 
 Route::get('/peserta/login', function () {
     return \Inertia\Inertia::render('Peserta/Login');
-})->middleware('guest');
+})->middleware('guest')->name('peserta.login');
 
 //login Peserta
 Route::post('/peserta/login', \App\Http\Controllers\Peserta\LoginController::class)->name('peserta.login');

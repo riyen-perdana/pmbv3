@@ -28,12 +28,13 @@ class DashboardController extends Controller
         $sekolah = Peserta::with('sekolah','sekolah.kecamatan','sekolah.kecamatan.kabkot','sekolah.kecamatan.kabkot.provinsi')->where('npsn','=',Auth('peserta')->user()->npsn)->first();
         $provinsi = Provinsi::all();
         $agama = Agama::all();
-        $prodi_12 = Prodi::all();
-        $prodi_34 = Prodi::where('is_pil_34','=','Y')->get();
+        $prodi_12 = Prodi::where('is_aktif','=','Y')->get();
+        $prodi_34 = Prodi::where([['is_aktif','=','Y'],['is_pil_34','=','Y']])->get();
         $bidang = Bidang::all();
         $inkel = Inkel::all();
         $tingkat = Tingkat::all();
         $prestasi = Prestasi::with('bidang','tingkat','inkel')->where('id_peserta',Auth('peserta')->user()->id)->get();
+        $step = Peserta::select('step')->where('id',Auth('peserta')->user()->id)->first();
 
         return Inertia::render('Peserta/Dashboard/Index', [
             'provinsi' => $provinsi,
@@ -45,7 +46,8 @@ class DashboardController extends Controller
             'tingkat' => $tingkat,
             'inkel' => $inkel,
             'prestasi' => $prestasi,
-            'rapor' => $rapor
+            'rapor' => $rapor,
+            'step' => $step
         ]);
     }
 }

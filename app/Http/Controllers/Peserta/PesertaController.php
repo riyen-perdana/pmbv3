@@ -38,6 +38,8 @@ class PesertaController extends Controller
             $file->storeAs('public/fotopeserta', $file->hashName());
             $peserta->foto_siswa = $file->hashName();
 
+            /* !TODO: Update Data Step Peserta */
+            $peserta->step = 1;
             $peserta->update();
 
             DB::commit();
@@ -59,6 +61,7 @@ class PesertaController extends Controller
             $peserta->pil2_siswa = $request->cboPilihan2;
             $peserta->pil3_siswa = $request->cboPilihan3;
             $peserta->pil4_siswa = $request->cboPilihan4;
+            $peserta->step = 2;
             $peserta->update();
 
             DB::commit();
@@ -132,7 +135,7 @@ class PesertaController extends Controller
 
                 $rapor->update([
                     'n_mtk' => $request->txtNmtk,
-                    'n_bing' => $request->txtNbing,
+                    'n_bing' => $request->txtPai,
                     'file' => $file->hashName()
                 ]);
 
@@ -141,7 +144,7 @@ class PesertaController extends Controller
                 $rapor = new Rapor();
                 $rapor->peserta_id = Auth('peserta')->user()->id;
                 $rapor->n_mtk = $request->txtNmtk;
-                $rapor->n_bing = $request->txtNbing;
+                $rapor->n_bing = $request->txtPai;
 
                 $file = $request->file('txtFile');
                 $file->storeAs('public/rapor', $file->hashName());
@@ -199,7 +202,7 @@ class PesertaController extends Controller
 
                 $peserta->update([
                     'is_vrf_siswa' => 'Y',
-                    'nomor' => '124'.str_pad($count_peserta+1, 5, '0', STR_PAD_LEFT)
+                    'nomor' => '125'.str_pad($count_peserta+1, 5, '0', STR_PAD_LEFT)
                 ]);
 
             }
@@ -222,5 +225,34 @@ class PesertaController extends Controller
         exit();
     }
 
+    public function updateStepPrestasi(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $peserta = Peserta::findOrFail($request->id);
+            $peserta->step = 3;
+            $peserta->update();
+            DB::commit();
+            return redirect()->route('peserta.dashboard');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
+
+    public function updateStepRapor(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $peserta = Peserta::findOrFail($request->id);
+            $peserta->step = 4;
+            $peserta->update();
+            DB::commit();
+            return redirect()->route('peserta.dashboard');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+    }
 
 }

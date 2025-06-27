@@ -66,7 +66,21 @@
                 </div>
             </div>
             <div class="d-flex align-items-start gap-3 mt-4">
-                <p class="text-danger">*Setelah Data Terisi Seluruhnya, Silahkan Tekan Tombol Langkah 5 Verifikasi Data Untuk Melanjutkan</p>
+                <button
+                @click="prevTab"
+                type="button" 
+                class="btn btn-light btn-label">
+                <i class="ri-arrow-left-line label-icon align-middle fs-16 me-3"></i>
+                <span style="margin-left: 25px;">Kembali Ke Langkah Sebelumnya</span>
+            </button>
+            <button
+                :disabled="!btnNextActive"
+                @click="submitDataRapor"
+                type="button" 
+                class="btn btn-success btn-label right ms-auto">
+                <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                    Simpan dan Lanjutkan
+            </button>
             </div>
         </div>
         <ModalViewRapor :show="data.openView" :file="data.file" @close="closeModalView" />
@@ -76,17 +90,21 @@
 </template>
 
 <script setup>
-import { router } from "@inertiajs/vue3";
-import { reactive } from 'vue';
+import { router, usePage } from "@inertiajs/vue3";
+import { reactive, defineEmits, computed } from 'vue';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
 import Rapor from "@/Pages/Peserta/Dashboard/Rapor.vue";
 import ModalViewRapor from "@/Pages/Peserta/Dashboard/ModalViewRapor.vue";
+import axios from "axios";
 
 const props = defineProps({
     title: String,
     rapor: Object,
 });
+
+const emit = defineEmits(['stepBack']);
+const page = usePage();
 
 const closeModalView = () => {
     data.openView = !data.openView
@@ -121,6 +139,14 @@ const closeModal = () => {
     data.id = ''
 };
 
+const prevTab = () => {
+    emit('stepBack')
+}
+
+const btnNextActive = computed(() => {
+    return props.rapor.length > 0 ? true : false
+})
+
 const destroy = (id) => {
     // data.openAlert = true
     // data.id = id
@@ -154,6 +180,32 @@ const destroy = (id) => {
         }
     })
 };
+
+const submitDataRapor = () => {
+    axios.post('/peserta/data-rapor', {
+        id : page.props.auth.peserta.id
+    })
+        .then(response => {
+            if (response) {
+                emit('stepComplete')
+                createToast(
+                    {
+                        title: 'Berhasil Disimpan',
+                        description: 'Data Rapor Berhasil Disimpan.'
+                    }, {
+                    type: 'success',
+                    showIcon: true,
+                    transition: 'zoom',
+                }
+                )
+            }
+        }
+    )
+        .catch(error => {
+            console.log(error);
+    })
+}
+
 
 </script>
 

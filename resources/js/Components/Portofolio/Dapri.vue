@@ -169,21 +169,22 @@
         </div>
 
         <div class="d-flex align-items-start gap-3 mt-4">
-            <button type="button" class="btn btn-success btn-label right ms-auto nexttab
-nexttab" data-nexttab="v-pills-bill-address-tab" :disabled="btnDataPribadi" @click="submitDataPribadi"><i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>Simpan dan Lanjutkan</button>
-            <!-- <button type="button" class="btn btn-success btn-label left ms-auto nexttab nexttab"
-                data-nexttab="v-pills-bill-address-tab" :disabled="btnDataPribadi" @click="submitDataPribadi">Simpan</button> -->
+            <button 
+                type="button" 
+                class="btn btn-success btn-label right ms-auto" 
+                data-nexttab="v-pills-bill-address-tab" 
+                :disabled="btnDataPribadi" 
+                @click="submitDataPribadi">
+                <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                Simpan dan Lanjutkan
+            </button>
         </div>
-        <div class="d-flex align-items-start gap-3 mt-4">
-            <p class="text-danger">*Setelah Data Tersimpan, Silahkan Tekan Tombol Langkah 2 Data Pilihan Program Studi Untuk Melanjutkan</p>
-        </div>
-
     </div>
 </template>
 
 <script setup>
 import { router, useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, reactive, watchEffect, onMounted, computed } from 'vue';
+import { watch, ref, reactive, watchEffect, onMounted, computed, defineEmits } from 'vue';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
 import 'flatpickr/dist/flatpickr.css';
@@ -219,6 +220,7 @@ const kabkot = ref([]);
 const kecamatan = ref([]);
 const sekolah = ref([]);
 const btnDataPribadi = ref(false);
+const emit = defineEmits(['stepComplete']);
 
 watch(() => form.cboProvinsi, (newValue) => {
     if (newValue) {
@@ -288,8 +290,8 @@ function submitDataPribadi() {
     router.post(`/peserta/data-pribadi/${page.props.auth.peserta.id}`, form,
         {
             _method: 'put',
-            preserveScroll: true,
-            preserveState: true,
+            preserveScroll: false,
+            preserveState: false,
             onStart: () => btnDataPribadi.value = true,
             onFinish: () => btnDataPribadi.value = false,
             onError: () => {
@@ -300,13 +302,14 @@ function submitDataPribadi() {
                 createToast(
                     {
                         title: 'Berhasil Disimpan',
-                        description: 'Tekan Tombol Langkah 2 Untuk Melanjutkan'
+                        description: 'Data Pribadi Berhasil Disimpan.'
                     }, {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
                 })
                 form.txtFoto = null
+                emit('stepComplete')
             },
         })
 }

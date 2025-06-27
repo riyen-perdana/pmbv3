@@ -56,6 +56,8 @@ Route::prefix('peserta')->group(function () {
         Route::post('/rapor/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'deleteDataRapor'])->name('deleteDataRapor');
         Route::post('/verifikasi/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateDataVerifikasi'])->name('updateDataVerifikasi');
         Route::get('/cetak/pdf/{id}', [\App\Http\Controllers\Peserta\PesertaController::class, 'cetak'])->name('cetak-kartu-peserta');
+        Route::post('/data-prestasi', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateStepPrestasi'])->name('updateStepPrestasi');
+        Route::post('/data-rapor', [\App\Http\Controllers\Peserta\PesertaController::class, 'updateStepRapor'])->name('updateStepRapor');
     });
 });
 

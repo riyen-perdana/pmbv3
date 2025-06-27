@@ -1,6 +1,6 @@
 <template>
     <Modal id="mRapor" size="modal-lg" @close="closeModal">
-        <template #modalTitle>{{ props.isEdit == false ? "Tambah Data" : "Ubah Data" }} Rapor Peserta </template>
+        <template #modalTitle>Tambah Data Rapor Peserta </template>
         <template #modalBody>
             <form @submit.prevent="submitData()">
                 <div class="row">
@@ -10,20 +10,20 @@
                             Kelas XII Semester 1 dibagi 5</p>
                         <input v-model="form.txtNmtk" class="form-control"
                             :class="{ 'is-invalid': $page.props.errors.txtNmtk }" type="text"
-                            placeholder="Rata Rata Nilai Matematika">
+                            placeholder="Rata Rata Nilai Matematika [Contoh : 82.5]">
                         <div v-if="$page.props.errors.txtNmtk" class="invalid-feedback">
                             {{ $page.props.errors.txtNmtk }}
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-12 mb-3">
-                        <label for="txtNbing" class="form-label">Rata Rata Nilai Pendidikan Agama Islam</label>
+                        <label for="txtPai" class="form-label">Rata Rata Nilai Pendidikan Agama Islam</label>
                         <p class="text-success mb-1 mt-n2 fst-italic">Jumlah Nilai Bidang Studi Pendidikan Agama Islam Tiap Semester Sampai
                             Kelas XII Semester 1 dibagi 5</p>
-                        <input v-model="form.txtNbing" class="form-control"
-                            :class="{ 'is-invalid': $page.props.errors.txtNbing }" type="text"
-                            placeholder="Rata Rata Nilai Pendidikan Agama Islam">
-                        <div v-if="$page.props.errors.txtNbing" class="invalid-feedback">
-                            {{ $page.props.errors.txtNbing }}
+                        <input v-model="form.txtPai" class="form-control"
+                            :class="{ 'is-invalid': $page.props.errors.txtPai }" type="text"
+                            placeholder="Rata Rata Nilai Pendidikan Agama Islam [Contoh : 82.5]">
+                        <div v-if="$page.props.errors.txtPai" class="invalid-feedback">
+                            {{ $page.props.errors.txtPai }}
                         </div>
                     </div>
                     <div class="col-md-12 col-lg-12 mb-3">
@@ -41,7 +41,7 @@
         <template #modalFooter>
             <button type="button" class="btn btn-light" @click="closeModal()">Tutup</button>
             <button type="submit" @click="submitData" class="btn btn-primary" :disabled="btnDisabled">
-                {{ props.isEdit == false ? "Simpan" : "Ubah" }}</button>
+                Simpan</button>
         </template>
     </Modal>
 </template>
@@ -64,7 +64,7 @@ const props = defineProps({
 
 const form = useForm({
     txtNmtk: '',
-    txtNbing: '',
+    txtPai: '',
     txtFile: ''
 });
 

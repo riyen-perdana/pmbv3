@@ -60,7 +60,7 @@
                                                             type="button"
                                                             role="tab"
                                                             class="nav-link"
-                                                            :class="{'active' : stepTab + 1 >= tab.idx }"
+                                                            :class="{'active' : currentStep >= tab.idx }"
                                                             disabled>
                                                                 <span class="step-title me-2">
                                                                     <i class="ri-close-circle-fill step-icon me-2"></i>
@@ -132,25 +132,87 @@
                                                         <div class="tab-content">
 
                                                             <!-- Data Pribadi -->
-                                                            <Dapri title="Data Pribadi" :agama="agama" :peserta="$page.props.auth.peserta"
-                                                                :provinsi="provinsi" :sekolahData="sekolah" @nexTab="nextStep"/>
+                                                            <div v-show="currentStep === 0">
+                                                                <Dapri 
+                                                                    title="Data Pribadi" 
+                                                                    :agama="agama" 
+                                                                    :peserta="$page.props.auth.peserta"
+                                                                    :provinsi="provinsi" 
+                                                                    :sekolahData="sekolah"
+                                                                    @stepComplete="advanceStep"
+                                                                    :class="{'show active': currentStep === 1}"
+                                                                    :id="`v-tab-${tabsList[0].prf}`"
+                                                                    role="tabpanel"
+                                                                    :aria-labelledby="`v-${tabsList[0].prf}`"
+                                                                />
+                                                            </div>
 
                                                             <!-- Data Pilihan -->
-                                                            <Pilihan title="Pilihan Program Studi" :peserta="$page.props.auth.peserta" :prodi_12="props.prodi_12" :prodi_34="props.prodi_34" />
+                                                            <div v-show="currentStep === 1">
+                                                                <Pilihan 
+                                                                    title="Pilihan Program Studi" 
+                                                                    :peserta="$page.props.auth.peserta" 
+                                                                    :prodi_12="props.prodi_12" 
+                                                                    :prodi_34="props.prodi_34"
+                                                                    @stepBack="decreaseTab"
+                                                                    @stepComplete="advanceStep"
+                                                                    :class="{'show active': currentStep === 1}"
+                                                                    :id="`v-tab-${tabsList[1].prf}`"
+                                                                    role="tabpanel"
+                                                                    :aria-labelledby="`v-${tabsList[1].prf}`"
+                                                                />
+                                                            </div>
 
                                                             <!-- Data Prestasi Non Akademik -->
-                                                            <Prestasi title="Data Prestasi Non Akademik" :bidang="props.bidang" :inkel ="props.inkel" :tingkat="props.tingkat" :prestasi="props.prestasi" />
+                                                            <div v-show="currentStep === 2">
+                                                                <Prestasi
+                                                                    title="Data Prestasi Non Akademik"
+                                                                    :bidang="props.bidang"
+                                                                    :inkel="props.inkel"
+                                                                    :tingkat="props.tingkat"
+                                                                    :prestasi="props.prestasi"
+                                                                    @stepBack="decreaseTab"
+                                                                    @stepComplete="advanceStep"
+                                                                    :class="{'show active': currentStep === 2}"
+                                                                    :id="`v-tab-${tabsList[2].prf}`"
+                                                                    role="tabpanel"
+                                                                    :aria-labelledby="`v-${tabsList[2].prf}`"
+                                                                />
+                                                            </div>
 
                                                             <!--Data Rapor-->
-                                                            <Rapor title="Data Nilai Rapor" :rapor="props.rapor" />
-
+                                                            <div v-show="currentStep === 3">
+                                                                <Rapor 
+                                                                    title="Data Nilai Rapor" 
+                                                                    :rapor="props.rapor"
+                                                                    :class="{'show active': currentStep === 3}"
+                                                                    :id="`v-tab-${tabsList[3].prf}`"
+                                                                    role="tabpanel"
+                                                                    :aria-labelledby="`v-${tabsList[3].prf}`"
+                                                                    @stepBack="decreaseTab"
+                                                                    @stepComplete="advanceStep"
+                                                                />
+                                                            </div>
                                                             <!--Verifikasi Data-->
-                                                            <Verifikasi title="Verifikasi Data" />
+                                                            <div v-show="currentStep === 4">
+                                                                <Verifikasi 
+                                                                    title="Verifikasi Data"
+                                                                    :class="{'show active': currentStep === 4}"
+                                                                    :id="`v-tab-${tabsList[4].prf}`"
+                                                                    role="tabpanel"
+                                                                    :aria-labelledby="`v-${tabsList[4].prf}`"
+                                                                    @stepBack="decreaseTab"
+                                                                />
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                     <div v-else>
-                                                        Terima Kasih Telah Melakukan Proses Pendaftaran Peserta Penerimaan Mahasiswa Baru Jalur Undangan Mandiri UIN SUSKA Riau TA. 2024/2025, Untuk Unduh Kartu Peserta, Silahkan Klik Link Berikut : <br>
-                                                        <a :href="`/peserta/cetak/pdf/${page.props.auth.peserta.id}`" class="btn btn-primary">Unduh Kartu Peserta</a>
+                                                        Terima Kasih Telah Melakukan Proses Pendaftaran Peserta Penerimaan Mahasiswa Baru Jalur Undangan Mandiri UIN SUSKA Riau TA. {{ tahun }}/{{ tahun + 1 }}, Untuk Unduh Kartu Peserta, Silahkan Klik Link Berikut : <br>
+                                                        <a :href="`/peserta/cetak/pdf/${page.props.auth.peserta.id}`" class="btn btn-primary mt-2" target="_blank">
+                                                            <i class="ri-printer-line label-icon align-middle fs-16 me-2"></i>
+                                                            Unduh Kartu Peserta
+                                                        </a>
                                                     </div>
                                                     <!-- end tab content -->
                                                 </div>
@@ -173,7 +235,7 @@
 
 <script setup>
 import { Head, Link, usePage } from '@inertiajs/vue3';
-import { computed, reactive, ref } from 'vue';
+import { computed, onMounted, watch, ref } from 'vue';
 import LayoutApp from '@/Layouts/App.vue';
 import Tilebox from '@/Components/Tilebox.vue';
 import Titlebox from '@/Components/Titlebox.vue';
@@ -192,31 +254,31 @@ const tabsList = ref(
             'name' : 'Langkah 1',
             'title' : 'Data Pribadi',
             'prf' : 'data-pribadi',
-            'idx' : 1
+            'idx' : 0
         },
         {
             'name' : 'Langkah 2',
             'title' : 'Pilihan Program Studi',
             'prf' : 'data-pilihan',
-            'idx' : 2
+            'idx' : 1
         },
         {
             'name' : 'Langkah 3',
             'title' : 'Data Prestasi Non Akademik',
             'prf' : 'data-prestasi',
-            'idx' : 3
+            'idx' : 2
         },
         {
             'name' : 'Langkah 4',
             'title' : 'Data Nilai Rapor',
             'prf' : 'data-rapor',
-            'idx' : 4
+            'idx' : 3
         },
         {
             'name' : 'Langkah 5',
             'title' : 'Verifikasi Data',
             'prf' : 'verifikasi',
-            'idx' : 5
+            'idx' : 4
         }
     ]
 );
@@ -247,16 +309,67 @@ const props = defineProps({
     tingkat: Object,
     inkel : Object,
     prestasi : Object,
-    rapor: Object
+    rapor: Object,
+    step: Object
 });
 
-const stepTab = ref(page.props.auth.peserta.step);
+// Use the step prop to initialize the current step
+const isStep = ref(props.step.step);
+const currentStep = computed({
+    get() {
+        return isStep.value;
+    },
+    set(value) {
+        return isStep.value = value;
+    }
+});
 
-const nextStep = () => {
-    step.value++;
-    console.log(step.value);
-    // buttonTab.value = step.value;
-}
+// Function to advance the step
+const advanceStep = () => {
+    if (currentStep.value < tabsList.value.length) {
+        currentStep.value++;
+    }
+};
+
+const decreaseTab = () => {
+    if (currentStep.value < tabsList.value.length) {
+        currentStep.value--;
+    }
+};
+
+// Function to activate a specific tab
+const activateTab = (tabId) => {
+    // This is for programmatically activating the tab content
+    // Find the button for the target tab and trigger a click
+    // Note: This relies on Bootstrap's JS. A more Vue-idiomatic way is to use v-model or similar.
+    const targetTabButton = document.querySelector(`[data-bs-target="#v-tab-${tabId}"]`);
+    if (targetTabButton) {
+        new bootstrap.Tab(targetTabButton).show();
+    }
+};
+
+// Watch for changes in currentStep to automatically activate the next tab
+watch(currentStep, (newValue) => {
+    console.log(newValue)
+    if (newValue <= tabsList.value.length) {
+        const nextTabPrf = tabsList.value[newValue].prf;
+        activateTab(nextTabPrf);
+    }
+});
+
+// On mount, activate the initial tab based on currentStep
+onMounted(() => {
+    if (currentStep.value > 0) {
+        const initialTabPrf = tabsList.value[currentStep.value - 1].prf;
+        activateTab(initialTabPrf);
+    }
+});
+
+const tahun = computed(() => {
+    return new Date().getFullYear()
+})
+
+
 </script>
 
 <style>

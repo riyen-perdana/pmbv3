@@ -70,30 +70,32 @@
         </div>
 
         <div class="d-flex align-items-start gap-3 mt-4">
-            <!-- <button
-                type="button"
-                class="btn btn-light btn-label previestab"
-                data-previous="v-pills-bill-info-tab"
-            >
-                <i class="ri-arrow-left-line label-icon align-middle fs-16 me-2"></i>
-                    <span class="ms-4">Kembali Ke Data Pribadi</span></button> -->
             <button
-                type="button"
-                class="btn btn-success btn-label ms-auto nexttab nexttab"
-                data-nexttab="v-pills-bill-address-tab"
+                @click="prevTab"
+                type="button" 
+                class="btn btn-light btn-label">
+                <i class="ri-arrow-left-line label-icon align-middle fs-16 me-3"></i>
+                <span style="margin-left: 25px;">Kembali Ke Langkah Sebelumnya</span>
+            </button>
+            <button
+                @click="submitDataPilihan"
                 :disabled="btnDataPilihan"
-                @click="submitDataPilihan">
-                Simpan</button>
+                type="button" 
+                class="btn btn-success btn-label right ms-auto">
+                    <i class="ri-arrow-right-line label-icon align-middle fs-16 ms-2"></i>
+                    Simpan dan Lanjutkan
+            </button>
         </div>
-        <div class="d-flex align-items-start gap-3 mt-4">
+
+        <!-- <div class="d-flex align-items-start gap-3 mt-4">
             <p class="text-danger">*Setelah Data Tersimpan, Silahkan Tekan Tombol Langkah 3 Data Prestasi Non Akademik Untuk Melanjutkan</p>
-        </div>
+        </div> -->
     </div>
 </template>
 
 <script setup>
 import { router, useForm, usePage } from "@inertiajs/vue3";
-import { watch, ref, reactive, watchEffect, onMounted } from 'vue';
+import { watch, ref, reactive, watchEffect, onMounted, defineEmits } from 'vue';
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
 
@@ -117,6 +119,9 @@ const form = useForm({
     cboPilihan4 : ''
 });
 
+const emit = defineEmits(['stepComplete', 'stepBack']);
+
+
 const submitDataPilihan = () => {
     router.post(`/peserta/data-pilihan/${page.props.auth.peserta.id}`, form, {
         onStart: () => btnDataPilihan.value = true,
@@ -129,15 +134,20 @@ const submitDataPilihan = () => {
             createToast(
                 {
                     title: 'Berhasil Disimpan',
-                    description: 'Tekan Tombol Langkah 3 Untuk Melanjutkan.'
+                    description: 'Data Pilihan Program Studi Berhasil Disimpan.'
                 }, {
                     type: 'success',
                     showIcon: true,
                     transition: 'zoom',
                 }
             )
+            emit('stepComplete')
         },
     });
+}
+
+const prevTab = () => {
+    emit('stepBack');
 }
 
 onMounted(() => {

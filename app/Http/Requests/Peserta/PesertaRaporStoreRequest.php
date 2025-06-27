@@ -23,7 +23,7 @@ class PesertaRaporStoreRequest extends FormRequest
     {
         return [
             'txtNmtk' => 'required|numeric|between:0.00,100.00',
-            'txtNbing' => 'required|numeric|between:0.00,100.00',
+            'txtPai' => 'required|numeric|between:0.00,100.00',
             'txtFile' => 'required|mimes:pdf|max:2048',
         ];
     }
@@ -32,9 +32,11 @@ class PesertaRaporStoreRequest extends FormRequest
     {
         return [
             'txtNmtk.required' => 'Kolom Nilai Matematika Wajib Diisi',
+            'txtNmtk.numeric' => 'Kolom Nilai Matematika Harus Angka',
             'txtNmtk.between' => 'Nilai Matematika Harus 0.00 - 100.00',
-            'txtNbing.required' => 'Kolom Nilai Bahasa Indonesia Wajib Diisi',
-            'txtNbing.between' => 'Nilai Bahasa Indonesia Harus 0.00 - 100.00',
+            'txtPai.required' => 'Kolom Nilai Pendidikan Agama Islam Wajib Diisi',
+            'txtPai.between' => 'Nilai Pendidikan Agama Islam Harus 0.00 - 100.00',
+            'txtPai.numeric' => 'Kolom Nilai Pendidikan Agama Islam Harus Angka',
             'txtFile.required' => 'File Raport Wajib Diisi',
             'txtFile.mimes' => 'File Raport Harus Berupa PDF',
             'txtFile.max' => 'File Raport Maksimal 2 MB'

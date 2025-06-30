@@ -41,7 +41,7 @@
                                                     <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Pradaftar</b><br> [16 Juni - 16 Juli 2025]
+                                                    <b>Pradaftar</b><br> [01 Juli 2025 - 16 Juli 2025]
                                                 </div>
                                             </div>
                                         </li>
@@ -51,7 +51,7 @@
                                                     <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Pembayaran Pendaftaran</b><br> [16 Juni - 16 Juli 2025]
+                                                    <b>Pembayaran Pendaftaran</b><br> [01 Juli 2025 - 16 Juli 2025]
                                                 </div>
                                             </div>
                                         </li>
@@ -61,7 +61,7 @@
                                                     <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Pendaftaran</b><br> [16 Juni - 16 Juli 2025]
+                                                    <b>Pendaftaran</b><br> [01 Juli 2025 - 16 Juli 2025]
                                                 </div>
                                             </div>
                                         </li>
@@ -71,7 +71,7 @@
                                                     <i class="ri-checkbox-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Cetak Kartu Peserta</b><br>[16 Juni - 16 Juli 2025]
+                                                    <b>Cetak Kartu Peserta</b><br>[01 Juli 2025 - 16 Juli 2025]
                                                 </div>
                                             </div>
                                         </li>
@@ -81,7 +81,7 @@
                                                     <i class="ri-close-circle-fill fs-15 align-middle"></i>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <b>Verifikasi</b><br> [16 Juni - 16 Juli 2025]
+                                                    <b>Verifikasi</b><br> [01 Juli 2025 - 16 Juli 2025]
                                                 </div>
                                             </div>
                                         </li>

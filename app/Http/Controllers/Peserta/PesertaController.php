@@ -221,7 +221,7 @@ class PesertaController extends Controller
         $data = Peserta::with('sekolah','pil_1','pil_2')->where('id','=',$id)->first();
         $pdf  = PDF::loadView('pdf.kartu',compact('data'));
         $pdf->setPaper('a4','potrait');
-        return $pdf->stream('cetak-kartu-peserta.pdf');
+        return $pdf->stream('kartu.pdf');
         exit();
     }
 

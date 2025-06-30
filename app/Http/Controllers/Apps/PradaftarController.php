@@ -33,11 +33,11 @@ class PradaftarController extends Controller
 
             //dd($response['data']['status']);
 
-            if($response['data']['status'] == 'success' ) {
-                if($response['data']['data']['status'] == '2' ) {
+            if ($response['data']['status'] == 'success') {
+                if ($response['data']['data']['status'] == '2') {
                     return back()->with('error', 'Maaf Anda Tidak Dapat Mendaftar, Karena Sudah Dinyatakan Lulus SNBP/SNBT');
                 } else {
-                    $password = rand(100000,600000);
+                    $password = rand(100000, 600000);
                     $peserta = Peserta::create([
                         'jalur' => '1',
                         'nisn_siswa' => $request->nisn,
@@ -51,10 +51,23 @@ class PradaftarController extends Controller
                     ]);
                     DB::commit();
 
-                    return redirect()->route('pradaftar.cetak',['id' => $peserta->id]);
+                    return redirect()->route('pradaftar.cetak', ['id' => $peserta->id]);
                 }
             } else {
-                return back()->with('error', 'Maaf, NISN/NPSN Anda Salah');
+                $password = rand(100000, 600000);
+                $peserta = Peserta::create([
+                    'jalur' => '1',
+                    'nisn_siswa' => $request->nisn,
+                    'password' => bcrypt($password),
+                    'first_password' => $password,
+                    'pin' => rand(9921250000, 9921259999),
+                    'tgllhr_siswa' => $request->tglLhr,
+                    'jlmbayar_siswa' => '250000',
+                    'notlpn_siswa' => $request->telepon,
+                    'npsn' => $request->npsn
+                ]);
+                DB::commit();
+                return redirect()->route('pradaftar.cetak', ['id' => $peserta->id]);
             }
 
             return redirect()->route('pradaftar.index');
@@ -97,9 +110,9 @@ class PradaftarController extends Controller
 
     public function pdf($id)
     {
-        $data = Peserta::where('id','=',$id)->first();
-        $pdf  = PDF::loadView('pdf.pracetak',compact('data'));
-        $pdf->setPaper('a4','potrait');
+        $data = Peserta::where('id', '=', $id)->first();
+        $pdf  = PDF::loadView('pdf.pracetak', compact('data'));
+        $pdf->setPaper('a4', 'potrait');
         return $pdf->stream('pracetak.pdf');
         exit();
     }

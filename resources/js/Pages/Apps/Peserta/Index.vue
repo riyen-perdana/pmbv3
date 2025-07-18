@@ -42,19 +42,21 @@
                     </div>
                     <div class="row align-items-center mb-4 g-3">
                         <div class="col-sm-auto ms-auto">
-                            <!-- <button type="button" class="btn btn-success add-btn" @click="downloadData()">
-                                <i class="ri-file-download-line align-bottom me-1"></i>Download Data
-                            </button> -->
-                            <div class="btn-group" role="group">
+                            <div class="hstack gap-2 flex-wrap">
+                                <button type="button" class="btn btn-primary add-btn" @click="otomatisasiData" :disabled="btnOtomatisasi">
+                                    <i class="ri-login-circle-line align-bottom me-1"></i>Otomatisasi Data
+                                </button>
                                 <div class="btn-group" role="group">
-                                    <button id="btnDownload" type="button" class="btn btn-success dropdown-toggle"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Download Data
-                                    </button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="/apps/peserta/downloadPendaftar" preserve-state>Data Pendaftar</a></li>
-                                        <li><a class="dropdown-item" href="/apps/peserta/downloadLulus" preserve-state>Data Lulus</a></li>
-                                    </ul>
+                                    <div class="btn-group" role="group">
+                                        <button id="btnDownload" type="button" class="btn btn-success dropdown-toggle"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Download Data
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="/apps/peserta/downloadPendaftar" preserve-state>Data Pendaftar</a></li>
+                                            <li><a class="dropdown-item" href="/apps/peserta/downloadLulus" preserve-state>Data Lulus</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -83,6 +85,17 @@
                                                 </select>
                                                 <span class="text-muted text-show">Entries</span>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div id="pgb" v-if="isShowPb">
+                                        <div class="spinner-border text-danger" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <div class="row py-2 provinsi">
+                                            <span class="fw-normal text-danger">{{ messageAction }}</span>
+                                        </div>
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="`width: ${persentase}%;`" aria-valuemin="0" aria-valuemax="100">{{ persentase }}%</div>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -342,7 +355,7 @@
 
 <script setup>
 import { Head, router, Link } from "@inertiajs/vue3";
-import { computed, reactive, watch, onMounted } from "vue";
+import { computed, reactive, watch, onMounted, ref } from "vue";
 import Titlebox from "@/Components/Titlebox.vue";
 import Tilebox from '@/Components/Tilebox.vue';
 import Breadcrumb from "@/Components/Breadcrumb.vue";
@@ -354,6 +367,7 @@ import Alert from '@/Components/Alert.vue';
 import RightBar from "@/Components/right-bar.vue";
 import { createToast } from 'mosha-vue-toastify';
 import 'mosha-vue-toastify/dist/style.css';
+import axios, { Axios } from "axios";
 
 defineOptions({ layout: LayoutApp });
 
@@ -384,6 +398,11 @@ const closeAlert = () => {
     data.openAlert = !data.openAlert
     data.id = ''
 };
+
+const isShowPb = ref(false);
+const messageAction = ref('Otomatisasi Perhitungan Nilai Kelulusan [Jangan Menutup Halaman Ini Ketika Proses Baca Data Berlangsung]');
+const btnOtomatisasi = ref(false);
+let persentase = ref(0);
 
 const destroy = (id) => {
     data.openAlert = true
@@ -475,6 +494,79 @@ const clickButton = (id, psr) => {
     data.id = id,
         data.dataPeserta = psr
 }
+
+async function otomatisasiData() {
+    isShowPb.value = true;
+    btnOtomatisasi.value = true
+    messageAction.value = 'Otomatisasi Perhitungan Nilai Kelulusan [Jangan Menutup Halaman Ini Ketika Proses Baca Data Berlangsung]';
+    await axios.get('/apps/peserta/getDataVerifikasi')
+        .then((res) => {
+            let dataLength = res.data.length;
+            let countData = 0;
+
+            let intervalId = setInterval(() => {
+                persentase.value = parseInt(countData / dataLength * 100).toFixed(0);
+                addDataVerifikasi(res.data[countData]);
+                if(persentase.value >= 100) {
+                    clearInterval(intervalId);
+                    isShowPb.value = false;
+                    btnOtomatisasi.value = false;
+                    createToast(
+                        {
+                            title: 'Berhasil',
+                            description: 'Proses Otomatisasi Perhitungan Nilai Kelulusan Selesai.'
+                        }, {
+                        type: 'success',
+                        showIcon: true,
+                        transition: 'zoom',
+                    }
+                    )
+                } else {
+                    countData++;
+                }
+            }, 1000);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    
+}
+
+async function addDataVerifikasi(dataList) {
+    if(dataList != undefined) {
+        try {
+            let idPeserta = dataList.id;
+            let dataRapor = (((dataList.rapor.n_mtk+dataList.rapor.n_bing)/2)*0.3).toFixed(2);
+            let prestasi = dataList.prestasi.filter(i => i.is_checked == 'true');
+
+            const hasil = prestasi.map(async (item) => {
+                const nilai = ((item.bidang.nilai+item.tingkat.nilai+item.inkel.nilai)*0.7).toFixed(2);
+                return (nilai);
+            })
+
+            const sortedPrestasi = await Promise.all(hasil);
+            const nilaiMax = sortedPrestasi.reduce((a,b)=> a > b ? a : b);
+
+            /**
+             * TODO: Kirim Data ke Backend untuk disimpan
+             */
+
+            router.post('/apps/peserta/saveDataNilai', {
+                id: idPeserta,
+                rapor: dataRapor,
+                nilaiMax: nilaiMax,
+                nilaiTotal: (parseFloat(dataRapor) + parseFloat(nilaiMax)).toFixed(2)
+            }, {
+                preserveScroll: false,
+                preserveState: true,
+            });
+        }
+        catch (error) {
+            console.error("Error:", error);
+        }
+    }
+}
+
 
 const closeCanvas = () => {
     data.openDetail = !data.openDetail

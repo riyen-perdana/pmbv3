@@ -16,6 +16,7 @@ use App\Models\Rapor;
 use Illuminate\Support\Facades\DB;
 use App\Exports\PendaftarUndanganExport;
 use App\Exports\LulusUndanganExport;
+use App\Models\Nilai;
 use Maatwebsite\Excel\Facades\Excel;
 use Carbon\Carbon;
 
@@ -281,6 +282,51 @@ class PesertaController extends Controller
 
         //return $dataPeserta;
         return Excel::download(new LulusUndanganExport($dataPeserta), 'LulusUndangan — '.Carbon::now().'.xlsx');
+    }
+
+    public function getDataVerifikasi()
+    {
+        $peserta = Peserta::query()->with('rapor','prestasi','prestasi.bidang','prestasi.tingkat','prestasi.inkel')
+                    ->where([
+                        ['is_vrf_op', '=', 'Y'],
+                        ['is_vrf_siswa', '=', 'Y'],
+                        ['is_bayar', '=', '1'],
+                    ])->get();
+
+        return $peserta;
+    }
+
+    public function saveDataNilai(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $nilai = Nilai::where('peserta_id', $request->id)->first();
+
+            /**
+             * TODO: Cek apakah data nilai sudah ada, jika sudah update, jika belum insert
+             */
+
+            if($nilai) {
+                $nilai->update([
+                    'rapor' => $request->rapor,
+                    'prestasi' => $request->nilaiMax,
+                    'total' => $request->nilaiTotal
+                ]);
+            } else {
+                Nilai::create([
+                    'peserta_id' => $request->id,
+                    'rapor' => $request->rapor,
+                    'prestasi' => $request->nilaiMax,
+                    'total' => $request->nilaiTotal
+                ]);
+            }
+
+            DB::commit();
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return back()->with('error', $th->getMessage());
+        }
     }
 
 }

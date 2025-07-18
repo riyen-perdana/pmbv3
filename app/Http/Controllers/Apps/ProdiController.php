@@ -162,7 +162,7 @@ class ProdiController extends Controller
         foreach ($peserta as $pst) {
             $template->setValue('no#' . $i, $i);
             $template->setValue('no_daftar#' . $i, ucwords($pst->nomor));
-            $template->setValue('nama#' . $i, ucwords($pst->nm_siswa));
+            $template->setValue('nama#' . $i, strtoupper($pst->nm_siswa));
             $template->setValue('ket#' . $i, 'LULUS');
             $i++;
         }
@@ -184,7 +184,7 @@ class ProdiController extends Controller
         $filename       = 'Laporan Kelulusan.docx';
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename=' . $filename);
-        //$template->saveAs('php://output');
+        // $template->saveAs('php://output');
         $template->saveAs(storage_path('/app/public/' . $filename));
     }
 

@@ -61,7 +61,7 @@ class Peserta extends Authenticatable
     {
         return Attribute::make(
             set: fn (string $value) => strtolower($value),
-            get: fn (string $value) => ucwords($value)
+            get: fn (string $value) => upper($value)
         );
     }
 

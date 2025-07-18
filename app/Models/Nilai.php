@@ -14,7 +14,8 @@ class Nilai extends Model
     protected $fillable = [
         'peserta_id',
         'rapor',
-        'prestasi'
+        'prestasi',
+        'total'
     ];
 
     public function peserta(): BelongsTo

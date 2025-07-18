@@ -22,7 +22,8 @@ class PesertaDataPribadiStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'txtNamaLengkap' => 'required|regex:/^[a-zA-Z\s]+$/|max:255',
+            // 'txtNamaLengkap' => 'required|regex:/^[a-zA-Z\s]+$/|max:255',
+            'txtNamaLengkap' => 'required|regex:/^[a-zA-Z\s]+(?:[\.][a-zA-Z\s]+)*$/|max:255',
             'txtNIK' => 'required|numeric|digits:16|regex:/^[0-9]+$/',
             'txtTptLhr' => 'required',
             'txtTglLhr' => 'required',

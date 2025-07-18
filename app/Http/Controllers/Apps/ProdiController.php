@@ -184,7 +184,7 @@ class ProdiController extends Controller
         $filename       = 'Laporan Kelulusan.docx';
         header('Content-Type: application/octet-stream');
         header('Content-Disposition: attachment; filename=' . $filename);
-        // $template->saveAs('php://output');
+        //$template->saveAs('php://output');
         $template->saveAs(storage_path('/app/public/' . $filename));
     }
 
@@ -193,7 +193,7 @@ class ProdiController extends Controller
         $filePath = storage_path('/app/public/Laporan Kelulusan.docx');
         $headers = ['Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
         $fileName = 'Laporan Kelulusan' . date(now()) . '.docx';
-        //return Storage::download($filePath, $fileName);
+        //return Storage::download($filePath, $fileName, $headers);
         return response()->download($filePath, $fileName, $headers);
     }
 }

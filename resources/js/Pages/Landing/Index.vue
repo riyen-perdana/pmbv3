@@ -3,7 +3,7 @@
         <title>.:: E-admisi Universitas Islam Negeri Sultan Syarif Kasim Riau ::.</title>
     </Head>
     <Hero />
-    <!-- <Kelulusan /> -->
+    <Kelulusan />
     <Pembayaran />
     <Prodi :prodi="props.prodi" />
     <Jalur />

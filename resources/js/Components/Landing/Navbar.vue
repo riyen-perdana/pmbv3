@@ -25,9 +25,9 @@
                     <li class="nav-item">
                         <a class="nav-link fs-14 fw-semibold" href="/#hero">Beranda</a>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link fs-14 fw-semibold" href="/#kelulusan">Kelulusan</a>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link fs-14 fw-semibold" href="/#pembayaran">Pembayaran</a>
                     </li>
